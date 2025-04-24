@@ -1,7 +1,7 @@
 TEX=pdflatex
 BIB=biber
 
-lsj.pdf: ../tex/*.tex ../data/*
+lsj.pdf: ../tex/*.tex
 	$(TEX) lsj
 	$(BIB) lsj
 	$(TEX) lsj
