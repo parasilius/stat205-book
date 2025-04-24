@@ -1,11 +1,11 @@
 TEX=pdflatex
 BIB=biber
 
-lsj.pdf: ../tex/*.tex
-	$(TEX) lsj
-	$(BIB) lsj
-	$(TEX) lsj
-	$(TEX) lsj
+stat205.pdf: ../tex/*.tex
+	$(TEX) stat205
+	$(BIB) stat205
+	$(TEX) stat205
+	$(TEX) stat205
 
 clean:
-	$(RM) lsj.{aux,bbl,bcf,blg,log,out,run.xml,toc}
+	$(RM) stat205.{aux,bbl,bcf,blg,log,out,run.xml,toc}

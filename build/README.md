@@ -14,9 +14,9 @@ I left the old instructions below in case anyone wants to do this from scratch. 
 
 ~~Here are the rough steps involved:
 
-~~1. make sure the build directory contains *only* the `lsj.tex` file (and optionally the `lsj.pdf` file -- not needed in the build). 
-~~2. in your terminal, run `pdflatex lsj` -- there will be a lot of errors for missing references during the first run.
-~~3. run `biber lsj` -- this will add the references in!
-~~4. run `pdflatex lsj` again -- this should build a PDF, but it won't be correct yet. Scroll up in your terminal output a bit and make sure there's no message about needing to run LaTeX again to fix page breaks.
-~~5. run `pdflatex lsj` one more time~~
+~~1. make sure the build directory contains *only* the `stat205.tex` file (and optionally the `stat205.pdf` file -- not needed in the build). 
+~~2. in your terminal, run `pdflatex stat205` -- there will be a lot of errors for missing references during the first run.
+~~3. run `biber stat205` -- this will add the references in!
+~~4. run `pdflatex stat205` again -- this should build a PDF, but it won't be correct yet. Scroll up in your terminal output a bit and make sure there's no message about needing to run LaTeX again to fix page breaks.
+~~5. run `pdflatex stat205` one more time~~
 
