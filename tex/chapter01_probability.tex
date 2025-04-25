@@ -64,7 +64,7 @@ In some cases, as the following example demonstrates, the sample space may be in
 	If it's tails, the coin is tossed again.
 	The experiment terminates if heads appears for the second time.
 	If not, the experiment continues until heads is observed.
-	So the sample space in this case is \( S = \{ H, TH, TTH, TTTH, ... \} \).
+	So the sample space in this case is \( S = \{ H, TH, TTH, TTTH, \ldots \} \).
 
 	The first outcome is the case where heads appears on the first coin toss.
 	The second outcome corresponds to heads appearing on the second coin toss, and so on.
@@ -163,10 +163,12 @@ In order for \( E \cap F \) to occur, both \( E \) and \( F \) has to occur.
 	The only acceptable observation to say \( E \cap F \) occurs is 2, since only 2 is both even and prime among all the elements of \( E \) and \( F \).
 \end{exmp}
 
-If \( E \cap F = \emptyset \), we say the two events are \keyterm{incompatible}.
+If \( E \cap F = \emptyset \), we say the two events are \keyterm{disjoint} or \keyterm{mutually exclusive}.
 For instance, if we denote the event "observing an odd number" by \( O \),
 \( E \cap O = \emptyset \), meaning \( E \) and \( O \) are incompatible.
 In other words, a single die roll cannot simultaneously result in both an even and an odd number.
+
+Not that events \( A_1, A_2, \ldots \) are disjoint (or mutually exclusive) if \( A_i \cap A_j = \emptyset \) for \( i \neq j \).
 
 \subsection{Difference of Two Events}
 
@@ -207,7 +209,7 @@ By definition, \( E \triangle F = F \triangle E \) and this is why this operatio
 	Note the exclusive "or" in this operation, unlike the inclusive case discussed in Example \autoref{exmp:fair_die_union}.
 \end{exmp}
 
-The set operations and key concepts for two events \( E \) and \( F \) are visually represented on the following page.
+The set operations and key concepts for two events \( E \) and \( F \) are visually represented on this page.
 In these diagrams, the sample space is depicted as a rectangle,
 events \( E \) and \( F \) as two circles,
 and the operation or concept specified above each rectangle is highlighted through coloring.
@@ -343,3 +345,124 @@ There is, in fact, only one tomorrow;
 we cannot conduct multiple trials of "tomorrow" to count rainy occurrences and determine their relative frequency.
 Moreover, maintaining truly identical experimental conditions is practically impossible in most real-world scenarios.
 Another fundamental challenge lies in determining how many trials are sufficient for the relative frequency to converge to a stable probability value.
+
+\subsection{Epistemic Definition of Probability}
+
+In this interpretation of probability, each observer assigns a subjective probability to an event based on their prior beliefs.
+Reconsider the urn example from the previous subsection.
+The experimenter draws a ball from the urn without revealing it to the observers.
+
+An observer who saw the experimenter add an extra blue ball to the urn assigns a probability of \( \frac{2}{4} \) to the ball being blue.
+Another observer, who previously knew the urn contained one blue, one green, and one red ball, assigns a probability of \( \frac{1}{3} \).
+The experimenter, however, knows with certainty whether the ball is blue or not.
+
+In the frequentist approach, the ball is either blue or not, and the probability is determined through repeated trials.
+Thus, frequentists don't assign probabilities to single drawn balls.
+In the epistemic perspective, however, each individual assigns a probability based on their existing knowledge.
+
+\subsection{Axiomatic Definition of Probability}
+
+Just like Euclidean geometry, where theorems are derived from a set of axioms taken as true\FOOTNOTE{https://www.math.brown.edu/tbanchof/Beyond3d/chapter9/section01.html},
+modern probability theory is built upon axioms proposed by the Russian mathematician Andrey Kolmogorov in 1933.
+
+A \keyterm{probability measure} on a sample space \( S \) is a function \( P(.) \) that assigns
+to each event \( E \subset S \) a real number \( P(A) \), called the probability of \( A \),
+satisfying the following three \keyterm{axioms of probability}:
+\begin{itemize}
+	\item for each event \( E \subset S \), the probability of \( A \) is non-negative, meaning \( P(E) \geq 0 \).
+	\item the probability of \( S \) is 1, meaning \( P(S) = 1 \).
+	\item if \( E_1, E_2, \ldots \) is a sequence of disjoint events, meaning \( E_i \cap E_j = \emptyset \) for each \( i \neq j \), then \( P(E_1 \cup E_2 \cup ...) = P(E_1) + P(E_2) + \ldots \).
+\end{itemize}
+The first axiom states that probabilities cannot be negative, which aligns with our intuition.
+The second axiom indicates that since every experimental outcome belongs to the sample space, the event 
+\( S \) must occur with probability 1.
+The third axiom establishes that for any collection of disjoint events, the probability of their union equals the sum of their individual probabilities.
+
+Different interpretations of probability remain consistent with the axiomatic definition.
+Consider the frequentist approach:
+\begin{itemize}
+	\item Relative frequencies are non-negative, satisfying the first axiom.
+	\item The relative frequency of \( S \) equals 1 in any number of trials, since every outcome belongs to the sample space.
+	\item For mutually exclusive events, the relative frequency of their union equals the sum of their individual relative frequencies, as each outcome is counted only once.
+\end{itemize}
+Next, we prove some thorems using the axioms of probability.
+
+\begin{theorem}\label{thm:imp_event}
+	The probabiliy of impossible event, \( \emptyset \), is zero.
+\end{theorem}
+\begin{proof}
+	Consider the sequence of events \( E_1, E_2, \ldots \) where \( E_1 = S \) and \( E_i = \emptyset \) for \( i > 1 \).
+	Since the events in this sequence are mutually exclusive and \( S = \bigcup_{i = 1}^{\infty} E_i \), by the third axiom we have
+	\[
+	P(S) = P(\bigcup_{i = 1}^{\infty} A_i) = \sum_{i = 1}^{\infty} P(E_i) = P(S) + \sum_{i = 2}^{\infty} P(\emptyset) = P(S) + P(\bigcup_{i = 2}^{\infty}\emptyset) = P(S) + P(\emptyset)
+	\]
+	Cancelling \( P(S) \) from both sides we obtain \( P(\emptyset) = 0 \).
+\end{proof}
+
+\begin{theorem}\label{thm:finite_probs}
+	For finitely many disjoint events \( E_1, E_2, \ldots, E_n \), we have
+	\[
+	P(\bigcup_{i = 1}^{n} E_i) = \sum_{i = 1}^{n} P(E_i)
+	\]
+\end{theorem}
+\begin{proof}
+	Consider the sequence of events \( E_1, E_2, \ldots \) where \( E_i = \emptyset \) for \( i > n \).
+	Since all events in this sequence are mutually exclusive and \( \bigcup_{i = 1}^{n} E_i = \bigcup_{i = 1}^{\infty} E_i \),
+	by applying the third axiom and \autoref{thm:imp_event} we have
+	\begin{align*}
+	P(\bigcup_{i = 1}^{n} E_i) = P(\bigcup_{i = 1}^{\infty} E_i) &= \sum_{i = 1}^{\infty} P(E_i)\\
+	&= \sum_{i = 1}^{n} P(E_i) + \sum_{i = n + 1}^{\infty} P(E_i)\\
+	&= \sum_{i = 1}^{n} P(E_i) + P(\bigcup_{i = n + 1}^{\infty} E_i)\\
+	&= \sum_{i = 1}^{n} P(E_i) + P(\emptyset)\\
+	&= \sum_{i = 1}^{n} P(E_i)
+	\end{align*}
+\end{proof}
+
+\begin{theorem}
+	\( P(E^\complement) = 1 - P(E) \).
+\end{theorem}
+\begin{proof}
+	\( E \) and \( E^\complement \) are mutually exclusive and \( S = E \cup E^\complement \)
+	since every element of the sample space is either in \( E \) or not.
+	Thus, using the second axiom and \autoref{thm:finite_probs}, we have
+	\begin{gather*}
+		1 = P(S) = P(E \cup E^\complement) = P(E) + P(E^\complement)\\
+		P(E^\complement) = 1 - P(E)
+	\end{gather*}
+\end{proof}
+
+\begin{theorem}\label{thm:difference_probs}
+	For any two events \( F, E \subset S \), the equality \( P(F - E) = P(F) - P(E \cap F) \) holds.
+\end{theorem}
+\begin{proof}
+	It can be shown that \( F = (F - E) \cup (E \cap F) \)
+	where \( F - E \) and \( E \cap F \) are mutually exclusive.
+	By \autoref{thm:finite_probs}:
+	\begin{gather*}
+		P(F) = P(F - E) + P(E \cap F)\\
+		P(F - E) = P(F) - P(E \cap F)
+	\end{gather*}
+\end{proof}
+\begin{corollary}\label{cor:subset_prob}
+	If \( E \subset F \), then \( E \cap F = E \) and thus \( P(F - E) = P(F) - P(E) \).
+\end{corollary}
+\begin{corollary}
+	If \( E \subset F \), the first axiom and Corollary \autoref{cor:subset_prob} yield \( P(E) \leq P(F) \).
+	Replacing \( F \) with \( S \) and applying the second axiom gives \( P(E) \leq 1 \).
+	Combined with the first axiom, this proves that for any event \( E \),
+	\[
+	0 \leq P(E) \leq 1
+	\]
+\end{corollary}
+
+\begin{theorem}
+	For any two events \( E, F \subset S \), the equality \( P(E \cup F) = P(E) + P(F) - P(F \cap E) \) holds.
+\end{theorem}
+\begin{proof}
+	It can be shown that \( E \cap F = E \cup (F - E) \)
+	where \( E \) and \( F - E \) are mutually exclusive.
+	By \autoref{thm:finite_probs} and \autoref{thm:difference_probs}:
+	\[
+		P(E \cup F) = P(E) + P(F - E) = P(E) + P(F) - P(E \cap F)
+	\]
+\end{proof}
