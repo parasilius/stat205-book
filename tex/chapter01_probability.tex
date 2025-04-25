@@ -48,7 +48,7 @@ We denote the set of all possible outcomes of such an experiment by \( S \), cal
 	This is a random experiment in which we are interested in the color of the drawn ball.
 	Hence, denoting the outcome of observing blue, green and red ball by \( B, G \) and \( R \) respectively, the sample space of this experiment is \( S = \{ B, G, R \} \).
 \end{exmp}
-\begin{exmp}
+\begin{exmp}\label{exmp:playing_cards}
 	Consider the experiment of drawing a card from a deck.
 	Each time a card is drawn, it is returned to the deck and the duck is shuffled, so the conditions of each experiment remains the same.
 	If we are interested in the suit of the drawn cards, the sample space is \( S = \{ \clubsuit, \vardiamondsuit, \spadesuit, \varheartsuit \} \).
@@ -98,6 +98,25 @@ An event consisting of only a single element of the sample space \( S \) is call
 \begin{exmp}
 	In Example \autoref{exmp:fair_die}, \( \{ 1 \}, \{ 2 \}, \{ 3 \}, \{ 4 \}, \{ 5 \} \) and \( \{ 6 \} \) are all elementary events.
 \end{exmp}
+For two events \( E \) and \( F \), if every element of \( E \) is also in \( F \), we say that
+\( E \) is a \keyterm{subevent} of \( F \), or in set notation, \( E \subset F \).
+\begin{exmp}
+	In Example \autoref{exmp:fair_die}, if \( E \) is the event "observing a number greater than 5"
+	and \( F \) is the event "observing a number greater than 4",
+	then \( E = \{ 6 \} \) and \( F = \{ 5, 6 \} \), and thus \( E \subset F \).
+	It is trivial that the occurrence of \( E \) implies the occurrence of \( F \), but not conversely.
+	For instance, if the die roll outcome is 5, \( F \) occurs but \( E \) does not.
+\end{exmp}
+Two events are called \keyterm{equal events} if they consist of same elements.
+By definition, if \( E \subset F \) and \( F \subset E \), then \( E \) and \( F \) are equal events
+and we write \( E = F \).
+\begin{exmp}
+	In Example \autoref{exmp:playing_cards}, suppose the sample space is \( S = \{ A, 1, 2, 3, 4, 5, 6, 7, 8, 9, J, Q, K \} \).
+	If \( E \) is the event "observing a number less than 5 in Clubs"
+	and \( F \) is the event "observing a number less than 5 in Diamonds",
+	then \( E = \{ 1, 2, 3, 4 \} \) and \( F = \{ 1, 2, 3, 4 \} \), and thus \( E = F \).
+	Trivially, the occurrence of \( E \) implies the occurrence of \( F \), and vice versa.
+\end{exmp}
 
 \section{Set Theory Operations on Events}
 
@@ -116,13 +135,13 @@ The occurrence of \( E \) or \( F \) results in the occurrence of \( E \cup F \)
 	So \( E = \{ 2, 4, 6 \} \) and \( F = \{ 2, 3, 5 \} \).
 	The union of these two events consists of all the elements in \( E \) or \( F \),
 	meaning \( E \cup F = \{ 2, 3, 4, 5, 6 \} \).
-	So if the outcome of a die roll is 4, we say the event of "observing a number which is even or prime" occurs,
+	So if the outcome of a die roll is 4, we say the event "observing a number which is even or prime" occurs,
 	since 4 is an even number.
 	
 	If it's 5, we also say that this event occurs, since 5 is a prime number.
 	
 	Now suppose we observe 2 in a die roll. We again say that \( E \cup F \) occurs.
-	The important thing to note here is that this \it{or} is an inclusive or, which means \( E \cup F \)
+	The important thing to note here is that this "or" is an inclusive or, which means \( E \cup F \)
 	is actually "observing a number that is even or prime or both".
 	In this case, 2 is both an even and a prime number.
 \end{exmp}
@@ -134,7 +153,7 @@ In order for \( E \cap F \) to occur, both \( E \) and \( F \) has to occur.
 
 \begin{exmp}
 	Consider the events \( E \) and \( F \) in Example \autoref{exmp:fair_die_union}.
-	\( E \cap F \) is the event of "observing a number that is both even and prime".
+	\( E \cap F \) is the event "observing a number that is both even and prime".
 	In other words, \( E \cap F \) consists of all elements that are in both \( E \) and \( F \),
 	and so are both even and prime.
 	Hence, \( E \cap F = \{ 2 \} \).
@@ -145,7 +164,7 @@ In order for \( E \cap F \) to occur, both \( E \) and \( F \) has to occur.
 \end{exmp}
 
 If \( E \cap F = \emptyset \), we say the two events are \keyterm{incompatible}.
-For instance, if we denote the event of "observing an odd number" by \( O \),
+For instance, if we denote the event "observing an odd number" by \( O \),
 \( E \cap O = \emptyset \), meaning \( E \) and \( O \) are incompatible.
 In other words, a single die roll cannot simultaneously result in both an even and an odd number.
 
@@ -154,7 +173,7 @@ In other words, a single die roll cannot simultaneously result in both an even a
 The \keyterm{difference} \( E - F \) is the event containing all elements in \( E \) but not in \( F \).
 
 \begin{exmp}
-	In Example \autoref{exmp:fair_die_union}, \( E - F \) is the event of "observing a number that is even but not prime".
+	In Example \autoref{exmp:fair_die_union}, \( E - F \) is the event "observing a number that is even but not prime".
 	Thus \( E - F = \{ 4, 6 \} \).
 	\( 3 \not\in E - F \) since it is prime, and \( 2 \not\in E - F \) because while it is an even number, it is also a prime number.
 	So observing 3 or 2 upon rolling a die means \( E - F \) does not occur.
@@ -167,12 +186,100 @@ The \keyterm{complement} of an event \( E \) is the difference \( S - E \), cont
 The complement of E is denoted by \( E^\complement \), \( E' \) or \( \bar{E} \).
 
 \begin{exmp}
-	In Example \autoref{exmp:fair_die_union}, \( E^\complement \) is the event of "observing a number that is not even",
+	In Example \autoref{exmp:fair_die_union}, \( E^\complement \) is the event "observing a number that is not even",
 	which means \( E^\complement = \{ 1, 3, 5 \} \).
 	So \( E^\complement \) occurs only when the observed number on the die is odd.
 
 	Note that "observing a number that is not even" does not mean any number that is not even, but rather any number in the sample space \( S = \{ 1, 2, 3, 4, 5, 6 \} \) that is not even.
 \end{exmp}
+
+\subsection{Symmetric Difference of Two Events}
+
+The \keyterm{symmetric difference} of two events \( E \) and \( F \) consists of all elements in
+\( E \) or \( F \) but not in both and is denoted by \( E \triangle F \).
+By definition, \( E \triangle F = F \triangle E \) and this is why this operation is symmetric.
+
+\begin{exmp}
+	In Example \autoref{exmp:fair_die_union}, \( E \triangle F = \{ 3, 4, 5, 6 \} \),
+	containing numbers in the sample space that are even or prime but not both.
+	Since 2 is both even and prime, it follows that \( 2 \in E \cup F \) but \( 2 \not\in E \triangle F \).
+
+	Note the exclusive "or" in this operation, unlike the inclusive case discussed in Example \autoref{exmp:fair_die_union}.
+\end{exmp}
+
+The set operations and key concepts for two events \( E \) and \( F \) are visually represented on the following page.
+In these diagrams, the sample space is depicted as a rectangle,
+events \( E \) and \( F \) as two circles,
+and the operation or concept specified above each rectangle is highlighted through coloring.
+
+\begin{center}
+
+\setlength{\tabcolsep}{1em}
+\renewcommand{\arraystretch}{1.5}
+
+\begin{tabular}{c@{\quad}c@{\quad}c}
+    
+    % First row
+    \textbf{$E\cup F$} 
+    & \textbf{$E\cap F$} 
+    & \textbf{$E\setminus F$} \\
+    \begin{venndiagram2sets}[labelA=$E$,labelB=$F$]\fillA\fillB\end{venndiagram2sets}
+    &
+    \begin{venndiagram2sets}[labelA=$E$,labelB=$F$]\fillACapB\end{venndiagram2sets}
+    &
+    \begin{venndiagram2sets}[labelA=$E$,labelB=$F$]\fillANotB\end{venndiagram2sets}
+    \\
+    
+    % Second row
+    \textbf{$F\setminus E$} 
+    & \textbf{$E^{\complement}$} 
+    & \textbf{$F^{\complement}$} \\
+    \begin{venndiagram2sets}[labelA=$E$,labelB=$F$]\fillBNotA\end{venndiagram2sets}
+    &
+    \begin{venndiagram2sets}[labelA=$E$,labelB=$F$]\fillNotA\end{venndiagram2sets}
+    &
+    \begin{venndiagram2sets}[labelA=$E$,labelB=$F$]\fillNotB\end{venndiagram2sets}
+    \\
+    
+    % Third row
+    \textbf{$E\triangle F$} 
+    & \textbf{$S$} 
+    & \textbf{$E=\emptyset$} \\
+    \begin{venndiagram2sets}[labelA=$E$,labelB=$F$]\fillOnlyA\fillOnlyB\end{venndiagram2sets}
+    &
+    \begin{venndiagram2sets}[labelA=$E$,labelB=$F$]\fillAll\end{venndiagram2sets}
+    &
+    \begin{tikzpicture}[baseline]
+        \draw (0,0) rectangle (5,3.4);
+        \node[fill,circle,inner sep=1.2pt,label=above:$E$] (E) at (2,2) {};
+    \end{tikzpicture}
+    \\
+    
+    % Fourth row
+    \textbf{$F\subseteq E$}
+    & \textbf{$E=F$} 
+    & \textbf{Disjoint} \\
+    \begin{tikzpicture}[baseline]
+        \draw (0,0) rectangle (5,3.4);
+        \draw (2,1.5) circle (1.2cm) node[below right] {$F$};
+        \fill[green!30] (2,2) circle (0.7cm) node[above] {$E$};
+    \end{tikzpicture}
+    &
+    \begin{tikzpicture}[baseline]
+        \draw (0,0) rectangle (5,3.4);
+        \draw (2,1.5) circle (1.2cm) node[below right] {$F$};
+        \fill[green!30] (2,1.5) circle (1.2cm) node[above] {$E$};
+    \end{tikzpicture}
+    &
+    \begin{tikzpicture}[baseline]
+        \draw (0,0) rectangle (5,3.4);
+        \draw[thick] (1,1) circle (0.6cm) node {$E$};
+        \draw[thick] (2.5,2.5) circle (0.7cm) node {$F$};
+    \end{tikzpicture}
+    \\
+    
+\end{tabular}
+\end{center}
 
 \section{What is Probability?}
 
