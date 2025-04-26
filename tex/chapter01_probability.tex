@@ -78,7 +78,7 @@ This subset is called an \keyterm{event} and is denoted by \( E \).
 But we know that in each realization of a random experiment, only one element \( e \in S \) is observed.
 If \( e \in S \), we say \( E \) has occured and if \( e \in S-E \), we say it has not occured.
 \begin{exmp}\label{exmp:fair_die}
-	In the experiment of throwing a fair die, \( S = \{ 1, 2, 3, 4, 5, 6 \} \).
+	In the experiment of throwing a six-sided die, \( S = \{ 1, 2, 3, 4, 5, 6 \} \).
 	In case the experimenter is interested in the event of observing an even number, the event of interest would be \( E = \{ 2, 4, 6 \} \), a subset of \( S \).
 	If instead they are interested in the event of observing an odd number, the event of interest would become \( E = \{ 1, 3, 5 \} \), again a subset of \( S \).
 \end{exmp}
@@ -290,18 +290,22 @@ There are three prominent ways to define probability.
 In the three following subsections, these three definitions are explored.
 Then an axiomatic definition of probability is given which is consistent with these three definitions.
 
-\subsection{Classical Definition of Probability}
+\subsection{Classical Definition of Probability}\label{sec:classic}
 
 In this definition, each elementary event of the sample space is considered to be equally likely to occur.
 For example in rolling a fair die, all the events \( \{ 1 \}, \{ 2 \}, \{ 3 \}, \{ 4 \}, \{ 5 \} \) and \( \{ 6 \} \) have the same probability.
 Or in tossing a coin ( the random experiment in Example \autoref{exmp:coin_toss} ), the elementary events \( \{ H \} \) and \( \{ T \} \) are all equally likely to happen,
 which is consistent with our intuition of 50\% chance of occurring for each event.
 
-This interpretation of Probability goes back to Pierre-Simon Laplace, who wrote:
+This interpretation of probability goes back to Pierre-Simon Laplace, who wrote:
 \begin{quote}
 	The probability of an event is the ratio of the number of cases favorable to it, to the number of all cases possible when nothing leads us to expect that any one of these cases should occur more than any other, which renders them, for us, equally possible.
 \FOOTNOTE{Laplace, Théorie analytique des probabilités, retrieved from \url{https://en.wikipedia.org/wiki/Classical_definition_of_probability}}
 \end{quote}
+So in this interpretation of probability, for an event \( E \subset S \), the probability of \( E \) is given by:
+\begin{align*}
+	P(E) = \frac{\text{number of outcomes in }E}{\text{total number of outcomes in }S}
+\end{align*}
 
 While we can assign a probability to each elementary event when the sample space consists of finitely many elements,
 it is not possible when the elementary events are not equally likely to occur or the sample space is infinite like we saw in Example \autoref{exmp:heads_observe}.
@@ -521,3 +525,71 @@ Next, we prove some thorems using the axioms of probability.
 \begin{ex}
 	Prove that for any two events \( E, F \subset S \), \( P(E^\complement \cup F) = 1 - P(E) + P(F \cap E) \).
 \end{ex}
+
+\section{Uniform Probability Model}
+
+In a \keyterm{uniform probability model}, each elementary event has an equal probability.
+So if the sample space has \( n(S) \) elements, then for each outcome \( e_i \in S \), we have:
+\begin{align*}
+	P(\{e_i\}) = \frac{1}{n(S)}
+\end{align*}
+If an event \( E \) contains \( n(E) \) elements,
+we can express it as \( E = \bigcup_{j} \{e_j\} \), where each \( e_j \) is an element of \( S \) belonging to \( E \).
+Applying \autoref{thm:finite_probs}:
+\begin{align*}
+	P(E) = P(\bigcup_{j} \{e_j\}) = \sum_{j} P(\{e_j\}) = \sum_{j} \frac{1}{n(S)} = \frac{n(E)}{n(S)}
+\end{align*}
+Comparing this with \autoref{sec:classic}, we observe that it is equivalent to Laplace's classical definition of probability.
+
+\begin{exmp}
+	In the coin toss random experiment from Example \autoref{exmp:coin_toss}, if the event of interest \( E \) is "observing heads",
+	then \( P(E) = \frac{1}{2} \), since \( E = \{ H \} \) contains exactly one outcome out of two possible equally likely outcomes.
+	Such a coin with equal probabilities of landing on heads or tails is called a \keyterm{fair coin}.
+\end{exmp}
+
+\begin{exmp}\label{exmp:three_fair_coins}
+	In the random experiment of tossing three fair coins, the sample space is
+	\( S = \{ HHH, HHT, HTH, HTT, THH, THT, TTH, TTT \} \).
+	If the event of interest \( E \) is "observing at most two heads",
+	then \( E = \{ HHT, HTH, HTT, THH, THT, TTH, TTT \} \) and consequently \( P(E) = \frac{7}{8} \).
+\end{exmp}
+
+\begin{exmp}
+	In the die-throw random experiment from Example \autoref{exmp:fair_die}, if the event of interest \( E \) is "observing an odd number",
+	then \( E = \{ 1, 3, 5 \} \) and thus \( P(E) = \frac{3}{6} = \frac{1}{2} \).
+	A die with equally likely outcomes for all faces is called a \keyterm{fair die}.
+\end{exmp}
+
+\begin{exmp}\label{exmp:two_fair_dice}
+	In the random experiment of tossing two fair six-sided dice, the sample space is
+	\( S = \{ (1, 1), (1, 2), \ldots, (6, 5), (6, 6) \} \).
+	If the event of interest \( E \) is "the sum of two dice equals 8",
+	then \( E = \{ (2, 6), (3, 5), (4, 4), (5, 3), (6, 2) \} \) and consequently \( P(E) = \frac{5}{36} \).
+\end{exmp}
+
+\begin{ex}
+	In Example \autoref{exmp:two_fair_dice}, what is the probability that the difference of two dice is 3?
+\end{ex}
+
+In the examples discussed above, we can easily count the elements in both the sample space and the event of interest.
+However, consider modifying Example \autoref{exmp:three_fair_coins} where six fair coins are tossed instead of three,
+or altering Example \autoref{exmp:two_fair_dice} to involve seven fair six-sided dice rather than two.
+How many elements are in the sample space in these cases?
+Attempting to list all possible combinations would quickly reveal what a tedious task this becomes.
+
+The are some fundamental counting rules which aid us in these scenarios.
+The \keyterm{multiplicative rule} states that if a first task can be performed in \( m_1 \) ways,
+and for each of these, a second task can be performed in \( m_2 \) ways independent from the previous task,
+then the sequence of two tasks has \( m_1 \times m_2 \) possible outcomes.
+This naturally extends to \( n \) sequential tasks,
+where the total number of possible outcomes becomes \( m_1 \times m_2 \times \ldots \times m_n \).
+
+\begin{exmp}
+	A standard deck contains cards with four suits (\( \clubsuit, \vardiamondsuit, \spadesuit, \varheartsuit \)) and thirteen ranks (A, 1, 2, ..., 9, J, Q, K).
+	How many total cards are in such a deck?
+\end{exmp}
+\begin{solution}
+	We decompose the counting problem into two sequential tasks:
+	selection a suit and then selecting a rank.
+	There are 4 ways to do the former and 13 ways to do the latter, so in total there are \( 4 \times 13 = 52 \) such cards.
+\end{solution}
