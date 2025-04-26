@@ -169,3 +169,12 @@
 % proof & corollary
 \newenvironment{proof}{\paragraph{Proof:}}{\hfill$\square$}
 \newtheorem{corollary}{Corollary}[theorem]
+% solution
+\newenvironment{solution}{%
+     \setlength\parindent{0pt}\par\medskip\textbf{Solution}\quad}{%
+     \hfill\tiny$\blacksquare$\par\medskip}
+% exercise
+\newtheorem{ex}{Exercise}[chapter]
+\newenvironment{ex*}
+  {\renewcommand\theex{\thechapter.\arabic{ex}\rlap{$^*$}}\ex}
+  {\endex}

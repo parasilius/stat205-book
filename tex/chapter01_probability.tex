@@ -123,6 +123,7 @@ and we write \( E = F \).
 We denoted the set of all outcomes of a random experiment by \( S \),
 and we saw that we may be interested in a subset of this set, \( E \subset S \).
 Now consider two events \( E, F \subset S \).
+From these two events, we can derive additional events as demonstrated in this section.
 
 \subsection{Union of Two Events}
 
@@ -419,7 +420,7 @@ Next, we prove some thorems using the axioms of probability.
 \end{proof}
 
 \begin{theorem}
-	\( P(E^\complement) = 1 - P(E) \).
+	For any event \( E \subset S \), \( P(E^\complement) = 1 - P(E) \).
 \end{theorem}
 \begin{proof}
 	\( E \) and \( E^\complement \) are mutually exclusive and \( S = E \cup E^\complement \)
@@ -430,6 +431,18 @@ Next, we prove some thorems using the axioms of probability.
 		P(E^\complement) = 1 - P(E)
 	\end{gather*}
 \end{proof}
+\begin{corollary}\label{cor:demorgan}
+	Using De Morgan's laws in set theory, for any two events \( E, F \subset S \):
+	\begin{align*}
+		(E \cap F)^\complement = E^\complement \cup F^\complement\\
+		(E \cup F)^\complement = E^\complement \cap F^\complement
+	\end{align*}
+	From these we can derive:
+	\begin{align*}
+		P(E^\complement \cup F^\complement) = P((E \cap F)^\complement) = 1 - P(E \cap F)\\
+		P(E^\complement \cap F^\complement) = P((E \cup F)^\complement) = 1 - P(E \cup F)
+	\end{align*}
+\end{corollary}
 
 \begin{theorem}\label{thm:difference_probs}
 	For any two events \( F, E \subset S \), the equality \( P(F - E) = P(F) - P(E \cap F) \) holds.
@@ -455,8 +468,8 @@ Next, we prove some thorems using the axioms of probability.
 	\]
 \end{corollary}
 
-\begin{theorem}
-	For any two events \( E, F \subset S \), the equality \( P(E \cup F) = P(E) + P(F) - P(F \cap E) \) holds.
+\begin{theorem}\label{thm:union_probs}
+	For any two events \( E, F \subset S \), the equality \( P(E \cup F) = P(E) + P(F) - P(E \cap F) \) holds.
 \end{theorem}
 \begin{proof}
 	It can be shown that \( E \cap F = E \cup (F - E) \)
@@ -466,3 +479,45 @@ Next, we prove some thorems using the axioms of probability.
 		P(E \cup F) = P(E) + P(F - E) = P(E) + P(F) - P(E \cap F)
 	\]
 \end{proof}
+
+\begin{exmp}
+	Suppose \( E, F \) are two events from sample space \( S \) where \( P(E) = 0.6 \), \( P(F - E) = 0.3 \) and \( P(E \cap F) = 0.2 \).
+	\begin{enumerate}
+		\item What is \( P(F) \)?
+		\item What is \( P(E \cup F) \)?
+		\item What is \( P(E \cap F^\complement) \)?
+		\item What is \( P(E \cap E^\complement) \)?
+		\item What is \( P(E^\complement \cap F^\complement) \)?
+	\end{enumerate}
+\end{exmp}
+\begin{solution}
+	\begin{enumerate}
+		\item From \autoref{thm:difference_probs}, we derive:
+		\begin{align*}
+			P(F) = P(F - E) + P(E \cap F) = 0.3 + 0.2 = 0.5
+		\end{align*}
+		\item By \autoref{thm:union_probs}:
+		\begin{align*}
+			P(E \cup F) = P(E) + P(F) - P(E \cap F) = 0.6 + 0.5 - 0.2 = 0.9
+		\end{align*}
+		\item From set theory, we have the equality \( E \cap F^\complement = E - F \).
+		Intuitively, \( E \cap F^\complement \) and \( E - F \) both contain exactly those elements of \( S \) that belong to \( E \) but not to \( F \).
+		Applying \autoref{thm:difference_probs} yields:
+		\begin{align*}
+			P(E \cap F^\complement) = P(E - F) = P(E) - P(F \cap E) = P(E) - P(E \cap F) = 0.6 - 0.2 = 0.4
+		\end{align*}
+		\item No element of \( S \) can simultaneously belong to \( E \) and not belong to it , thus \( E \cap E^\complement = \emptyset \).
+		\autoref{thm:imp_event} implies:
+		\begin{align*}
+			P(E \cap E^\complement ) = P(\emptyset) = 0
+		\end{align*}
+		\item By Corollary \autoref{cor:demorgan}:
+		\begin{align*}
+			P(E^\complement \cap F^\complement) = 1 - P(E \cup F) = 1 - 0.9 = 0.1
+		\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\begin{ex}
+	Prove that for any two events \( E, F \subset S \), \( P(E^\complement \cup F) = 1 - P(E) + P(F \cap E) \).
+\end{ex}
