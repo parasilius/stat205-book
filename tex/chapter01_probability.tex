@@ -577,8 +577,8 @@ or altering Example \autoref{exmp:two_fair_dice} to involve seven fair six-sided
 How many elements are in the sample space in these cases?
 Attempting to list all possible combinations would quickly reveal what a tedious task this becomes.
 
-The are some fundamental counting rules which aid us in these scenarios.
-The \keyterm{multiplicative rule} states that if a first task can be performed in \( m_1 \) ways,
+The are some fundamental counting principles which aid us in these scenarios.
+The \keyterm{multiplication principle} states that if a first task can be performed in \( m_1 \) ways,
 and for each of these, a second task can be performed in \( m_2 \) ways independent from the previous task,
 then the sequence of two tasks has \( m_1 \times m_2 \) possible outcomes.
 This naturally extends to \( n \) sequential tasks,
@@ -592,4 +592,70 @@ where the total number of possible outcomes becomes \( m_1 \times m_2 \times \ld
 	We decompose the counting problem into two sequential tasks:
 	selecting a suit and then selecting a rank.
 	There are four ways to do the former and thirteen ways to do the latter, so in total there are \( 4 \times 13 = 52 \) such cards.
+\end{solution}
+
+The \keyterm{addition principle} states that if one task can be performed in \( n_1 \) ways and another distinct task in \( n_2 \) ways,
+then either task can be done in \( n_1 + n_2 \) total ways.
+For example, with three blue garments and seven green ones,
+selecting either a blue or green garment can be done in \( 3 + 7 = 10 \) ways.
+This result can be generalized to more than two tasks, analogous to the extension of the multiplication principle.
+
+\begin{exmp}
+	From a group of seven statisticians and five computer scientists, two people are randomly selected for a project.
+	What is the probability that the team consists of one statistician and one computer scientist?
+\end{exmp}
+\begin{solution}
+	The first person is chosen from 12 individuals, and the second from the remaining 11.
+	So the sample space has \( n(S) = 12 \times 11 = 132 \) elements.
+	The event \( E \) contains elements of \( S \) with one statistician and one computer scientist.
+	So to count the number of elements in \( E \), we again decompose the problem into two tasks.
+	First choosing one statistician and second choosing a conputer scientist,
+	which can be done in \( 7 \times 5 = 35 \) ways.
+	Or first choosing one computer scientist and then choosing a statistician,
+	which can be done in \( 5 \times 7 = 35 \) ways.
+	Since we have to choose a statistician first and then a computer scientist, or first a computer scientist and then a statistician,
+	the addition principle implies \( n(E) = 35 + 35 = 70 \), yielding \( P(E) = \frac{70}{132} = \frac{35}{66} \).
+\end{solution}
+
+\section{Conditional Probability}
+
+In previous sections, we examined basic probability examples.
+But sometimes in our problems, we have some prior information.
+In Example \autoref{exmp:two_fair_dice}, suppose we know beforehand that one die has come up 2.
+Here, the event of interest becomes \( E \cap F \), where \( F \) is the event "one die comes up 2".
+So we are interested in the probability of both \( E \) and \( F \) occurring, which is \( E \cap F = \{ (2, 6), (6, 2) \} \).
+On the other hand, since we have information that one die has come up 2, the sample space is reduced from \( S \) to \( F \).
+So the probability of \( E \) given we know \( F \) has occurred is \( \frac{n(E \cap F)}{n(F)} \).
+By dividing the numerator and denominator by \( n(S) \), the desired probability becomes \( \frac{P(E \cap F)}{P(F)} \).
+Since \( F = \{ (1, 2), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (3, 2), (4, 2), (5, 2), (6, 2) \} \),
+this probability is \( \frac{\frac{2}{36}}{\frac{11}{36}} = \frac{2}{11} \).
+
+The \keyterm{conditional probability} of \( E \) given \( F \) is defined the same way in any probability model, not just the uniform one, and is denoted by \( P(E | F) = \frac{P(E \cap F)}{P(F)} \)
+where \( P(F) > 0 \).
+If \( P(F) = 0 \), \( P(E | F) \) would be undefined.
+
+\begin{exmp}
+	In Example \autoref{exmp:three_fair_coins}, let \( F \) be the event "observing exactly two tails".
+	\begin{enumerate}
+		\item What is \( P(E \cap F) \)?
+		\item What is \( P(E | F) \)?
+		\item What is \( P(F | E) \)?
+	\end{enumerate}
+\end{exmp}
+\begin{solution}
+	\begin{enumerate}
+		\item First we note that \( F = \{ HTT, THT, TTH \} \).
+		Thus, \( E \cap F = \{ HTT, THT, TTH \} \), yielding:
+		\begin{align*}
+			P(E \cap F) = \frac{n(E \cap F)}{n(S)} = \frac{3}{8}
+		\end{align*}
+		\item \begin{gather*}
+			P(F) = \frac{n(F)}{n(S)} = \frac{3}{8}\\
+			P(E | F) = \frac{P(E \cap F)}{P(F)} = \frac{\frac{3}{8}}{\frac{3}{8}} = 1
+		\end{gather*}
+		Note that observing exactly two tails implies exactly one head must be observed, which aligns with this result.
+		\item \begin{gather*}
+			P(F | E) = \frac{P(F \cap E)}{P(E)} = \frac{P(E \cap F)}{P(E)} = \frac{\frac{3}{8}}{\frac{7}{8}} = \frac{3}{7}
+		\end{gather*}
+	\end{enumerate}
 \end{solution}
