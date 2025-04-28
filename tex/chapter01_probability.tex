@@ -523,7 +523,14 @@ Next, we prove some thorems using the axioms of probability.
 \end{solution}
 
 \begin{ex}
-	Prove that for any two events \( E, F \subset S \), \( P(E^\complement \cup F) = 1 - P(E) + P(F \cap E) \).
+	Show that for any two events \( E, F \subset S \), \( P(E^\complement \cup F) = 1 - P(E) + P(F \cap E) \).
+\end{ex}
+\begin{ex}\label{ex:marginal_probs}
+	Suppose \( E, F \) are two events of sample space \( S \).
+	\begin{enumerate}
+		\item Show that \( P(E \cap F) + P(E \cap F^\complement) = P(E) \).
+		\item Show that \( P(E) + P(E^\complement) = 1 \).
+	\end{enumerate}
 \end{ex}
 
 \section{Uniform Probability Model}
@@ -731,3 +738,34 @@ The following example demonstrates this:
 		P(F | E) = \frac{P(F \cap E)}{P(E)} = \frac{0.13}{0.25} = 0.52
 	\end{gather*}
 \end{solution}
+
+\section{Contingency Tables}
+
+When solving conditional probability problems, visual tools like tree diagrams and contingency tables often give invaluable insights.
+These complementary techniques provide different perspectives that can clarify complex probability relationships.
+
+Contingency tables are particularly useful when analyzing two events, say \( E, F \subset S \).
+We can construct contingency tables using the size of events as follows:
+\begin{center}
+\begin{tabular}{l|cc|c}
+                       & \( E \) & \( E^\complement \) &  \\ \hline
+\( F \)                & \( n(E \cap F) \) & \( n(E^\complement \cap F) \) & \( n(F) \) \\ 
+\( F^\complement \)    & \( n(E \cap F^\complement) \) & \( n(E^\complement \cap F^\complement) \) & \( n(F^\complement) \) \\ \hline
+                       & \( n(E) \) & \( n(E^\complement) \) & \( n(S) \)
+\end{tabular}
+\end{center}
+Note that the sizes in margins of the table are computed by summing the respective row or column entries. 
+For instance, in the first column, \( n(E) = n(E \cap F) + n(E \cap F^\complement) \),
+since elements in \( E \) must belong to either \( F \) or \( F^\complement \).
+
+This table can also be constructed using probabilities:
+\begin{center}
+\begin{tabular}{l|cc|c}
+                       & \( E \) & \( E^\complement \) &  \\ \hline
+\( F \)                & \( P(E \cap F) \) & \( P(E^\complement \cap F) \) & \( P(F) \) \\ 
+\( F^\complement \)    & \( P(E \cap F^\complement) \) & \( P(E^\complement \cap F^\complement) \) & \( P(F^\complement) \) \\ \hline
+                       & \( P(E) \) & \( P(E^\complement) \) & \( P(S) = 1 \)
+\end{tabular}
+\end{center}
+Note that in this table, the marginal probabilities are again the sum of their respective row or column entries,
+which can be verified using Exercise \autoref{ex:marginal_probs}.
