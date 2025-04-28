@@ -76,7 +76,7 @@ Each outcome of a random experiment is an element of its sample space, \( S \).
 In doing these experiments, we are interested in observing some specific outcomes, or a subset of \( S \).
 This subset is called an \keyterm{event} and is denoted by \( E \).
 But we know that in each realization of a random experiment, only one element \( e \in S \) is observed.
-If \( e \in S \), we say \( E \) has occured and if \( e \in S-E \), we say it has not occured.
+If \( e \in S \), we say \( E \) has occurred and if \( e \in S-E \), we say it has not occurred.
 \begin{exmp}\label{exmp:fair_die}
 	In the experiment of throwing a six-sided die, \( S = \{ 1, 2, 3, 4, 5, 6 \} \).
 	In case the experimenter is interested in the event of observing an even number, the event of interest would be \( E = \{ 2, 4, 6 \} \), a subset of \( S \).
@@ -89,7 +89,7 @@ Henceforth, unless explicitly stated otherwise, we make the following standard a
 	\item For a die roll, the random experiment of interest is observing the uppermost face after landing on the ground.
 	\item For a coin toss, the random experiment of interest is whether it lands heads ( \( H \) ) or tails ( \( T \) ).
 \end{itemize}
-If \( E = S \), the event is called a \keyterm{sure event}, since each element of \( S \) is in \( E \) and so observing any outcome means the event has occured.
+If \( E = S \), the event is called a \keyterm{sure event}, since each element of \( S \) is in \( E \) and so observing any outcome means the event has occurred.
 On the other hand, if \( E = \emptyset \), the event is called an \keyterm{impossible event}, since it contains no element at all.
 \begin{exmp}
 	In Example \autoref{exmp:fair_die}, observing a number greater than 6 is an impossible event, while observing a number less than 7 is a sure event.
@@ -294,7 +294,7 @@ Then an axiomatic definition of probability is given which is consistent with th
 
 In this definition, each elementary event of the sample space is considered to be equally likely to occur.
 For example in rolling a fair die, all the events \( \{ 1 \}, \{ 2 \}, \{ 3 \}, \{ 4 \}, \{ 5 \} \) and \( \{ 6 \} \) have the same probability.
-Or in tossing a coin ( the random experiment in Example \autoref{exmp:coin_toss} ), the elementary events \( \{ H \} \) and \( \{ T \} \) are all equally likely to happen,
+Or in tossing a coin (the random experiment in Example \autoref{exmp:coin_toss}), the elementary events \( \{ H \} \) and \( \{ T \} \) are all equally likely to happen,
 which is consistent with our intuition of 50\% chance of occurring for each event.
 
 This interpretation of probability goes back to Pierre-Simon Laplace, who wrote:
@@ -367,7 +367,7 @@ In the epistemic perspective, however, each individual assigns a probability bas
 
 \subsection{Axiomatic Definition of Probability}
 
-Just like Euclidean geometry, where theorems are derived from a set of axioms taken as true\FOOTNOTE{https://www.math.brown.edu/tbanchof/Beyond3d/chapter9/section01.html},
+Just like Euclidean geometry, where theorems are derived from a set of axioms taken as true\FOOTNOTE{\url{https://www.math.brown.edu/tbanchof/Beyond3d/chapter9/section01.html}},
 modern probability theory is built upon axioms proposed by the Russian mathematician Andrey Kolmogorov in 1933.
 
 A \keyterm{probability measure} on a sample space \( S \) is a function \( P(.) \) that assigns
@@ -624,7 +624,7 @@ But sometimes in our problems, we have some prior information.
 In Example \autoref{exmp:two_fair_dice}, suppose we know beforehand that one die has come up 2.
 Here, the event of interest becomes \( E \cap F \), where \( F \) is the event "one die comes up 2".
 So we are interested in the probability of both \( E \) and \( F \) occurring, which is \( E \cap F = \{ (2, 6), (6, 2) \} \).
-On the other hand, since we have information that one die has come up 2, the sample space is reduced from \( S \) to \( F \).
+On the other hand, since we have information that one die has come up 2, the sample space is restricted from \( S \) to \( F \).
 So the probability of \( E \) given we know \( F \) has occurred is \( \frac{n(E \cap F)}{n(F)} \).
 By dividing the numerator and denominator by \( n(S) \), the desired probability becomes \( \frac{P(E \cap F)}{P(F)} \).
 Since \( F = \{ (1, 2), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (3, 2), (4, 2), (5, 2), (6, 2) \} \),
@@ -649,13 +649,85 @@ If \( P(F) = 0 \), \( P(E | F) \) would be undefined.
 		\begin{align*}
 			P(E \cap F) = \frac{n(E \cap F)}{n(S)} = \frac{3}{8}
 		\end{align*}
+		Here, we are interested in the event "observing at most two heads and exactly two tails" while the sample space is not restricted to a new one since we have no prior information.
 		\item \begin{gather*}
 			P(F) = \frac{n(F)}{n(S)} = \frac{3}{8}\\
 			P(E | F) = \frac{P(E \cap F)}{P(F)} = \frac{\frac{3}{8}}{\frac{3}{8}} = 1
 		\end{gather*}
-		Note that observing exactly two tails implies exactly one head must be observed, which aligns with this result.
+		Unlike the previous part, we now have prior information that exactly two tails are observed. 
+		By restricting our sample space to outcomes with exactly two tails, we are sure that zero or one head must be observed (and thus at most two heads total), which agrees with this result.
 		\item \begin{gather*}
 			P(F | E) = \frac{P(F \cap E)}{P(E)} = \frac{P(E \cap F)}{P(E)} = \frac{\frac{3}{8}}{\frac{7}{8}} = \frac{3}{7}
 		\end{gather*}
+		Let \( G \) be the event "observing at least one tail".
+		Since \( G = E \), the two events are equal and so \( P(F | E) = P(F | G) \).
+		In other words, \( P(F | E) \) is the same as the probability of observing exactly two tails given at least one tail is observed.
+		The plausibility of observing exactly two tails after at least one tail is observed must increase,
+		which is true since \( P(F | E) = \frac{3}{7} > \frac{3}{8} = P(F) \).
 	\end{enumerate}
+\end{solution}
+
+Thus far, we have examined numerous examples of uniform probability models.
+However, not all probability models are uniform.
+Consider these cases:
+
+\begin{exmp}
+	Consider Example \autoref{exmp:three_balls_urn} with an urn containing three blue balls, five green balls, and two red balls.
+	If we treat each ball as distinct, the sample space is \( S = \{ B_1, B_2, B_3, G_1, G_2, G_3, G_4, G_5, R_1, R_2 \} \).
+	This forms a uniform probability model where \( P(\{B_1\}) = P(\{B_2\}) = \ldots = P(\{R_1\}) = P(\{R_2\}) = \frac{1}{10} \).
+	However, if we are only interested in ball colors and not individual balls,
+	the sample space reduces to \( S = \{ B, G, R \} \).
+	Defining \( B = \{ B_1, B_2, B_3 \} \), \( G = \{ G_1, G_2, G_3, G_4, G_5 \} \) and \( R = \{ R_1, R_2 \} \),
+	then \( P(B) = \frac{3}{10} \), \( P(G) = \frac{5}{10} = \frac{1}{2} \) and \( P(R) = \frac{2}{10} = \frac{1}{5} \),
+	which is a non-uniform probability model.
+\end{exmp}
+
+\begin{exmp}\label{exmp:eye_color}
+	The residents of a town have blue, green, brown, and amber eyes.
+	When randomly selecting a resident, the event of interest is their eye color.
+	The sample space for this experiment is \( S = \{ blue, green, brown, amber \} \).
+	To determine the probabilities of elementary events, we conduct a survey by randomly sampling 500 people and recording their eye colors.
+	The results are shown in the following table:
+	\begin{center}
+	\begin{tabular}{|l|r|r|r|r|r|}
+	\hline
+	\textbf{Eye Color} & \textbf{Blue} & \textbf{Green} & \textbf{Brown} & \textbf{Amber} & \textbf{Total} \\ 
+	\hline
+	Frequency & 125 & 65 & 290 & 20 & 500 \\
+	Relative Frequency & 0.25 & 0.13 & 0.58 & 0.04 & 1.00 \\
+	\hline
+	\end{tabular}
+	\end{center}
+	{\footnotesize\textit{Note: Data reflects approximate global eye color distribution based on studies from the American Academy of Ophthalmology (2022)\FOOTNOTE{\url{https://www.aao.org/eye-health/tips-prevention/your-blue-eyes-arent-really-blue}}.}}
+	
+	Using the frequentist definition of probability and the survey data above, we obtain:
+	\begin{align*}
+		P(\{blue\}) = 0.25, P(\{green\}) = 0.13, P(\{brown\}) = 0.58, P(\{amber\}) = 0.04
+	\end{align*}
+	These unequal probabilities confirm this is not a uniform probability model.
+
+	Using this model, we can answer questions like this:
+	If there are 362500 residents in this town, how many are expected to have green eyes?
+	
+	Using the frequentist interpretation, we can answer this question through a simple calculation:
+	\begin{align*}
+		0.13 \times 362500 = 47125
+	\end{align*}
+\end{exmp}
+
+The conditional probability and theorems derived from the three axioms of probability apply to any probability model.
+The following example demonstrates this:
+
+\begin{exmp}
+	Suppose in Example \autoref{exmp:eye_color}, of people with blue eyes, 65 were female.
+	One person is selected at random from the town.
+	Given that the selected person has blue eyes, what is the probability that they are female?
+\end{exmp}
+\begin{solution}
+	We define event \( E \) as "the selected pesron has blue eyes" and event \( F \) as "the selected person is female".
+	Thus:
+	\begin{gather*}
+		P(F \cap E) = \frac{65}{500} = 0.13\\
+		P(F | E) = \frac{P(F \cap E)}{P(E)} = \frac{0.13}{0.25} = 0.0325
+	\end{gather*}
 \end{solution}
