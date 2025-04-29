@@ -824,3 +824,30 @@ which can be verified using Exercise \autoref{ex:marginal_probs}.
 \begin{ex}
 	In the previous exercise, find \( P(C | D^\complement) \), compare it with \( P(D | C^\complement) \) and interpret the results.
 \end{ex}
+
+\section{Independent Events}
+
+Suppose \( E \) and \( F \) are two events with positive probabilities.
+It is possible that prior information that \( F \) has occurred does not affect the occurrence of \( E \), or in other words:
+\begin{align*}
+	P(E | F) = P(E)
+\end{align*}
+If this is the case, we say \( E \) is independent of \( F \).
+Next, we show that if \( E \) is independent of \( F \), \( F \) is also independent of \( E \).
+
+By definition, \( P(E | F) = \frac{P(E \cap F)}{P(F)} \) which implies \( P(E \cap F) = P(E | F)P(F) \).
+Since \( E \) is independent of \( F \), we have \( P(E | F) = P(E) \), and consequently:
+\begin{align*}
+	P(F | E) = \frac{P(F \cap E)}{P(E)} = \frac{P(E \cap F)}{P(E)} = \frac{P(E | F)P(F)}{P(E)} = \frac{P(E)P(F)}{P(E)} = P(F)
+\end{align*}
+An additional observation from \( P(E | F) = P(E) \) is:
+\begin{gather*}
+	P(E | F) = P(E) = \frac{P(E \cap F)}{P(F)}\\
+	P(E \cap F) = P(E)P(F)
+\end{gather*}
+We therefore define \( E \) and \( F \) as \keyterm{independent events} if any of the following equivalent conditions hold:
+\begin{itemize}
+	\item \( P(E | F) = P(E) \)
+	\item \( P(F | E) = P(F) \)
+	\item \( P(E \cap F) = P(E)P(F) \)
+\end{itemize}
