@@ -769,3 +769,53 @@ This table can also be constructed using probabilities:
 \end{center}
 Note that in this table, the marginal probabilities are again the sum of their respective row or column entries,
 which can be verified using Exercise \autoref{ex:marginal_probs}.
+
+\begin{exmp}
+	A study was conducted to find the relationship between dog ownership (D) and cat ownership (C) among pet owners in the U.S.
+	In a sample of 300 American pet owners, the researchers found that 219 owned dogs,
+	12 had neither cats nor dogs,
+	and 72 owned both cats and dogs.\FOOTNOTE{based on data from \url{https://pewrsr.ch/3JPtwoR}}
+	\begin{enumerate}
+		\item Construct a contingency table for cat and dog owners.
+		\item Find \( P(C \cap D) \).
+		\item Find \( P(C^\complement) \).
+		\item Find \( P(D | C^\complement) \).
+	\end{enumerate}
+\end{exmp}
+\begin{solution}
+	\begin{enumerate}
+		\item From the information given in the problem statement:
+		\begin{center}
+		\begin{tabular}{l|cc|c}
+							& \( D \) & \( D^\complement \) &  \\ \hline
+		\( C \)                & 72 & & \\ 
+		\( C^\complement \)    & & 12 &  \\ \hline
+							& 219 &  & 300
+		\end{tabular}
+		\end{center}
+		Completing the remaining entries in the table yields:
+		\begin{center}
+		\begin{tabular}{l|cc|c}
+							& \( D \) & \( D^\complement \) &  \\ \hline
+		\( C \)                & 72 & 69 & 141 \\ 
+		\( C^\complement \)    & 147 & 12 & 159  \\ \hline
+							& 219 & 81 & 300
+		\end{tabular}
+		\end{center}
+		\item Using the frequentist interpretation of probability and the contingency table results, we derive:
+		\begin{align*}
+			P(C \cap D) = \frac{n(C \cap D)}{n(S)} = \frac{72}{300} = 0.24
+		\end{align*}
+		\item \begin{align*}
+			P(C^\complement) = \frac{n(C^\complement)}{n(S)} = \frac{159}{300} = 0.53
+		\end{align*}
+		\item \begin{gather*}
+			P(D \cap C^\complement) = \frac{n(D \cap C^\complement)}{n(S)} = \frac{147}{300} = 0.49\\
+			P(D | C^\complement) = \frac{P(D \cap C^\complement)}{P(C^\complement)} = \frac{0.49}{0.53} \approx 0.92
+		\end{gather*}
+		Hence, it is highly probable that pet owners without cats prefer dogs over other pets.
+	\end{enumerate}
+\end{solution}
+\begin{ex}
+	In the previous exercise, find \( P(C | D^\complement) \), compare it with \( P(D | C^\complement) \) and interpret the results.
+\end{ex}
