@@ -851,3 +851,102 @@ We therefore define \( E \) and \( F \) as \keyterm{independent events} if any o
 	\item \( P(F | E) = P(F) \)
 	\item \( P(E \cap F) = P(E)P(F) \)
 \end{itemize}
+
+\section{Bayes' Theorem}
+
+In this section we see an important formula which utilizes conditional probability.
+Before that, we discuss some important prerequisites.
+
+\subsection{Partitioning the sample space into mutually exclusive events}
+
+Suppose events \( E_1, E_2, \ldots, E_k \) with positive probabilities are mutually exclusive and their union is the sample space, \( S \).
+In other words,
+\begin{gather*}
+	E_i \cap E_j = \emptyset
+\end{gather*}
+for \( i \neq j \) where \( i, j = 1, 2, \ldots k \), and
+\begin{gather*}
+	\bigcup_{i = 1}^{k} E_i = S
+\end{gather*}
+In this case, we say \( S \) is partitioned into these events.
+
+\begin{exmp}
+	We can partition the sample space in Example \autoref{exmp:three_fair_coins} to events "zero heads", "one head", "two heads" and "three heads" as follows:
+	\begin{gather*}
+		\{ TTT \}, \{ HTT, THT, TTH \}, \{ HHT, HTH, THH \}, \{ HHH \}
+	\end{gather*}
+\end{exmp}
+
+\subsection{Partitioning an event into mutually exclusive events}
+
+Suppose \( S \) is partitioned into events \( E_1, E_2, \ldots, E_k \).
+For any other event \( F \) with positive probability we have:
+\begin{gather*}
+	F = S \cap F = (\bigcup_{i = 1}^{k} E_i) \cap F = \bigcup_{i = 1}^{k} (E_i \cap F)
+\end{gather*}
+In this case, we say \( F \) is partitioned into events \( F \cap E_1, F \cap E_2, \ldots, F \cap E_k \).
+Note that since \( E_1, E_2, \ldots, E_k \) are mutually exclusive, \( F \cap E_1, F \cap E_2, \ldots, F \cap E_k \) are also disjoint events.
+This is also illustrated in \autoref{fig:event_partitioning}.
+In this figure, \( B \) is partitioned into three events \( A_1 \cap B, A_2 \cap B, \text{ and } A_3 \cap B \).
+\begin{figure}[t]
+\begin{center}
+\epsfig{file=../img/event_partitioning.jpg,clip=true,width=8.8cm}
+\end{center}
+\caption{Partitioning event \( B \) into three events}
+\label{fig:event_partitioning}
+%\HR
+\end{figure}
+
+\begin{exmp}
+	Consider an experiment where a card is drawn at random from a deck numbered from 1 to 20.
+	Suppose the sample space \( S \) is partitioned into two events:
+	\begin{enumerate}
+		\item \( E \): drawing an even-numbered card
+		\item \( O \): drawing an odd-numbered card
+	\end{enumerate}
+	Then, the event \( A \), "drawing a multiple of 5", can be partitioned into two events:
+	\begin{enumerate}
+		\item \( A \cap O = \{ 5, 15 \} \) (odd multiples of 5)
+		\item \( A \cap E = \{ 10, 20 \} \) (even multiples of 5)
+	\end{enumerate}
+\end{exmp}
+
+\subsection{Law of Total Probability}
+
+If \( F \) is partitioned into events \( E_1, E_2, \ldots, E_n \), then \autoref{thm:finite_probs} yields:
+\begin{gather*}
+	P(F) = P(\bigcup_{i = 1}^{k} (E_i \cap F)) = \sum_{i = 1}^{k} P(E_i \cap F)
+\end{gather*}
+Since \( P(F | E_i) = \frac{P(F \cap E_i)}{P(E_i)} \), we can alternatively write the above formula as:
+\begin{gather*}
+	P(F) = P(\bigcup_{i = 1}^{k} (F \cap E_i)) = \sum_{i = 1}^{k} P(F | E_i)P(E_i)
+\end{gather*}
+which is called \keyterm{the law of total probability}.
+
+\subsection{Bayes' Rule}
+
+From the definition of conditional probability we know:
+\begin{gather*}
+	P(E_j | F) = \frac{P(E_j \cap F)}{P(F)}
+\end{gather*}
+where \( j = 1, 2, \ldots, k \).
+
+Utilizing the law of total probability in the ablove formula yields:
+\begin{gather*}
+	P(E_j | F) = \frac{P(F | E_j)P(E_j)}{\sum_{i = 1}^{k}P(F | E_i)P(E_i)}
+\end{gather*}
+This result is known as \keyterm{Bayes' rule},
+which provides a method for computing conditional probabilities when the sample space is partitioned into mutually exclusive events.
+
+\begin{exmp}
+	We have three boxes.
+	The first box contains two black marbles and one red marble,
+	the second contains two red marbles and two black marbles,
+	and the third contains three black marbles and two red marbles.
+	Assume the boxes and marbles are indistinguishable except for their colors.
+	We randomly select one box and then draw one marble from it.
+	\begin{enumerate}
+		\item What is the probability that the drawn marble is black?
+		\item Given that the drawn marble is black, what is the probability that it came from third box?
+	\end{enumerate}
+\end{exmp}
