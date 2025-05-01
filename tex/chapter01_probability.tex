@@ -39,14 +39,14 @@ We denote the set of all possible outcomes of such an experiment by \( S \), cal
 \begin{exmp}\label{exmp:coin_toss}
 	Consider the experiment of tossing a coin where the experimental conditions are controlled such that the coin lands on heads or tails, with no other possible outcomes.
 	For instance the surface is chosen so that it won't land on edge.
-	This is a random experiment in which we are interested in observing whether the coin lands heads or tails when viewed from above after it comes to rest
+	This is a random experiment in which we are interested in observing whether the coin lands heads or tails when viewed from above after it comes to rest.
 	Hence, denoting the outcome of observing heads by \( H \) and tails by \( T \), the sample space of this experiment is \( S = \{ H, T \} \).
 \end{exmp}
 \begin{exmp}\label{exmp:three_balls_urn}
 	Consider an experiment where a ball is drawn from an urn containing one blue, one green, and one red ball.
 	The experimenter cannot see inside the urn when making each draw.
 	This is a random experiment in which we are interested in the color of the drawn ball.
-	Hence, denoting the outcome of observing blue, green and red ball by \( B, G \) and \( R \) respectively, the sample space of this experiment is \( S = \{ B, G, R \} \).
+	Hence, denoting the outcome of observing blue, green, and red ball by \( B, G, \) and \( R \) respectively, the sample space of this experiment is \( S = \{ B, G, R \} \).
 \end{exmp}
 \begin{exmp}\label{exmp:playing_cards}
 	Consider the experiment of drawing a card from a deck.
@@ -70,13 +70,20 @@ In some cases, as the following example demonstrates, the sample space may be in
 	The second outcome corresponds to heads appearing on the second coin toss, and so on.
 \end{exmp}
 
+The sample space can also be continuous, as demonstrated in the following example:
+
+\begin{exmp}
+	Consider an experiment to determine the lifespan (in seconds) of lightbulbs produced under identical manufacturing conditions.
+	The sample space \( S \) consists of all possible positive real numbers representing time until lightbulb failure, i.e., \( S = \{ t \in R | t \geq 0 \} \).
+\end{exmp}
+
 \section{Event}
 
 Each outcome of a random experiment is an element of its sample space, \( S \).
-In doing these experiments, we are interested in observing some specific outcomes, or a subset of \( S \).
+In doing these experiments, we are interested in observing some specific outcomes, or in other words, a subset of \( S \).
 This subset is called an \keyterm{event} and is denoted by \( E \).
 But we know that in each realization of a random experiment, only one element \( e \in S \) is observed.
-If \( e \in S \), we say \( E \) has occurred and if \( e \in S-E \), we say it has not occurred.
+If \( e \in S \), we say \( E \) has occurred and if \( e \in S \setminus E \), we say it has not occurred.
 \begin{exmp}\label{exmp:fair_die}
 	In the experiment of throwing a six-sided die, \( S = \{ 1, 2, 3, 4, 5, 6 \} \).
 	In case the experimenter is interested in the event of observing an even number, the event of interest would be \( E = \{ 2, 4, 6 \} \), a subset of \( S \).
@@ -96,7 +103,7 @@ On the other hand, if \( E = \emptyset \), the event is called an \keyterm{impos
 \end{exmp}
 An event consisting of only a single element of the sample space \( S \) is called an \keyterm{elementary event} or an \keyterm{atomic event}.
 \begin{exmp}
-	In Example \autoref{exmp:fair_die}, \( \{ 1 \}, \{ 2 \}, \{ 3 \}, \{ 4 \}, \{ 5 \} \) and \( \{ 6 \} \) are all elementary events.
+	In Example \autoref{exmp:fair_die}, \( \{ 1 \}, \{ 2 \}, \{ 3 \}, \{ 4 \}, \{ 5 \}, \) and \( \{ 6 \} \) are all elementary events.
 \end{exmp}
 For two events \( E \) and \( F \), if every element of \( E \) is also in \( F \), we say that
 \( E \) is a \keyterm{subevent} of \( F \), or in set notation, \( E \subset F \).
@@ -134,7 +141,7 @@ The occurrence of \( E \) or \( F \) results in the occurrence of \( E \cup F \)
 	In Example \autoref{exmp:fair_die}, we denote the event of observing an even number by \( E \)
 	and the event of observing a prime number by \( F \).
 	So \( E = \{ 2, 4, 6 \} \) and \( F = \{ 2, 3, 5 \} \).
-	The union of these two events consists of all the elements in \( E \) or \( F \),
+	The union of these two events consists of all elements in \( E \) or \( F \),
 	meaning \( E \cup F = \{ 2, 3, 4, 5, 6 \} \).
 	So if the outcome of a die roll is 4, we say the event "observing a number which is even or prime" occurs,
 	since 4 is an even number.
@@ -165,28 +172,28 @@ In order for \( E \cap F \) to occur, both \( E \) and \( F \) has to occur.
 \end{exmp}
 
 If \( E \cap F = \emptyset \), we say the two events are \keyterm{disjoint} or \keyterm{mutually exclusive}.
-For instance, if we denote the event "observing an odd number" by \( O \),
-\( E \cap O = \emptyset \), meaning \( E \) and \( O \) are incompatible.
+For instance, in Example \autoref{exmp:fair_die_union}, if we denote the event "observing an odd number" by \( O \),
+\( E \cap O = \emptyset \), meaning \( E \) and \( O \) are mutually exclusive.
 In other words, a single die roll cannot simultaneously result in both an even and an odd number.
 
-Not that events \( A_1, A_2, \ldots \) are disjoint (or mutually exclusive) if \( A_i \cap A_j = \emptyset \) for \( i \neq j \).
+Note that events \( A_1, A_2, \ldots \) are said to be disjoint (or mutually exclusive) if \( A_i \cap A_j = \emptyset \) for \( i \neq j \).
 
 \subsection{Difference of Two Events}
 
-The \keyterm{difference} \( E - F \) is the event containing all elements in \( E \) but not in \( F \).
+The \keyterm{difference} \( E \setminus F \) is the event containing all elements in \( E \) but not in \( F \).
 
 \begin{exmp}
-	In Example \autoref{exmp:fair_die_union}, \( E - F \) is the event "observing a number that is even but not prime".
-	Thus \( E - F = \{ 4, 6 \} \).
-	\( 3 \not\in E - F \) since it is prime, and \( 2 \not\in E - F \) because while it is an even number, it is also a prime number.
-	So observing 3 or 2 upon rolling a die means \( E - F \) does not occur.
-	For \( E - F \) to occur, we have to observe either 4 or 6.
+	In Example \autoref{exmp:fair_die_union}, \( E \setminus F \) is the event "observing a number that is even but not prime".
+	Thus \( E \setminus F = \{ 4, 6 \} \).
+	\( 3 \not\in E -\setminus F \) since it is not even, and \( 2 \not\in E - F \) because while it is an even number, it is also a prime number.
+	So observing 3 or 2 upon rolling a die means \( E \setminus F \) does not occur.
+	For \( E \setminus F \) to occur, we have to observe either 4 or 6.
 \end{exmp}
 
 \subsection{Complement of an Event}
 
-The \keyterm{complement} of an event \( E \) is the difference \( S - E \), containing all alements in sample space that are not in \( E \).
-The complement of E is denoted by \( E^\complement \), \( E' \) or \( \bar{E} \).
+The \keyterm{complement} of an event \( E \) is the difference \( S \setminus E \), containing all alements in sample space that are not in \( E \).
+The complement of E is denoted by \( E^\complement \), \( E', \) or \( \bar{E} \).
 
 \begin{exmp}
 	In Example \autoref{exmp:fair_die_union}, \( E^\complement \) is the event "observing a number that is not even",
@@ -200,15 +207,17 @@ The complement of E is denoted by \( E^\complement \), \( E' \) or \( \bar{E} \)
 
 The \keyterm{symmetric difference} of two events \( E \) and \( F \) consists of all elements in
 \( E \) or \( F \) but not in both and is denoted by \( E \triangle F \).
-By definition, \( E \triangle F = F \triangle E \) and this is why this operation is symmetric.
+By definition, \( E \triangle F = F \triangle E \) and this is why this operation is called symmetric.
 
 \begin{exmp}
 	In Example \autoref{exmp:fair_die_union}, \( E \triangle F = \{ 3, 4, 5, 6 \} \),
 	containing numbers in the sample space that are even or prime but not both.
-	Since 2 is both even and prime, it follows that \( 2 \in E \cup F \) but \( 2 \not\in E \triangle F \).
+	Since 2 is both even and prime, it follows that \( 2 \in E \cup F \), but \( 2 \not\in E \triangle F \).
 
 	Note the exclusive "or" in this operation, unlike the inclusive case discussed in Example \autoref{exmp:fair_die_union}.
 \end{exmp}
+
+\newpage
 
 The set operations and key concepts for two events \( E \) and \( F \) are visually represented on this page.
 In these diagrams, the sample space is depicted as a rectangle,
@@ -294,7 +303,7 @@ Then an axiomatic definition of probability is given which is consistent with th
 
 In this definition, each elementary event of the sample space is considered to be equally likely to occur.
 For example in rolling a fair die, all the events \( \{ 1 \}, \{ 2 \}, \{ 3 \}, \{ 4 \}, \{ 5 \} \) and \( \{ 6 \} \) have the same probability.
-Or in tossing a coin (the random experiment in Example \autoref{exmp:coin_toss}), the elementary events \( \{ H \} \) and \( \{ T \} \) are all equally likely to happen,
+Or in tossing a coin (the random experiment in Example \autoref{exmp:coin_toss}), the elementary events \( \{ H \} \) and \( \{ T \} \) are both equally likely to happen,
 which is consistent with our intuition of 50\% chance of occurring for each event.
 
 This interpretation of probability goes back to Pierre-Simon Laplace, who wrote:
@@ -323,7 +332,7 @@ However, empirical observations show that the relative frequency converges to a 
 
 
 
-The frequentist interpretation of probability may trace its earliest conceptual origins to Aristotle, who wrote
+The frequentist interpretation of probability may trace its earliest conceptual origins to Aristotle, who wrote:
 \begin{quote}
 	the probable is that which for the most part happens
 	\FOOTNOTE{Aristotle, Rhetoric, retrieved from \url{https://en.wikipedia.org/wiki/Frequentist_probability}}
@@ -332,12 +341,12 @@ The frequentist interpretation of probability rose to dominance during the 19th 
 
 Let us reconsider the random experiment described in Example \autoref{exmp:three_balls_urn}.
 According to the classical interpretation of probability, the probability of drawing a blue ball is \( \frac{1}{3} \).
-However, if we don't know the urn's contents, we can determine the probability of drawing a red ball through a simple experiment.
+However, if we don't know the urn's contents, we can determine the probability of drawing a blue ball through a simple experiment.
 By repeatedly drawing balls from the urn and calculating the relative frequency of drawing blue balls,
 we observe that this ratio converges to \( \frac{1}{3} \) as the number of trials increases,
 which is consistent with the classical definition of probabiltiy.
 But the frequentist interpretation offers another advantage:
-Suppose there are two blue balls, one green ball and one red ball in the urn.
+suppose there are two blue balls, one green ball, and one red ball in the urn.
 Here, while the sample space remains \( \{ B, G, R \} \), the elementary events now have different probabilities
 because there is an additional blue ball in the urn!
 So while we cannot calculate the probability of drawing a blue ball using the classical definition,
@@ -381,7 +390,7 @@ satisfying the following three \keyterm{axioms of probability}:
 The first axiom states that probabilities cannot be negative, which aligns with our intuition.
 The second axiom indicates that since every experimental outcome belongs to the sample space, the event 
 \( S \) must occur with probability 1.
-The third axiom establishes that for any collection of disjoint events, the probability of their union equals the sum of their individual probabilities.
+The third axiom establishes that for any countably infinite number of disjoint events, the probability of their union equals the sum of their individual probabilities.
 
 Different interpretations of probability remain consistent with the axiomatic definition.
 Consider the frequentist approach:
@@ -399,7 +408,7 @@ Next, we prove some thorems using the axioms of probability.
 	Consider the sequence of events \( E_1, E_2, \ldots \) where \( E_1 = S \) and \( E_i = \emptyset \) for \( i > 1 \).
 	Since the events in this sequence are mutually exclusive and \( S = \bigcup_{i = 1}^{\infty} E_i \), by the third axiom we have
 	\[
-	P(S) = P(\bigcup_{i = 1}^{\infty} A_i) = \sum_{i = 1}^{\infty} P(E_i) = P(S) + \sum_{i = 2}^{\infty} P(\emptyset) = P(S) + P(\bigcup_{i = 2}^{\infty}\emptyset) = P(S) + P(\emptyset)
+	P(S) = P(\bigcup_{i = 1}^{\infty} E_i) = \sum_{i = 1}^{\infty} P(E_i) = P(S) + \sum_{i = 2}^{\infty} P(\emptyset) = P(S) + P(\bigcup_{i = 2}^{\infty}\emptyset) = P(S) + P(\emptyset)
 	\]
 	Cancelling \( P(S) \) from both sides we obtain \( P(\emptyset) = 0 \).
 \end{proof}
@@ -413,7 +422,7 @@ Next, we prove some thorems using the axioms of probability.
 \begin{proof}
 	Consider the sequence of events \( E_1, E_2, \ldots \) where \( E_i = \emptyset \) for \( i > n \).
 	Since all events in this sequence are mutually exclusive and \( \bigcup_{i = 1}^{n} E_i = \bigcup_{i = 1}^{\infty} E_i \),
-	by applying the third axiom and \autoref{thm:imp_event} we have
+	by applying the third axiom and \autoref{thm:imp_event}, we obtain:
 	\begin{align*}
 	P(\bigcup_{i = 1}^{n} E_i) = P(\bigcup_{i = 1}^{\infty} E_i) &= \sum_{i = 1}^{\infty} P(E_i)\\
 	&= \sum_{i = 1}^{n} P(E_i) + \sum_{i = n + 1}^{\infty} P(E_i)\\
@@ -476,7 +485,7 @@ Next, we prove some thorems using the axioms of probability.
 	For any two events \( E, F \subset S \), the equality \( P(E \cup F) = P(E) + P(F) - P(E \cap F) \) holds.
 \end{theorem}
 \begin{proof}
-	It can be shown that \( E \cap F = E \cup (F - E) \)
+	It can be shown that \( E \cup F = E \cup (F - E) \)
 	where \( E \) and \( F - E \) are mutually exclusive.
 	By \autoref{thm:finite_probs} and \autoref{thm:difference_probs}:
 	\[
