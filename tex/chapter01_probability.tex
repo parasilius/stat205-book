@@ -943,10 +943,113 @@ which provides a method for computing conditional probabilities when the sample 
 	The first box contains two black marbles and one red marble,
 	the second contains two red marbles and two black marbles,
 	and the third contains three black marbles and two red marbles.
-	Assume the boxes and marbles are indistinguishable except for their colors.
+	Assume the boxes and marbles differ only in their colors and identities.
 	We randomly select one box and then draw one marble from it.
 	\begin{enumerate}
 		\item What is the probability that the drawn marble is black?
 		\item Given that the drawn marble is black, what is the probability that it came from third box?
 	\end{enumerate}
 \end{exmp}
+\begin{solution}
+	A box is chosen and then a marble is drawn from that box.
+	The sample space is \( S = \{ B_1, B_2, R_1, R_2, R_3, B_3, B_4, B_5, B_6, B_7, R_4, R_5 \} \) since no two marbles are identical.
+	\( S \) is partitioned into three events depending on the three boxes containing the marbles:
+	\( A_1, A_2, \text{ and } A_3 \), where \( A_1 = \{ B_1, B_2, R_1 \}, A_2 = \{ R_2, R_3, B_3, B_4 \}, \text{ and } A_3 = \{ B_5, B_6, B_7, R_4, R_5 \} \).
+	In other words, \( A_i \) represents the event that the chosen box is the \( i \)th box and so the marble drawn would be an element of \( A_i \).
+	There are no restrictions on choosing any box, and so the best model is a uniform probability model.
+	Thus:
+	\begin{gather*}
+		P(A_1) = P(A_2) = P(A_3) = \frac{1}{3}
+	\end{gather*}
+	Suppose \( B \) is the event "the marble drawn from the chosen box is black".
+	Depending on the chosen box, there are three cases to consider:
+	\begin{gather*}
+		P(B | A_1) = \frac{2}{3}, P(B | A_2) = \frac{2}{4} = \frac{1}{2}, P(B | A_3) = \frac{3}{5}
+	\end{gather*}
+	Let us analyze this more thoroughly:
+	for example, suppose the chosen box is the second one.
+	This means that the sample space is reduced to \( A_2 = \{ R_2, R_3, B_3, B_4 \} \), and hence the event "choosing a black marble" is \( \{ B_3, B_4 \} \).
+	\begin{enumerate}
+		\item By the law of total probability:
+		\begin{align*}
+			P(B) &= P(B | A_1)P(A_1) + P(B | A_2)P(A_2) + P(B | A_3)P(A_3)\\
+			&= (\frac{2}{3})(\frac{1}{3}) + (\frac{1}{2})(\frac{1}{3}) + (\frac{3}{5})(\frac{1}{3}) = \frac{53}{90}
+		\end{align*}
+		\item By the Bayes' rule:
+		\begin{align*}
+			P(A_3 | B) = \frac{P(B | A_3)P(A_3)}{P(B)} = \frac{(\frac{3}{5})(\frac{1}{3})}{\frac{53}{90}} = \frac{18}{53}
+		\end{align*}
+	\end{enumerate}
+\end{solution}
+
+\section{Sensitivity, Specificity, Prevalence, and Relative Risk}
+
+The importance of Bayes' Theorem is probably best understood through biomedical scenarios.
+Consider a disease and a test developed for it which determines whether a patient has that disease or not.
+Suppose a patient does the test, and the test is either positive or negative.
+But there is uncertainty involved here:
+the test does not always accurately identify the presence or absence of the disease.
+
+Define \( T \) as the event that "the test is positive".
+So \( T^\complement \) is the event that "the test is negative".
+We also define \( D \) as the event that "the patient has the disease".
+Now in case \( P(T | D) \) and \( P(T^\complement | D^\complement) \) are given,
+the probabilty that the patient has the disease if their test is positive can be calculated using the Bayes' rule:
+\begin{gather*}
+	P(D | T) = \frac{P(T | D)P(D)}{P(T | D)P(D) + P(T | D^\complement)P(D^\complement)}
+\end{gather*}
+where \( P(T | D^\complement) = 1 - P(T^\complement | D^\complement) \) (why?).
+
+\( P(T | D) \) is called \keyterm{sensitivity} of the test, and \( P(T^\complement | D^\complement) \) the \keyterm{specificity} of it.
+In other words, sensitivity is the probability that the test correctly identifies patients who have the disease,
+and specificity the probability that the test correctly identifies those who do not have the disease.
+
+These terms can be used in a more general binary classification framework and are not restricted to biomedical applications.
+Consider an algorithm developed to categorize emails as "spam" or "not spam".
+Within this framework, we must clearly define what constitutes a positive and negative result.
+For instance, one researcher might classify "spam" as positive and "not spam" as negative, while another could adopt the opposite convention.
+The emails that are correctly identified as positive are called \keyterm{true positives},
+and the ones that are correctly identified as negative are called \keyterm{true negatives}.
+On the other hand, those falsely identified as positives are called \keyterm{false positives},
+and those falsely identified as negatives, \keyterm{false negatives}.
+The probability that this algorithm identifies true positives correctly is sensitivity or equivalently true positive rate,
+and the probability that it identifies true negatives is specificity or equivalently true negative rate.
+
+\begin{exmp}
+	Suppose we define "spam" as positive and "non-spam" as negative.
+	An algorithm with 90\% sensitivity correctly identifies 90 out of 100 actual spams as spam (true positives), and misclassifies 10 as non-spam (false negatives).
+\end{exmp}
+
+\begin{exmp}
+	Consider an HIV test that classifies HIV-positive cases as positive and HIV-negative cases as negative.
+	With 97\% specificity, the test correctly identifies 97 out of 100 truly HIV-negative individuals as negative (true negatives),
+	while incorrectly classifying 3 as positive (false positives).
+\end{exmp}
+
+\begin{exmp}
+	Developers at a food company have created a sentiment analysis algorithm that classifies customer feedback as either "satisfied" (positive) or "dissatisfied" (negative).
+	From a test dataset of 500 comments, 200 were known to be from satisfied customers and 300 from dissatisfied customers.
+	The algorithm classified 150 of the true satisfied comments correctly as positive,
+	but incorrectly labeled 20 of the dissatisfied comments as positive.
+	Using these results, calculate the algorithm's sensitivity and specificity.
+\end{exmp}
+\begin{solution}
+	We first create a contingency table based on the data:
+	\begin{center}
+	\begin{tabular}{l|cc|c}
+						& \( H \) & \( H^\complement \) &  \\ \hline
+	\( P \)                & 150 & 20 & 170\\ 
+	\( P^\complement \)    & 50 & 280 & 330 \\ \hline
+						& 200 & 300 & 500
+	\end{tabular}
+	\end{center}
+	where \( H \) is the event "customer is satisfied" and \( P \) the event "comment is labeled as positive".
+	Sensitivity is calculated as:
+	\begin{gather*}
+		P(P | H) = \frac{P(P \cap H)}{P(H)} = \frac{\frac{150}{500}}{\frac{200}{500}} = 0.75
+	\end{gather*}
+	and specificity as:
+	\begin{gather*}
+		P(P^\complement | H^\complement) = \frac{P(P^\complement \cap H^\complement)}{P(H^\complement)} = \frac{\frac{280}{500}}{\frac{300}{500}} \approx 0.93
+	\end{gather*}
+\end{solution}
