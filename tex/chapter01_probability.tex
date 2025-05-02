@@ -567,7 +567,7 @@ Comparing this with \autoref{sec:classic}, we observe that it is equivalent to L
 	In the random experiment of tossing three fair coins, the sample space is
 	\( S = \{ HHH, HHT, HTH, HTT, THH, THT, TTH, TTT \} \).
 	If the event of interest \( E \) is "observing at most two heads",
-	then \( E = \{ HHT, HTH, HTT, THH, THT, TTH, TTT \} \) and consequently \( P(E) = \frac{7}{8} \).
+	then \( E = \{ HHT, HTH, HTT, THH, THT, TTH, TTT \} \), and consequently, \( P(E) = \frac{7}{8} \).
 \end{exmp}
 
 \begin{exmp}
@@ -593,7 +593,7 @@ or altering Example \autoref{exmp:two_fair_dice} to involve seven fair six-sided
 How many elements are in the sample space in these cases?
 Attempting to list all possible combinations would quickly reveal what a tedious task this becomes.
 
-The are some fundamental counting principles which aid us in these scenarios.
+There are some fundamental counting principles which aid us in these scenarios.
 The \keyterm{multiplication principle} states that if a first task can be performed in \( m_1 \) ways,
 and for each of these, a second task can be performed in \( m_2 \) ways independent from the previous task,
 then the sequence of two tasks has \( m_1 \times m_2 \) possible outcomes.
@@ -607,7 +607,7 @@ where the total number of possible outcomes becomes \( m_1 \times m_2 \times \ld
 \begin{solution}
 	We decompose the counting problem into two sequential tasks:
 	selecting a suit and then selecting a rank.
-	There are four ways to do the former and thirteen ways to do the latter, so in total there are \( 4 \times 13 = 52 \) such cards.
+	There are four ways to do the former and thirteen ways to do the latter, so there are \( 4 \times 13 = 52 \) such cards in total.
 \end{solution}
 
 The \keyterm{addition principle} states that if one task can be performed in \( n_1 \) ways and another distinct task in \( n_2 \) ways,
@@ -646,9 +646,24 @@ By dividing the numerator and denominator by \( n(S) \), the desired probability
 Since \( F = \{ (1, 2), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (3, 2), (4, 2), (5, 2), (6, 2) \} \),
 this probability is \( \frac{\frac{2}{36}}{\frac{11}{36}} = \frac{2}{11} \).
 
-The \keyterm{conditional probability} of \( E \) given \( F \) is defined the same way in any probability model, not just the uniform one, and is denoted by \( P(E | F) = \frac{P(E \cap F)}{P(F)} \)
-where \( P(F) > 0 \).
-If \( P(F) = 0 \), \( P(E | F) \) would be undefined.
+The \keyterm{conditional probability} of \( A \) given \( B \), denoted \( P(A | B) \), is the probability of \( A \) occurring when \( B \) is already known to have occurred.
+An argument similar to the preceding argument, supported by \autoref{fig:conditional_prob}, shows that \( P(A | B) \propto P(A \cap B) \), which means \( P(A | B) = kP(A \cap B) \) for some constant \( k \).
+\begin{figure}[t]
+\begin{center}
+\epsfig{file=../img/conditional_prob.jpeg,clip=true,width=8.8cm}
+\end{center}
+\caption{\( P(A | B) \) is proportional to \( P(A \cap B) \)}
+\label{fig:conditional_prob}
+%\HR
+\end{figure}
+To determine \( k \), observe that when \( A = B \), \( P(B | B) = 1 \) which implies:
+\begin{gather*}
+	1 = kP(B \cap B) = kP(B)\\
+	k = \frac{1}{P(B)}
+\end{gather*}
+Thus, \( P(A | B) = \frac{P(A \cap B)}{P(B)} \),
+where \( P(B) > 0 \).
+If \( P(B) = 0 \), \( P(A | B) \) would be undefined.
 
 \begin{exmp}
 	In Example \autoref{exmp:three_fair_coins}, let \( F \) be the event "observing exactly two tails".
@@ -671,7 +686,7 @@ If \( P(F) = 0 \), \( P(E | F) \) would be undefined.
 			P(E | F) = \frac{P(E \cap F)}{P(F)} = \frac{\frac{3}{8}}{\frac{3}{8}} = 1
 		\end{gather*}
 		Unlike the previous part, we now have prior information that exactly two tails are observed. 
-		By restricting our sample space to outcomes with exactly two tails, we are sure that zero or one head must be observed (and thus at most two heads total), which agrees with this result.
+		By restricting our sample space to outcomes with exactly two tails, we are certain that either zero or one head will be observed, which constitutes a proper subset of the event "at most two heads", consistent with this result.
 		\item \begin{gather*}
 			P(F | E) = \frac{P(F \cap E)}{P(E)} = \frac{P(E \cap F)}{P(E)} = \frac{\frac{3}{8}}{\frac{7}{8}} = \frac{3}{7}
 		\end{gather*}
@@ -692,7 +707,7 @@ Consider these cases:
 	If we treat each ball as distinct, the sample space is \( S = \{ B_1, B_2, B_3, G_1, G_2, G_3, G_4, G_5, R_1, R_2 \} \).
 	This forms a uniform probability model where \( P(\{B_1\}) = P(\{B_2\}) = \ldots = P(\{R_1\}) = P(\{R_2\}) = \frac{1}{10} \).
 	However, if we are only interested in ball colors and not individual balls,
-	the sample space reduces to \( S = \{ B, G, R \} \).
+	the sample space becomes \( S = \{ B, G, R \} \).
 	Defining \( B = \{ B_1, B_2, B_3 \} \), \( G = \{ G_1, G_2, G_3, G_4, G_5 \} \) and \( R = \{ R_1, R_2 \} \),
 	then \( P(B) = \frac{3}{10} \), \( P(G) = \frac{5}{10} = \frac{1}{2} \) and \( P(R) = \frac{2}{10} = \frac{1}{5} \),
 	which is a non-uniform probability model.
@@ -735,7 +750,7 @@ The conditional probability and theorems derived from the three axioms of probab
 The following example demonstrates this:
 
 \begin{exmp}
-	Suppose in Example \autoref{exmp:eye_color}, of people with blue eyes, 65 were female.
+	Suppose in Example \autoref{exmp:eye_color}, of people with blue eyes, 60 were female.
 	One person is selected at random from the town.
 	Given that the selected person has blue eyes, what is the probability that they are female?
 \end{exmp}
@@ -743,15 +758,15 @@ The following example demonstrates this:
 	We define event \( E \) as "the selected pesron has blue eyes" and event \( F \) as "the selected person is female".
 	Thus:
 	\begin{gather*}
-		P(F \cap E) = \frac{65}{500} = 0.13\\
-		P(F | E) = \frac{P(F \cap E)}{P(E)} = \frac{0.13}{0.25} = 0.52
+		P(F \cap E) = \frac{60}{500} = 0.12\\
+		P(F | E) = \frac{P(F \cap E)}{P(E)} = \frac{0.12}{0.25} = 0.48
 	\end{gather*}
 \end{solution}
 
 \section{Contingency Tables}
 
 When solving conditional probability problems, visual tools like tree diagrams and contingency tables often give invaluable insights.
-These complementary techniques provide different perspectives that can clarify complex probability relationships.
+These techniques provide different perspectives that can clarify complex probability relationships.
 
 Contingency tables are particularly useful when analyzing two events, say \( E, F \subset S \).
 We can construct contingency tables using the size of events as follows:
@@ -844,7 +859,7 @@ It is possible that prior information that \( F \) has occurred does not affect 
 If this is the case, we say \( E \) is independent of \( F \).
 Next, we show that if \( E \) is independent of \( F \), \( F \) is also independent of \( E \).
 
-By definition, \( P(E | F) = \frac{P(E \cap F)}{P(F)} \) which implies \( P(E \cap F) = P(E | F)P(F) \).
+By definition, \( P(E | F) = \frac{P(E \cap F)}{P(F)} \) which implies \( P(E \cap F) = P(E | F)P(F) \), also known as \keyterm{multiplication rule} (not to be confused with the multiplication principle!).
 Since \( E \) is independent of \( F \), we have \( P(E | F) = P(E) \), and consequently:
 \begin{align*}
 	P(F | E) = \frac{P(F \cap E)}{P(E)} = \frac{P(E \cap F)}{P(E)} = \frac{P(E | F)P(F)}{P(E)} = \frac{P(E)P(F)}{P(E)} = P(F)
@@ -860,6 +875,13 @@ We therefore define \( E \) and \( F \) as \keyterm{independent events} if any o
 	\item \( P(F | E) = P(F) \)
 	\item \( P(E \cap F) = P(E)P(F) \)
 \end{itemize}
+
+Note that two disjoint events are not necessarily independent.
+For \( E \) and \( F \) to be both independent and disjoint, these conditions should hold:
+\begin{gather*}
+	P(E \cap F) = P(E)P(F), E \cap F = \emptyset
+\end{gather*}
+In other words, at least one of these two events must have a probability of zero.
 
 \section{Bayes' Theorem}
 
