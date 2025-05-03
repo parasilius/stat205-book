@@ -33,13 +33,23 @@ jobs:
             exit 1
           fi
       
-      # Create/update release
-      - name: Update Release
+      # Delete previous release if exists
+      - name: Delete previous release
+        id: delete-release
+        run: |
+          gh api \
+            --method DELETE \
+            /repos/${{ github.repository }}/releases/tags/latest \
+            || echo "No existing release to delete"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Create new release
+      - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: build/stat205.pdf
+          files: build/book.pdf  # Update this to match your PDF path
           tag_name: "latest"
           name: "Latest Book Version"
           body: "Automatically generated - ${{ github.sha }}"
-          replace_assets: true
           draft: false
