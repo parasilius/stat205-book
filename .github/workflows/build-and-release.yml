@@ -1,0 +1,31 @@
+name: Build LaTeX and Update Release
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      # Set up TeX Live environment
+      - name: Set up TeX Live
+        uses: xu-cheng/latex-action@v3
+        
+      # Build PDF using your Makefile
+      - name: Build PDF
+        working-directory: ./build
+        run: make -B stat205.pdf
+        
+      # Create/update release with the PDF
+      - name: Update Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/stat205.pdf
+          tag_name: "latest"
+          name: "Latest Book Version"
+          body: "Automatically generated book PDF"
+          replace_assets: true  # This overwrites previous PDF
+          draft: false
