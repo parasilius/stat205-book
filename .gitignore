@@ -1,4 +1,5 @@
-tex/*.log
+gex/*.log
 tex/*.fls
 tex/*.fdb_latexmk
 tex/*.aux
+build/stat205.pdf
