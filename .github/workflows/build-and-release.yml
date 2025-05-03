@@ -37,12 +37,7 @@ jobs:
       
       # Delete previous release if exists
       - name: Delete previous release
-        id: delete-release
-        run: |
-          gh api \
-            --method DELETE \
-            /repos/${{ github.repository }}/releases/tags/latest \
-            || echo "No existing release to delete"
+        run: gh release delete latest --yes || echo "No existing release"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
