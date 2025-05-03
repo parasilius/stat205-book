@@ -48,7 +48,7 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: build/book.pdf  # Update this to match your PDF path
+          files: build/stat205.pdf  # Update this to match your PDF path
           tag_name: "latest"
           name: "Latest Book Version"
           body: "Automatically generated - ${{ github.sha }}"
