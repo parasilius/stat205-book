@@ -10,22 +10,33 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      # Set up TeX Live environment
-      - name: Set up TeX Live
+      - name: Setup TeX Live
         uses: xu-cheng/latex-action@v3
-        
-      # Build PDF using your Makefile
+        with:
+          latexmk_use_xelatex: true  # or false if using pdflatex
+          latexmk_shell_escape: false
+      
       - name: Build PDF
         working-directory: ./build
-        run: make -B stat205.pdf
-        
-      # Create/update release with the PDF
+        run: |
+          make -B stat205.pdf
+          ls -la  # Verify PDF was created
+      
+      # Verify PDF exists before release
+      - name: Check PDF exists
+        run: |
+          if [ ! -f build/stat205.pdf ]; then
+            echo "::error::PDF was not generated!"
+            exit 1
+          fi
+      
+      # Create/update release
       - name: Update Release
         uses: softprops/action-gh-release@v1
         with:
           files: build/stat205.pdf
           tag_name: "latest"
           name: "Latest Book Version"
-          body: "Automatically generated book PDF"
-          replace_assets: true  # This overwrites previous PDF
+          body: "Automatically generated - ${{ github.sha }}"
+          replace_assets: true
           draft: false
