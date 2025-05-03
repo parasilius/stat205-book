@@ -1,4 +1,4 @@
-gex/*.log
+tex/*.log
 tex/*.fls
 tex/*.fdb_latexmk
 tex/*.aux
