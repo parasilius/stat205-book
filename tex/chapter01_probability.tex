@@ -329,8 +329,16 @@ and event \( E \) occurs \( r \) times in total.
 
 As the number of trials \( n \) increases, the frequency \( r \) and consequently the relative frequency \( \frac{r}{n} \) changes as well.
 However, empirical observations show that the relative frequency converges to a constant value, which in this interpretation is defined as the probability of \( E \).
+An example is shown in \autoref{fig:frequentistprobability}\FOOTNOTE{\url{https://github.com/tomfaulkenberry/JASPbook}}.
 
-
+\begin{figure}[p]
+\begin{center}
+\epsfig{file=../img/frequentistProb.png,clip=true,width=14cm}
+\caption{An illustration of how frequentist probability works. If you flip a fair coin over and over again the proportion of heads that you've seen eventually settles down and converges to the true probability of 0.5. Each panel shows four different simulated experiments. In each case we pretend we flipped a coin 1000 times and kept track of the proportion of flips that were heads as we went along. Although none of these sequences actually ended up with an exact value of .5, if we'd extended the experiment for an infinite number of coin flips they would have.}
+\label{fig:frequentistprobability}
+%\HR
+\end{center}
+\end{figure}
 
 The frequentist interpretation of probability may trace its earliest conceptual origins to Aristotle, who wrote:
 \begin{quote}
@@ -570,9 +578,9 @@ Comparing this with \autoref{sec:classic}, we observe that it is equivalent to L
 	then \( E = \{ HHT, HTH, HTT, THH, THT, TTH, TTT \} \), and consequently, \( P(E) = \frac{7}{8} \).
 \end{exmp}
 
-\begin{exmp}
-	In the die-throw random experiment from Example \autoref{exmp:fair_die}, if the event of interest \( E \) is "observing an odd number",
-	then \( E = \{ 1, 3, 5 \} \) and thus \( P(E) = \frac{3}{6} = \frac{1}{2} \).
+\begin{exmp}\label{exmp:fair_die_even}
+	In the die-throw random experiment from Example \autoref{exmp:fair_die}, if the event of interest \( E \) is "observing an even number",
+	then \( E = \{ 2, 4, 6 \} \), and thus \( P(E) = \frac{3}{6} = \frac{1}{2} \).
 	A die with equally likely outcomes for all faces is called a \keyterm{fair die}.
 \end{exmp}
 
@@ -882,13 +890,24 @@ For \( E \) and \( F \) to be both independent and disjoint, these conditions sh
 	P(E \cap F) = P(E)P(F), E \cap F = \emptyset
 \end{gather*}
 In other words, at least one of these two events must have a probability of zero.
+\begin{exmp}
+	In Example \autoref{exmp:fair_die_even},
+	Let \( O \) be the event "observing an odd number".
+	Since \( O = \{ 1, 3, 5 \} \) and \( E \cap O = \emptyset \), these two events are disjoint.
+	But \( P(E \cap O) = 0 \neq (\frac{1}{2})(\frac{1}{2}) = P(E)P(O) \).
+	This means while \( E \) and \( F \) are disjoint, they are not independent.
+
+	Now suppose that in the same Example, \( A \) is the event "observing a multiple of 3".
+	While \( E \cap A = \{ 6 \} \neq \emptyset \), \( P(E \cap A) = \frac{1}{6} = (\frac{1}{2})(\frac{1}{3}) = P(E)P(A) \).
+	So \( E \) and \( A \) are independent, but not disjoint.
+\end{exmp}
 
 \section{Bayes' Theorem}
 
-In this section we see an important formula which utilizes conditional probability.
+This section introduces a key formula that employs conditional probability.
 Before that, we discuss some important prerequisites.
 
-\subsection{Partitioning the sample space into mutually exclusive events}
+\subsection{Partitioning the Sample Space into Mutually Exclusive Events}
 
 Suppose events \( E_1, E_2, \ldots, E_k \) with positive probabilities are mutually exclusive and their union is the sample space, \( S \).
 In other words,
@@ -902,18 +921,18 @@ for \( i \neq j \) where \( i, j = 1, 2, \ldots k \), and
 In this case, we say \( S \) is partitioned into these events.
 
 \begin{exmp}
-	We can partition the sample space in Example \autoref{exmp:three_fair_coins} to events "zero heads", "one head", "two heads" and "three heads" as follows:
+	We can partition the sample space in Example \autoref{exmp:three_fair_coins} to events "zero heads", "one head", "two heads", and "three heads" as follows:
 	\begin{gather*}
 		\{ TTT \}, \{ HTT, THT, TTH \}, \{ HHT, HTH, THH \}, \{ HHH \}
 	\end{gather*}
 \end{exmp}
 
-\subsection{Partitioning an event into mutually exclusive events}
+\subsection{Partitioning an Event into Mutually Exclusive Events}
 
 Suppose \( S \) is partitioned into events \( E_1, E_2, \ldots, E_k \).
-For any other event \( F \) with positive probability we have:
+For any other event \( F \) with positive probability, we have:
 \begin{gather*}
-	F = S \cap F = (\bigcup_{i = 1}^{k} E_i) \cap F = \bigcup_{i = 1}^{k} (E_i \cap F)
+	F = F \cap S = F \cap (\bigcup_{i = 1}^{k} E_i) = \bigcup_{i = 1}^{k} (F \cap E_i)
 \end{gather*}
 In this case, we say \( F \) is partitioned into events \( F \cap E_1, F \cap E_2, \ldots, F \cap E_k \).
 Note that since \( E_1, E_2, \ldots, E_k \) are mutually exclusive, \( F \cap E_1, F \cap E_2, \ldots, F \cap E_k \) are also disjoint events.
@@ -931,15 +950,15 @@ In this figure, \( B \) is partitioned into three events \( A_1 \cap B, A_2 \cap
 \begin{exmp}
 	Consider an experiment where a card is drawn at random from a deck numbered from 1 to 20.
 	Suppose the sample space \( S \) is partitioned into two events:
-	\begin{enumerate}
+	\begin{itemize}
 		\item \( E \): drawing an even-numbered card
 		\item \( O \): drawing an odd-numbered card
-	\end{enumerate}
+	\end{itemize}
 	Then, the event \( A \), "drawing a multiple of 5", can be partitioned into two events:
-	\begin{enumerate}
+	\begin{itemize}
 		\item \( A \cap O = \{ 5, 15 \} \) (odd multiples of 5)
 		\item \( A \cap E = \{ 10, 20 \} \) (even multiples of 5)
-	\end{enumerate}
+	\end{itemize}
 \end{exmp}
 
 \subsection{Law of Total Probability}
@@ -948,7 +967,7 @@ If \( F \) is partitioned into events \( E_1, E_2, \ldots, E_n \), then \autoref
 \begin{gather*}
 	P(F) = P(\bigcup_{i = 1}^{k} (E_i \cap F)) = \sum_{i = 1}^{k} P(E_i \cap F)
 \end{gather*}
-Since \( P(F | E_i) = \frac{P(F \cap E_i)}{P(E_i)} \), we can alternatively write the above formula as:
+Utilizing the multiplication rule, we can alternatively write the above formula as:
 \begin{gather*}
 	P(F) = P(\bigcup_{i = 1}^{k} (F \cap E_i)) = \sum_{i = 1}^{k} P(F | E_i)P(E_i)
 \end{gather*}
@@ -956,18 +975,17 @@ which is called \keyterm{the law of total probability}.
 
 \subsection{Bayes' Rule}
 
-From the definition of conditional probability we know:
+The multiplication rule yields:
 \begin{gather*}
-	P(E_j | F) = \frac{P(E_j \cap F)}{P(F)}
+	P(E_j \cap F) = P(F \cap E_j) = P(F | E_j)P(E_j)
 \end{gather*}
 where \( j = 1, 2, \ldots, k \).
 
-Utilizing the law of total probability in the ablove formula yields:
+This result along with the law of total probability in the previous subsection yields:
 \begin{gather*}
-	P(E_j | F) = \frac{P(F | E_j)P(E_j)}{\sum_{i = 1}^{k}P(F | E_i)P(E_i)}
+	P(E_j | F) = \frac{P(E_j \cap F)}{P(F)} = \frac{P(F | E_j)P(E_j)}{\sum_{i = 1}^{k}P(F | E_i)P(E_i)}
 \end{gather*}
-This result is known as \keyterm{Bayes' rule},
-which provides a method for computing conditional probabilities when the sample space is partitioned into mutually exclusive events.
+which is known as \keyterm{Bayes' rule} or \keyterm{Bayes' thorem}.
 
 \begin{exmp}
 	We have three boxes.
@@ -1024,7 +1042,7 @@ the test does not always accurately identify the presence or absence of the dise
 Define \( T \) as the event that "the test is positive".
 So \( T^\complement \) is the event that "the test is negative".
 We also define \( D \) as the event that "the patient has the disease".
-Now in case \( P(T | D) \) and \( P(T^\complement | D^\complement) \) are given,
+Now, in case \( P(T | D) \) and \( P(T^\complement | D^\complement) \) are given, and we also have knowledge about "prevalence" of the disease, i.e. \( P(D) \),
 the probabilty that the patient has the disease if their test is positive can be calculated using the Bayes' rule:
 \begin{gather*}
 	P(D | T) = \frac{P(T | D)P(D)}{P(T | D)P(D) + P(T | D^\complement)P(D^\complement)}
@@ -1043,12 +1061,12 @@ The emails that are correctly identified as positive are called \keyterm{true po
 and the ones that are correctly identified as negative are called \keyterm{true negatives}.
 On the other hand, those falsely identified as positives are called \keyterm{false positives},
 and those falsely identified as negatives, \keyterm{false negatives}.
-The probability that this algorithm identifies true positives correctly is sensitivity or equivalently true positive rate,
-and the probability that it identifies true negatives is specificity or equivalently true negative rate.
+The probability that this algorithm identifies true positives correctly is sensitivity, or equivalently true positive rate,
+and the probability that it identifies true negatives is specificity, or equivalently true negative rate.
 
 \begin{exmp}
-	Suppose we define "spam" as positive and "non-spam" as negative.
-	An algorithm with 90\% sensitivity correctly identifies 90 out of 100 actual spams as spam (true positives), and misclassifies 10 as non-spam (false negatives).
+	Suppose we define "spam" as positive and "not spam" as negative.
+	An algorithm with 90\% sensitivity correctly identifies 90 out of 100 actual spams as spam (true positives), and misclassifies 10 as not spam (false negatives).
 \end{exmp}
 
 \begin{exmp}
@@ -1104,7 +1122,7 @@ Sometimes we are interested in the prportion of a population that has a characte
 	\end{enumerate}
 \end{exmp}
 \begin{solution}
-	\begin{itemize}
+	\begin{enumerate}
 	\item We define the event \( R \) as "the patient tests positive on the rapid test", and \( G \) as "the patient tests positive on the PCR test".
 	\begin{center}
 	\begin{tabular}{l|cc|c}
@@ -1116,7 +1134,7 @@ Sometimes we are interested in the prportion of a population that has a characte
 	\end{center}
 	\item From the contingency table above we infer that among these 500 tested patients, 170 tested positive based on the gold standard PCR test.
 	So the prevalence measure is \( \frac{170}{500} = 0.34 \).
-	\end{itemize}
+	\end{enumerate}
 \end{solution}
 
 Another important concept in biomedical applications is \keyterm{relative risk (RR)},
