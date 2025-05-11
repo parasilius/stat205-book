@@ -1,4 +1,4 @@
-name: Build LaTeX and Update Release
+name: Fresh Release with Source and PDF
 
 on:
   push:
@@ -12,41 +12,73 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      # Install LaTeX (minimal version)
-      - name: Install LaTeX
+      # Install dependencies
+      - name: Install requirements
         run: |
           sudo apt-get update
-          sudo apt-get install -y texlive-latex-base texlive-latex-extra
-          sudo apt-get install -y texlive-fonts-recommended texlive-fonts-extra
-          sudo apt-get install -y latexmk
-          sudo apt-get install texlive-bibtex-extra biber
-      
+          sudo apt-get install -y texlive-latex-base texlive-latex-extra \
+              texlive-fonts-recommended texlive-fonts-extra \
+              latexmk texlive-bibtex-extra biber zip
+
+      # Build PDF
       - name: Build PDF
         working-directory: ./build
         run: |
           make -B stat205.pdf
-          ls -la  # Verify PDF was created
-      
-      # Verify PDF exists before release
-      - name: Check PDF exists
+          [ -f stat205.pdf ] || { echo "::error::PDF not generated!"; exit 1; }
+
+      # Prepare clean source bundle
+      - name: Package source code
         run: |
-          if [ ! -f build/stat205.pdf ]; then
-            echo "::error::PDF was not generated!"
-            exit 1
-          fi
-      
-      # Delete previous release if exists
-      - name: Delete previous release
-        run: gh release delete latest --yes || echo "No existing release"
+          mkdir -p release_assets
+          # Create filtered source archive
+          zip -r release_assets/source.zip . \
+              -x 'build/*' '.git/*' '*.log' '*.aux' '*.toc' 'release_assets/*'
+          # Copy PDF
+          cp build/stat205.pdf release_assets/
+
+      # Completely remove previous release
+      - name: Obliterate previous release
+        run: |
+          gh release delete latest --yes || echo "No existing release"
+          git tag -d latest || true
+          git push origin :refs/tags/latest || true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Create new release
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
+      # Create brand new release
+      - name: Create fresh release
+        uses: actions/create-release@v1
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: build/stat205.pdf  # Update this to match your PDF path
-          tag_name: "latest"
-          name: "Latest Book Version"
-          body: "Automatically generated - ${{ github.sha }}"
+          tag_name: latest
+          release_name: "STAT205 v$(date +'%Y-%m-%d')"
+          body: |
+            Fresh release containing:
+            - Latest PDF version
+            - Filtered source code
+            Commit: ${{ github.sha }}
           draft: false
+
+      # Upload both assets
+      - name: Upload PDF
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release_assets/stat205.pdf
+          asset_name: stat205.pdf
+          asset_content_type: application/pdf
+
+      - name: Upload source
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release_assets/source.zip
+          asset_name: source.zip
+          asset_content_type: application/zip
