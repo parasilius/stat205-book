@@ -46,6 +46,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      # Get current date (properly formatted)
+      - name: Get release date
+        id: date
+        run: echo "RELEASE_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+
       # Create brand new release
       - name: Create fresh release
         uses: actions/create-release@v1
@@ -54,11 +59,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: latest
-          release_name: "STAT205 v$(date +'%Y-%m-%d')"
+          release_name: "STAT205 - ${{ env.RELEASE_DATE }}"
           body: |
             Fresh release containing:
-            - Latest PDF version
-            - Filtered source code
+            - Latest PDF version (${{ env.RELEASE_DATE }})
+            - Source code
             Commit: ${{ github.sha }}
           draft: false
 
