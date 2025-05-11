@@ -72,7 +72,7 @@ In some cases, as the following example demonstrates, the sample space may be in
 
 The sample space can also be continuous, as demonstrated in the following example:
 
-\begin{exmp}
+\begin{exmp}\label{exmp:lightbulb_lifespan}
 	Consider an experiment to determine the lifespan (in seconds) of lightbulbs produced under identical manufacturing conditions.
 	The sample space \( S \) consists of all possible positive real numbers representing time until lightbulb failure, i.e., \( S = \{ t \in R | t \geq 0 \} \).
 \end{exmp}
@@ -857,6 +857,38 @@ which can be verified using Exercise \autoref{ex:marginal_probs}.
 	In the previous exercise, find \( P(C | D^\complement) \), compare it with \( P(D | C^\complement) \) and interpret the results.
 \end{ex}
 
+\section{Multiplication Rule}
+
+By definition, \( P(E | F) = \frac{P(E \cap F)}{P(F)} \) which implies \( P(E \cap F) = P(F)P(E | F) \), also known as \keyterm{multiplication rule} (not to be confused with the multiplication principle!).
+
+\begin{exmp}
+	A box contains nine functioning lamps and six defective ones.
+	If two lamps are selected sequentially at random, what is the probability that both are defective?
+\end{exmp}
+\begin{solution}
+	Let \( A \) be the event that the first selected lamp is defective, and \( B \) the event that the second one is defective.
+	The desired probability is \( P(A \cap B) \).
+
+	Since \( P(A) = \frac{9}{15} \) and \( P(B | A) = \frac{8}{14} \), the multiplication rule yields:
+	\begin{gather*}
+		P(A \cap B) = P(A)P(B | A) = \frac{9}{15} \times \frac{8}{14} = \frac{12}{35}
+	\end{gather*}
+\end{solution}
+
+The multiplication rule extends to \( k \) events \( A_1, A_2, \ldots, A_k \),
+provided that \( P(A_1 \cap A_2 \cap \ldots \cap A_{k - 1}) > 0 \).
+
+For instance, for three events \( A, B, \) and \( C \) with \( P(A \cap B) > 0 \),
+the extended multiplication rule becomes:
+\begin{align*}
+	P(A \cap B \cap C) &= P[(A \cap B) \cap C] = P(A \cap B)P(C | A \cap B)\\
+	&= P(A)P(B | A)P(C | A \cap B)
+\end{align*}
+
+The multiplication rule helps us solve problems involving sequential events.
+It states that the probability of the first event occurring, followed by the second, then the third, and so on,
+equals the probability of the first event happening, multiplied by the probability of the second event occurring given that the first has occurred, multiplied by the probability of the third event occurring given that the first and second have occurred, and so forth.
+
 \section{Independent Events}
 
 Suppose \( E \) and \( F \) are two events with positive probabilities.
@@ -867,7 +899,6 @@ It is possible that prior information that \( F \) has occurred does not affect 
 If this is the case, we say \( E \) is independent of \( F \).
 Next, we show that if \( E \) is independent of \( F \), \( F \) is also independent of \( E \).
 
-By definition, \( P(E | F) = \frac{P(E \cap F)}{P(F)} \) which implies \( P(E \cap F) = P(E | F)P(F) \), also known as \keyterm{multiplication rule} (not to be confused with the multiplication principle!).
 Since \( E \) is independent of \( F \), we have \( P(E | F) = P(E) \), and consequently:
 \begin{align*}
 	P(F | E) = \frac{P(F \cap E)}{P(E)} = \frac{P(E \cap F)}{P(E)} = \frac{P(E | F)P(F)}{P(E)} = \frac{P(E)P(F)}{P(E)} = P(F)
@@ -883,6 +914,42 @@ We therefore define \( E \) and \( F \) as \keyterm{independent events} if any o
 	\item \( P(F | E) = P(F) \)
 	\item \( P(E \cap F) = P(E)P(F) \)
 \end{itemize}
+
+\begin{exmp}
+	In Example \autoref{exmp:heads_observe}, calculate the probability of observing the first heads in the \( i \)-th coin toss.
+\end{exmp}
+\begin{solution}
+	Let \( H_i \) be the event of observing heads on the \( i \)-th coin toss, and \( T_j \) the event of observing tails on the \( j \)-th coin toss,
+	where \( j \in \{ 1, 2, \ldots, i - 1 \} \).
+	We first show that in the experiment of tossing a coin \( j \) times, \( T_j \) and \( \bigcap_{k = 1}^{j - 1} T_{k} \) are independent.
+
+	To show this, we first compute \( P(\bigcap_{k = 1}^{j} T_{k}) \).
+	Since each coin toss can be either heads or tails, and the coin is tossed \( j \) times,
+	from multiplication principle, there are \( 2^j \) possible outcomes.
+	Thus, \( P(\bigcap_{k = 1}^{j} T_{k}) = \frac{1}{2^j} \).
+
+	The event \( T_{j} \) consists of outcomes where the \( j \)-th coin toss results in tails.
+	This yields \( P(T_{j}) = \frac{2^{j - 1} \times 1}{2^j} = \frac{1}{2} \).
+	On the other hand, the event \( \bigcap_{k = 1}^{j - 1} T_{k} \) consists of elements where the first \( j - 1 \) coin tosses result in tails,
+	which means \( P(\bigcap_{k = 1}^{j - 1} T_{k}) = \frac{1^{j - 1} \times 2}{2^j} = \frac{1}{2^{j - 1}} \).
+	Therefore:
+	\begin{gather*}
+		P(T_{j})P(\bigcap_{k = 1}^{j - 1} T_{k}) = (\frac{1}{2})(\frac{1}{2^{j - 1}}) = \frac{1}{2^j} = P(\bigcap_{k = 1}^{j} T_{k})
+	\end{gather*}
+
+	From the law of multiplication:
+	\begin{gather*}
+		P(T_1 \cap T_2 \cap \ldots \cap T_{i - 1} \cap H_i) = P(T_1)P(T_2 | T_1)P(T_3 | T_1 \cap T_2) \ldots P(H_i | T_1 \cap T_2 \cap \ldots \cap T_{i - 1})
+	\end{gather*}
+
+	As an exercise, you can show that \( H_i \) and \( T_1 \cap T_2 \cap \ldots \cap T_{i - 1} \) are also independent.
+	This result, combined with the previous one, yields:
+	\begin{align*}
+		P(T_1 \cap T_2 \cap \ldots \cap T_{i - 1} \cap H_i) &= P(T_1)P(T_2 | T_1)P(T_3 | T_1 \cap T_2) \ldots P(H_i | T_1 \cap T_2 \cap \ldots \cap T_{i - 1})\\
+		&= P(T_1)P(T_2) \ldots P(H_i)\\
+		&= (\frac{1}{2})^i
+	\end{align*}
+\end{solution}
 
 Note that two disjoint events are not necessarily independent.
 For \( E \) and \( F \) to be both independent and disjoint, these conditions should hold:
