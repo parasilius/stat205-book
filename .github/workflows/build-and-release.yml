@@ -1,4 +1,4 @@
-name: Fresh Release with Source and PDF
+name: PDF Release Only
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y texlive-latex-base texlive-latex-extra \
               texlive-fonts-recommended texlive-fonts-extra \
-              latexmk texlive-bibtex-extra biber zip
+              latexmk texlive-bibtex-extra biber
 
       # Build PDF
       - name: Build PDF
@@ -27,18 +27,8 @@ jobs:
           make -B stat205.pdf
           [ -f stat205.pdf ] || { echo "::error::PDF not generated!"; exit 1; }
 
-      # Prepare clean source bundle
-      - name: Package source code
-        run: |
-          mkdir -p release_assets
-          # Create filtered source archive
-          zip -r release_assets/source.zip . \
-              -x 'build/*' '.git/*' '*.log' '*.aux' '*.toc' 'release_assets/*'
-          # Copy PDF
-          cp build/stat205.pdf release_assets/
-
       # Completely remove previous release
-      - name: Obliterate previous release
+      - name: Delete previous release
         run: |
           gh release delete latest --yes || echo "No existing release"
           git tag -d latest || true
@@ -46,44 +36,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Get current date (properly formatted)
+      # Get current date
       - name: Get release date
         id: date
         run: echo "RELEASE_DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
 
-      # Create brand new release
-      - name: Create fresh release
-        uses: actions/create-release@v1
-        id: create_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Create new release with only PDF
+      - name: Create PDF release
+        uses: softprops/action-gh-release@v1
         with:
+          files: build/stat205.pdf
           tag_name: latest
           release_name: "STAT205 - ${{ env.RELEASE_DATE }}"
           body: |
-            Fresh release containing:
-            - Latest PDF version (${{ env.RELEASE_DATE }})
-            - Source code
+            Latest PDF version (${{ env.RELEASE_DATE }})
             Commit: ${{ github.sha }}
           draft: false
-
-      # Upload both assets
-      - name: Upload PDF
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release_assets/stat205.pdf
-          asset_name: stat205.pdf
-          asset_content_type: application/pdf
-
-      - name: Upload source
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./release_assets/source.zip
-          asset_name: source.zip
-          asset_content_type: application/zip
