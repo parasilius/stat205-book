@@ -1,0 +1,93 @@
+% !TEX root = ../pdf/stat205.tex
+% [There are multiple stat205.tex files, but the one in ../pdf is the usual one]
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Probability Distributions}
+
+
+\begin{verse}{\it
+``When there are but two players, your theory which proceeds by combinations is very just. \\
+But when there are three, I believe I have a proof that it is unjust that you should proceed in any other manner than the one I have.''\vspace*{6pt}} \\
+\hspace*{2cm} -- Pascal's letter to Fermat\FOOTNOTE{from \url{https://www.york.ac.uk/depts/maths/histstat/pascal.pdf}}
+\end{verse}
+\vspace*{12pt}
+
+
+\section{Random Variables}
+
+In Example \autoref{exmp:three_fair_coins}, we denote the number of observed heads by \( \bm{X} \),
+which can take on values 0, 1, 2, or 3.
+Each of these numbers corresponds to one of the following events:
+\begin{itemize}
+    \item 0: \( A = \{ TTT \} \),
+    \item 1: \( B = \{ HTT, THT, TTH \} \),
+    \item 2: \( C = \{ HHT, HTH, THH \} \),
+    \item 3: \( D = \{ HHH \} \)
+\end{itemize}
+In other words, the sample space is partitioned into events \( A, B, C, \) and \( D \).
+Hence, we can map each element of \( S \) to exactly one element of \( \{ 0, 1, 2, 3 \} \).
+This mapping is achieved using \( \bm{X} \), which is called a \keyterm{random variable}.
+
+Thus:
+\begin{gather*}
+    X(TTT) = 0, X(HTT) = X(THT) = X(TTH) = 1, X(HHT) = X(HTH) = X(THH) = 2, X(HHH)= 3
+\end{gather*}
+
+More formally, in a probability model with sample space \( S \),
+a random variable (or simply a variable) is a real-valued function \( X: S \rightarrow R \),
+where the range of \( \bm{X} \) is a subset of the real numbers.
+The range of \( \bm{X} \) is called the \keyterm{support} of \( \bm{X} \) and is denoted by \( S_{\bm{X}} \).
+
+Conventionally, if \( A \subset R\), we define:
+\begin{gather*}
+    (\bm{X} \in A) = \{ e \in S | \bm{X}(e) \in A \}
+\end{gather*}
+For instance, in the previous example, \( (\bm{X} < 2) = (\bm{X} \in (-\infty, 2)) = (\bm{X} \in \{ 0, 1 \}) = \{ TTT, HTT, THT, TTH \} \).
+
+When working with random variables, probabilities can be described quantitatively.
+For example, if we want the probability that the number of heads is fewer than 2, we are interested in the event \( (\bm{X} < 2) \).
+As shown earlier, this corresponds to:
+\begin{gather*}
+    P(\bm{X} < 2) = P(\bm{X} \in \{ TTT, HTT, THT, TTH \}) = \frac{4}{8} = \frac{1}{4}
+\end{gather*}
+
+\begin{exmp}
+    Suppose in Example \autoref{exmp:heads_observe}, \( \bm{X} \) is the number of coin tosses required to observe the first heads.
+    Thus, the support of \( \bm{X} \) is \( S_{\bm{X}} = \{ 1, 2, \ldots \} \).
+    For instance, if one iteration of this experiment yields the outcome \( TTTH \),
+    then \( \bm{X}(TTTH) = 4 \), as the first heads occurs on the fourth toss.
+
+    The probability that the number of coin tosses required to observe the first heads is an odd number is given by:
+    \begin{align*}
+        P(\bm{X} \in \{ 1, 3, \ldots \}) &= P(\{ H, TTH, \ldots \})\\
+        &= P(\{ H \}) + P(\{ TTH \}) + \ldots\\
+        &= (\frac{1}{2}) + (\frac{1}{2})^3 + \ldots\\
+        &= \frac{2}{3}
+    \end{align*}
+\end{exmp}
+
+\begin{exmp}
+    In the previous example, what is the probabiltiy that more than six coin tosses are required to observe the first heads?
+\end{exmp}
+
+In the two examples we analyzed so far, the support \( S_{\bm{X}} \) is countable.
+In this case, we say \( \bm{X} \) is a \keyterm{discrete random variable}.
+Conversely, if a random variable can take on infinitely many (uncountable) number of values,
+we call it a \keyterm{continuous random variable}.
+
+Below are examples of continuous random variables:
+
+\begin{exmp}
+    In Example \autoref{exmp:lightbulb_lifespan}, let \( \bm{X} \) be lightbulb's lifespan.
+    Since lifespans can take any non-negative real value, \( \bm{X} \) is a continuous random variable.
+\end{exmp}
+
+\begin{exmp}
+    Suppose a needle is dropped at random into a circular disk of radius 3.
+    The sample space consists of all possible landing positions of the needle, which are uncountable.
+    Let \( \bm{X} \) denote the distance from the needle's landing point to the center of the disk.
+    Then \( \bm{X} \) is a continuous random variable with support \( S_{\bm{X}} = [0, 3] \),
+    where the interval includes the boundary points (accounting for the possibility of landing exactly on the disk's edge).
+\end{exmp}
