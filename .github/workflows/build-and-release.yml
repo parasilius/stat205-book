@@ -27,11 +27,14 @@ jobs:
           make -B stat205.pdf
           [ -f stat205.pdf ] || { echo "::error::PDF not generated!"; exit 1; }
 
-      # Completely remove previous release
-      - name: Delete previous release
+      # Safely delete previous release (if exists)
+      - name: Clean previous release
         run: |
-          gh release delete latest --yes || echo "No existing release"
+          # Delete release (ignores errors)
+          gh release delete latest --yes || true
+          # Delete local tag (ignores errors)
           git tag -d latest || true
+          # Delete remote tag (ignores errors)
           git push origin :refs/tags/latest || true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
