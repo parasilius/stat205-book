@@ -69,7 +69,7 @@ As shown earlier, this corresponds to:
 \end{exmp}
 
 \begin{exmp}
-    In the previous example, what is the probabiltiy that more than six coin tosses are required to observe the first heads?
+    In the previous example, what is the probability that more than six coin tosses are required to observe the first heads?
 \end{exmp}
 
 In the two examples we analyzed so far, the support \( S_{\bm{X}} \) is countable.
@@ -90,4 +90,85 @@ Below are examples of continuous random variables:
     Let \( \bm{X} \) denote the distance from the needle's landing point to the center of the disk.
     Then \( \bm{X} \) is a continuous random variable with support \( S_{\bm{X}} = [0, 3] \),
     where the interval includes the boundary points (accounting for the possibility of landing exactly on the disk's edge).
+\end{exmp}
+
+\section{Probability Distribution}
+
+We saw that different values of a random variable \( \bm{X} \) implicitly partition the sample space into mutually exclusive events.
+A key characteristic of any probability model is the probability it assigns to each possible value of the random variable.
+When \( \bm{X} \) is discrete (taking on countably many values), we can conveniently represent its \keyterm{probability distribution} using a graph, a table, or a function.
+\begin{exmp}\label{exmp:three_dice_prob_dist}
+    The probability distribution table for \( \bm{X} \) (the number of observed heads) in Example \autoref{exmp:three_fair_coins} is:
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|c|c|}
+	\hline
+	\( \bm{x} \) & 0 & 1 & 2 & 3 & Total \\
+	\hline
+	\( P(\bm{X} = \bm{x}) \) & \( \frac{1}{8} \) & \( \frac{3}{8} \) & \( \frac{3}{8} \) & \( \frac{1}{8} \) & \( 1 \) \\
+	\hline
+	\end{tabular}
+	\end{center}
+    Note that the sum of all assigned probabilities equals 1, as expected.
+
+    The corresponding graph is shown in \autoref{fig:three_dice_prob_dist}.
+    \begin{figure}[t]
+    \begin{center}
+    \epsfig{file=../img/threeDiceProbDistrib.png,clip=true,width=8.8cm}
+    \end{center}
+    \caption{Probability distribution graph for Example \autoref{exmp:three_dice_prob_dist}}
+    \label{fig:three_dice_prob_dist}
+    %\HR
+    \end{figure}
+\end{exmp}
+For a discrete random variable \( \bm{X} \), we can also describe its probability distribution using a function.
+This function is called \keyterm{probability mass function (PMF)}, and is defined as follows:
+\begin{align*}
+    p_{\bm{X}} \colon R &\to [0, 1] \\
+    \bm{x} &\mapsto P(\bm{X} = \bm{x})
+\end{align*}
+where \( P \) is a probability measure.
+
+All values of \( \bm{X} \) without assigned probabilities are implicitly defined to be zero.
+For instance, in the previous example, the PMF is:
+\begin{gather*}
+    p_{\bm{X}}(\bm{x}) = \begin{cases}
+        \frac{1}{8}, & \text{if } \bm{x} = 0, 3\\
+        \frac{3}{8}, & \text{if } \bm{x} = 1, 2\\
+        0, & \text{O.W.}\\
+    \end{cases}
+\end{gather*}
+Henceforth, when specifying a probability mass function (PMF), we will omit all values of the random variable that have zero probability.
+
+\section{Binomial Distribution}
+
+Many problems we encounter follow the same pattern in how they assign probabilities to different values of a random variable.
+Here, we discuss two such cases for discrete random variables.
+
+\subsection{Bernoulli Random Variable}
+
+In a coin toss, the outcome is either heads or tails (Example \autoref{exmp:coin_toss}).
+When drawing a ball from an urn containing only blue and red balls, it's either red or blue.
+When selecting a lamp from the box for quality inspection, each lamp is either functional or defective.
+
+These are all examples of \keyterm{Bernoulli trial}, where an experiment yields exactly one of two possible outcomes.
+We designate one outcome as a "success" (typically mapped to 1) and the other as a "failure" (mapped to 0).
+The corresponding Bernoulli random variable \( X \) thus has the probability mass function:
+\begin{gather*}
+    p_{\bm{X}}(\bm{x}) = \begin{cases}
+        p, & \text{if } \bm{x} = 1\\
+        1 - p, & \text{if } \bm{x} = 0\\
+    \end{cases}
+    = p^x(1 - p)^{1 - x}
+\end{gather*}
+where \( \bm{x} = 0, 1 \) and \( p \) is the probability of success.
+We call \( \bm{X} \) a \keyterm{Bernoulli random variable}, and we write \( \bm{X} \sim Bern(p) \).
+\begin{exmp}
+    Consider an unfair coin toss where the probability of landing heads is \( \frac{2}{3} \).
+    Let \( \bm{X} \) be the random variable representing the observation of heads. Then \( \bm{X} \sim Bern(\frac{2}{3}) \).
+\end{exmp}
+\begin{exmp}
+    For a fair six-sided die roll, let \( X \) be the indicator random variable for the event "not six."
+    The success probability is observing 1, 2, 3, 4, or 5,
+    which is \( p = \frac{5}{6} \),
+    and thus \( X \sim Bern(\frac{5}{6}) \).
 \end{exmp}
