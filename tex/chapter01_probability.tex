@@ -595,13 +595,17 @@ Comparing this with \autoref{sec:classic}, we observe that it is equivalent to L
 	In Example \autoref{exmp:two_fair_dice}, what is the probability that the difference of two dice is 3?
 \end{ex}
 
-In the examples discussed above, we can easily count the elements in both the sample space and the event of interest.
+\section{Counting Principles}
+
+In the previous examples, we can easily count the elements in both the sample space and the event of interest.
 However, consider modifying Example \autoref{exmp:three_fair_coins} where six fair coins are tossed instead of three,
 or altering Example \autoref{exmp:two_fair_dice} to involve seven fair six-sided dice rather than two.
 How many elements are in the sample space in these cases?
 Attempting to list all possible combinations would quickly reveal what a tedious task this becomes.
-
 There are some fundamental counting principles which aid us in these scenarios.
+
+\subsection{Multiplication Principle}
+
 The \keyterm{multiplication principle} states that if a first task can be performed in \( m_1 \) ways,
 and for each of these, a second task can be performed in \( m_2 \) ways independent from the previous task,
 then the sequence of two tasks has \( m_1 \times m_2 \) possible outcomes.
@@ -617,6 +621,8 @@ where the total number of possible outcomes becomes \( m_1 \times m_2 \times \ld
 	selecting a suit and then selecting a rank.
 	There are four ways to do the former and thirteen ways to do the latter, so there are \( 4 \times 13 = 52 \) such cards in total.
 \end{solution}
+
+\subsection{Addition Principle}
 
 The \keyterm{addition principle} states that if one task can be performed in \( n_1 \) ways and another distinct task in \( n_2 \) ways,
 then either task can be done in \( n_1 + n_2 \) total ways.
@@ -639,6 +645,59 @@ This result can be generalized to more than two tasks, analogous to the extensio
 	which can be done in \( 5 \times 7 = 35 \) ways.
 	Since we have to choose a statistician first and then a computer scientist, or first a computer scientist and then a statistician,
 	the addition principle implies \( n(E) = 35 + 35 = 70 \), yielding \( P(E) = \frac{70}{132} = \frac{35}{66} \).
+\end{solution}
+
+\subsection{Permutations}
+
+Any arrangement of a set of \( n \) distinct objects (or actions or anything!) is called a \keyterm{permutation}.
+To enumerate the number of permutations, we utilize the multiplication principle.
+Any arrangement can be created sequentially.
+First, we select one of the \( n \) objects, then one of the \( n - 1 \) remaining ones,
+and we continue this.
+So the number of permutations is \( n \times (n - 1) \times \ldots \times 2 \times 1 = n! \).
+\begin{exmp}
+	There are 8! ways to paint 8 distinct rooms.
+\end{exmp}
+Now consider selecting and ordered sequence of \( r \) objects from \( n \) distinct objects.
+We first choose the first object which can be done in \( n \) ways, then the second one which can be done in \( n - 1 \) ways,
+and so on until selecting the \( r \)-th object which can be done in \( n - (r - 1) \) ways.
+Therefore, the total number of possible sequences is:
+\begin{gather*}
+	P_{n, r} = n \times (n - 1) \times \ldots (n - (r -  1)) = \frac{n!}{(n - r)!}
+\end{gather*}
+
+\begin{exmp}
+	There are \( P_{9, 3} = \frac{9!}{(9 - 3)!} = 504 \)  ways that a manager can select and assign 3 employees from 9 to operate 3 different machines (one employee per machine).
+\end{exmp}
+
+\subsection{Combination}
+
+In the previous subsection, we considered ordered arrangements of objects.
+Now suppose we want to select \( r \) objects from \( n \) distinct ones without regard to ordering.
+How many distinct selections are possible?
+
+Suppose the answer is \( C_{n, r} \).
+So we can choose \( r \) objects from \( n \) distinct objects in \( C_{n, r} \) ways.
+But let's assume that after choosing these \( r \) objects, we are once again interested in their ordering.
+Regardless of the previous step, there are \( r! \) ways to arrange these \( r \) objects.
+However, in the previous subsection, we calculated the total number of ways to choose an ordered sequence of \( r \) objects from \( n \) distinct objects in a single step,
+which is \( P_{n, r} \).
+This yields:
+\begin{gather*}
+	C_{n, r} \times r! = P_{n, r}\\
+	C_{n, r} = \frac{P_{n, r}}{r!}\\
+	C_{n, r} = \frac{n!}{r!(n - r)!}
+\end{gather*}
+An alternative notation for the combination \( C_{n, r} \) is the binomial coefficient \( n \choose r \).
+\begin{exmp}
+	A selection committee must choose 6 players from a team of 7 basketball players and a team of 8 soccer players.
+	What is the probability that the same number of players is chosen from each team?
+\end{exmp}
+\begin{solution}
+	The total number of ways to choose 6 players from 15 players is \( 15 \choose 6 \).
+	On the other hand, there are \( 7 \choose 3 \) ways to choose 3 basketball players,
+	and for each group of 3 basketball players, there are \( 8 \choose 3 \) ways to choose 3 soccer players.
+	So the desired probability is \( \frac{\binom{7}{3} \times \binom{8}{3}}{\binom{15}{6}} \approx 0.39 \).
 \end{solution}
 
 \section{Conditional Probability}
