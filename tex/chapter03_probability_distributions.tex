@@ -170,5 +170,144 @@ We call \( \bm{X} \) a \keyterm{Bernoulli random variable}, and we write \( \bm{
     For a fair six-sided die roll, let \( X \) be the indicator random variable for the event "not six."
     The success probability is observing 1, 2, 3, 4, or 5,
     which is \( p = \frac{5}{6} \),
-    and thus \( X \sim Bern(\frac{5}{6}) \).
+    and thus \( \bm{X} \sim Bern(\frac{5}{6}) \).
 \end{exmp}
+
+\section{Binomial Distribution}
+
+Suppose \( n \) identical Bernoulli trials are preformed independently from each other.
+If \( \bm{X} \) is the number of successes in these \( n \) trials, then it is called a \keyterm{binomial random variable}.
+We say \( \bm{X} \) follows a binomial distribution and denote this by \( \bm{X} \sim B(n, p) \),
+where \( p \) is the probability of success and is the same in each Bernoulli trial.
+
+To compute the \( \bm{X} \)'s PMF \( p_{\bm{X}}(\bm{x}) \),
+we first choose \( \bm{x} \) trials out of total \( n \) Bernoulli trials.
+This can be done in \( n \choose x \) ways.
+Now consier any one of these arrangements of \( \bm{x} \) successes and \( n - \bm{x} \) failures.
+The following analysis focuses on the configuration depicted in \autoref{fig:binom_seq}.
+\begin{figure}[t]
+\begin{center}
+\epsfig{file=../img/binomSeq.jpg,clip=true,width=8.8cm}
+\end{center}
+\caption{one arrangement of \( \bm{x} \) successes and \( n - \bm{x} \) failures in \( n \) independent Bernoulli trials}
+\label{fig:binom_seq}
+%\HR
+\end{figure}
+What is the probability of such a sequence occurring?
+
+Let \( S_i \) denote the event of success in the \( i \)-th trial and \( F_i \) the event of failure, where \( i = 1, 2, \ldots, n \).
+Since the trials are independent from each other, the multiplcation rule yields:
+\begin{align*}
+    P(S_1 \cap F_2 \cap F_3 \cap \ldots \cap S_{n - 1} \cap F_{n}) &= P(S_1)P(F_2)P(F_3)\ldots P(S_{n - 1})P(F_n)\\
+    &= p(1 - p)(1 - p)\ldots p(1 - p)\\
+    &= p^{\bm{x}}(1 - p)^{n - \bm{x}}
+\end{align*}
+Thus:
+\begin{gather*}
+    p_{\bm{X}}(\bm{x}) = \binom{n}{\bm{x}} p^{\bm{x}}(1 - p)^{n - \bm{x}}
+\end{gather*}
+where \( \bm{x} = 0, 1, 2, \ldots, n \).
+
+We denoted the Bernoulli distribution by \( Bern(p) \) and the bionomial distribution by \( B(n, p) \).
+The values inside the parantheses define random variable's distribution and are called \keyterm{parameters}.
+If we know these parameters, we can compute probabilities for each possible value.
+
+Note that a binomial distribution with \( n = 1 \) is Bernoulli distribution.
+
+\begin{exmp}
+    A coin is tossed 8 times. What is the probability of observing 5 tails?
+\end{exmp}
+\begin{solution}
+    Each coin toss is a Bernoulli trial where success is defined as observing trials.
+    The probability of success is therefore \( p = \frac{1}{2} \).
+    Let \( \bm{X} \) be the number of tails in these 8 coin tosses.
+    So \( \bm{X} \sim B(8, \frac{1}{2}) \), and we can compute the desired probability:
+    \begin{align*}
+        p_{\bm{X}}(5) &= \binom{8}{5} (\frac{1}{2})^5 (1 - \frac{1}{2})^{8 - 5}\\
+        &= \frac{8 \times 7 \times 6 \times 5!}{3!5!} (\frac{1}{2})^8\\
+        &= 56 \times \frac{1}{256}\\
+        &\approx 0.21875
+    \end{align*}
+\end{solution}
+
+\begin{exmp}
+    In Example \autoref{exmp:three_dice_prob_dist}, \( \bm{X} \sim B(3, \frac{1}{2}) \).
+    So another way to find the probability distribution is:
+    \begin{gather*}
+        p_{\bm{X}}(0) = \binom{3}{0} (\frac{1}{2})^0 (1 - \frac{1}{2})^{3 - 0} = 1 \times \frac{1}{8} = \frac{1}{8}\\
+        p_{\bm{X}}(1) = \binom{3}{1} (\frac{1}{2})^1 (1 - \frac{1}{2})^{3 - 1} = 3 \times \frac{1}{8} = \frac{3}{8}\\
+        p_{\bm{X}}(2) = \binom{3}{2} (\frac{1}{2})^2 (1 - \frac{1}{2})^{3 - 2} = 3 \times \frac{1}{8} = \frac{3}{8}\\
+        p_{\bm{X}}(3) = \binom{3}{3} (\frac{1}{2})^3 (1 - \frac{1}{2})^{3 - 3} = 1 \times \frac{1}{8} = \frac{1}{8}\\
+    \end{gather*}
+\end{exmp}
+\begin{exmp}
+    Based on a study, only 8\% of Canadians did not eat at restaurants last month.\FOOTNOTE{\url{https://www150.statcan.gc.ca/n1/pub/11-627-m/11-627-m2019003-eng.htm}}
+    If you randomly survey 7 Canadians about their dining habits,
+    what is the probability that exactly 5 of them ate out last month?
+\end{exmp}
+\begin{solution}
+    Let \( \bm{X} \) denote the number of individuals (out of 7 surveyed) who ate at restaurants last month.
+    Since \( \bm{X} \sim B(7, 0.92) \),
+    \begin{gather*}
+        p_{\bm{X}}(3) = \binom{7}{3} (0.92)^3 (1 - 0.92)^{7 - 3} \approx 0.0011
+    \end{gather*}
+\end{solution}
+For a random variable \( \bm{X} \sim B(n, p) \), we can compute \( p_{\bm{X}}(\bm{x}) \) using this R command:
+\begin{lstlisting}[language=R]
+> dbinom(x, size, prob)
+\end{lstlisting}
+where \verb|x| is \( \bm{x} \), \verb|size| is the number of trials \( n \), and \verb|prob| is the probability of success \( p \).
+
+Following this approach, the previous example can be solved as follows:
+\begin{lstlisting}[language=R]
+> dbinom(3, 7, 0.92)
+[1] 0.001116327
+\end{lstlisting}
+We can also find the probability distribution in Example \autoref{exmp:three_dice_prob_dist} in three commands:
+\begin{lstlisting}[language=R]
+> dbinom(0, 3, 0.5)
+[1] 0.125
+> dbinom(1, 3, 0.5)
+[1] 0.375
+> dbinom(2, 3, 0.5)
+[1] 0.375
+> dbinom(3, 3, 0.5)
+[1] 0.125
+\end{lstlisting}
+Or in a single command:
+\begin{lstlisting}[language=R]
+> dbinom(0:3, 3, 0.5)
+[1] 0.125 0.375 0.375 0.125
+\end{lstlisting}
+Using \verb|sum()|, we can compute the total of outputs in the previous command, which equals 1 as expected:
+\begin{lstlisting}[language=R]
+> sum(dbinom(0:3, 3, 0.5))
+[1] 1
+\end{lstlisting}
+\begin{exmp}
+    Suppose 11\% of University of Calgary graduates eventually pursue a PhD.
+    If we randomly select 40 graduates,
+    what is the probability that exactly 35 of them did not pursue (or will not pursue) doctoral studies?
+    Calculate this probability by hand and using R.
+\end{exmp}
+\begin{solution}
+    Let \( \bm{Y} \) be the number of those who did not pursue (or will not pursue) doctoral studies.
+    Therefor, \( \bm{Y} \sim B(40, 0.89) \) with PMF:
+    \begin{gather*}
+        p_{\bm{Y}}(\bm{y}) = \binom{40}{\bm{y}} 0.89^{\bm{y}}0.11^{40 - \bm{y}}
+    \end{gather*}
+    where \( \bm{y} = 0, 1, 2, \ldots, 40 \).
+
+    The desired probability is:
+    \begin{gather*}
+        p_{\bm{Y}}(35) = \binom{40}{35} 0.89^{35}0.11^{40 - 35} \approx 0.18
+    \end{gather*}
+    The R command below verifies this result:
+    \begin{lstlisting}[language=R]
+> dbinom(35, 40, 0.89)
+[1] 0.1794093
+    \end{lstlisting}
+\end{solution}
+We may be interested in \( P(\bm{X} \leq q) \), where \( q \) can be any real number.
+It is obvious that if \( q < 0 \), \( P(\bm{X} \leq q) = 0 \), since \( \bm{X} \) is defined for integers starting at zero.
+For \( q \geq 0\), \( P(\bm{X} \leq q) = p_{\bm{X}}(0) + \ldots + p_{\bm{X}}(\floor{q}) \).
