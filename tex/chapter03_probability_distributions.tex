@@ -139,12 +139,12 @@ For instance, in the previous example, the PMF is:
 \end{gather*}
 Henceforth, when specifying a probability mass function (PMF), we will omit all values of the random variable that have zero probability.
 
-\section{Binomial Distribution}
+\section{Discrete Distributions}
 
 Many problems we encounter follow the same pattern in how they assign probabilities to different values of a random variable.
 Here, we discuss two such cases for discrete random variables.
 
-\subsection{Bernoulli Random Variable}
+\subsection{Bernoulli Distribution}
 
 In a coin toss, the outcome is either heads or tails (Example \autoref{exmp:coin_toss}).
 When drawing a ball from an urn containing only blue and red balls, it's either red or blue.
@@ -161,7 +161,7 @@ The corresponding Bernoulli random variable \( X \) thus has the probability mas
     = p^x(1 - p)^{1 - x}
 \end{gather*}
 where \( \bm{x} = 0, 1 \) and \( p \) is the probability of success.
-We call \( \bm{X} \) a \keyterm{Bernoulli random variable}, and we write \( \bm{X} \sim Bern(p) \).
+We call \( \bm{X} \) a \keyterm{Bernoulli random variable}, and we write \( \bm{X} \sim Bern(p) \), indicating that X follows a \keyterm{Bernoulli distribution} with success probability \( p \).
 \begin{exmp}
     Consider an unfair coin toss where the probability of landing heads is \( \frac{2}{3} \).
     Let \( \bm{X} \) be the random variable representing the observation of heads. Then \( \bm{X} \sim Bern(\frac{2}{3}) \).
@@ -173,12 +173,12 @@ We call \( \bm{X} \) a \keyterm{Bernoulli random variable}, and we write \( \bm{
     and thus \( \bm{X} \sim Bern(\frac{5}{6}) \).
 \end{exmp}
 
-\section{Binomial Distribution}
+\subsection{Binomial Distribution}
 
 Suppose \( n \) identical Bernoulli trials are preformed independently from each other.
 If \( \bm{X} \) is the number of successes in these \( n \) trials, then it is called a \keyterm{binomial random variable}.
-We say \( \bm{X} \) follows a binomial distribution and denote this by \( \bm{X} \sim B(n, p) \),
-where \( p \) is the probability of success and is the same in each Bernoulli trial.
+We say \( \bm{X} \) follows a \keyterm{binomial distribution} and denote this by \( \bm{X} \sim B(n, p) \),
+where \( p \) is the probability of success and remains the same in each Bernoulli trial.
 
 To compute the \( \bm{X} \)'s PMF \( p_{\bm{X}}(\bm{x}) \),
 we first choose \( \bm{x} \) trials out of total \( n \) Bernoulli trials.
@@ -274,7 +274,7 @@ We can also find the probability distribution in Example \autoref{exmp:three_dic
 > dbinom(3, 3, 0.5)
 [1] 0.125
 \end{lstlisting}
-Or in a single command:
+or in a single command:
 \begin{lstlisting}[language=R]
 > dbinom(0:3, 3, 0.5)
 [1] 0.125 0.375 0.375 0.125
@@ -284,7 +284,7 @@ Using \verb|sum()|, we can compute the total of outputs in the previous command,
 > sum(dbinom(0:3, 3, 0.5))
 [1] 1
 \end{lstlisting}
-\begin{exmp}
+\begin{exmp}\label{exmp:ucalgary}
     Suppose 11\% of University of Calgary graduates eventually pursue a PhD.
     If we randomly select 40 graduates,
     what is the probability that exactly 35 of them did not pursue (or will not pursue) doctoral studies?
@@ -292,7 +292,7 @@ Using \verb|sum()|, we can compute the total of outputs in the previous command,
 \end{exmp}
 \begin{solution}
     Let \( \bm{Y} \) be the number of those who did not pursue (or will not pursue) doctoral studies.
-    Therefor, \( \bm{Y} \sim B(40, 0.89) \) with PMF:
+    Therefore, \( \bm{Y} \sim B(40, 0.89) \) with PMF:
     \begin{gather*}
         p_{\bm{Y}}(\bm{y}) = \binom{40}{\bm{y}} 0.89^{\bm{y}}0.11^{40 - \bm{y}}
     \end{gather*}
@@ -308,6 +308,115 @@ Using \verb|sum()|, we can compute the total of outputs in the previous command,
 [1] 0.1794093
     \end{lstlisting}
 \end{solution}
-We may be interested in \( P(\bm{X} \leq q) \), where \( q \) can be any real number.
+We may be interested in the left-tail probability \( P(\bm{X} \leq q) \), where \( q \) can be any real number.
 It is obvious that if \( q < 0 \), \( P(\bm{X} \leq q) = 0 \), since \( \bm{X} \) is defined for integers starting at zero.
-For \( q \geq 0\), \( P(\bm{X} \leq q) = p_{\bm{X}}(0) + \ldots + p_{\bm{X}}(\floor{q}) \).
+However, for \( q \geq 0\), \( P(\bm{X} \leq q) = p_{\bm{X}}(0) + \ldots + p_{\bm{X}}(\floor{q}) \).
+
+In R, the following command computes this probability:
+\begin{lstlisting}[language=R]
+> pbinom(q, size, prob)
+\end{lstlisting}
+where \verb|q| is \( q \), \verb|size| is the number of trials \( n \), and \verb|prob| is the probability of success \( p \).
+
+To compute \( P(\bm{X} > q) \), set the optional parameter \verb|lower.tail| to \verb|FALSE|:
+\begin{lstlisting}[language=R]
+> pbinom(q, size, prob, lower.tail = FALSE)
+\end{lstlisting}
+\begin{exmp}
+    In Example \autoref{exmp:ucalgary}, the probability that at most 30 graduates did not pursue (or will not pursue) doctoral studies is:
+    \begin{lstlisting}[language=R]
+> pbinom(30, size = 40, prob = 0.89)
+[1] 0.009816241
+    \end{lstlisting}
+    While the probability that more than 30 of them did not pursue (or will not pursue) doctoral studies is:
+    \begin{lstlisting}[language=R]
+> pbinom(30, size = 40, prob = 0.89, lower.tail = FALSE)
+[1] 0.9901838
+    \end{lstlisting}
+    since \( P(\bm{Y} > 30) = P(\bm{Y} \geq 31) \).
+    This also equals \( p_{\bm{Y}}(31) + p_{\bm{Y}}(32) + \ldots + p_{\bm{Y}}(40) \):
+    \begin{lstlisting}[language=R]
+> sum(dbinom(31:40, size = 40, prob = 0.89))
+[1] 0.9901838
+    \end{lstlisting}
+    The probability that between 10 and 35 (inclusive) of the selected graduates did not pursue (or will not pursue) doctoral studies is:
+    \begin{lstlisting}[language=R]
+> sum(dbinom(10:35, size = 40, prob = 0.89))
+[1] 0.4532124
+    \end{lstlisting}
+    or using \verb|pbinom()|:
+    \begin{lstlisting}[language=R]
+> pbinom(35, size = 40, prob = 0.89) - pbinom(9, size = 40, prob = 0.89)
+[1] 0.4532124
+    \end{lstlisting}
+    since:
+    \begin{align*}
+        P(\bm{Y} \leq 35) - P(\bm{Y} \leq 9) &= \sum_{i = 0}^{35} p_{\bm{Y}}(i) - \sum_{j = 0}^{9} p_{\bm{Y}}(j)\\
+        &= p_{\bm{Y}}(10) + p_{\bm{Y}}(11) + \ldots + p_{\bm{Y}}(35)
+    \end{align*}
+\end{exmp}
+
+\section{Continuous Distributions}
+
+We now discuss two examples of continuous random variables.
+We defined the concept of probability mass function for discrete random variables,
+which assigned a probability for each possible value of the random variable.
+One way to conceptualize this is as the distribution of a unit mass across a countable set of discrete points.
+Even when there are an infinite number of these points,
+it is possible to assign probabilities so that their sum equals 1.
+For instance, let \( \bm{X} \) be a random variable with support \( S_{\bm{X}} = \{ 1, 2, 3, \ldots \} \).
+Defining the PMF to be \( p_{\bm{X}}(x) = \frac{1}{2^x} \),
+it can be easily shown that this is a valid PMF.\FOOTNOTE{see the Wikipedia page on \href{https://en.wikipedia.org/wiki/1/2_\%2B_1/4_\%2B_1/8_\%2B_1/16_\%2B_\%E2\%8B\%AF}{the series \( \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \cdots \)}}
+
+However, continuous random variables can take on uncountably many values,
+making it impossible to assign positive probability to each single point.
+This time, instead of a countable number of points, consider a unit-mass rod (which could be finite, infinite, or a combination of rods). 
+Unlike discrete distributions where mass concentrates at points, here we only discuss mass contained within intervals.
+Just as a perfectly thin cross-section of a rod contains no mass, continuous distributions assign zero probability to single points.
+Only interval-based measurements yield non-zero values.
+
+You can again interpret the probability distribution as a unit mass distribution.
+Following this analogy, for a continuous random variable \( \bm{X} \),
+we have \( P(\bm{X} = \bm{x}) = 0 \) at every point \( \bm{x} \in S_{\bm{X}} \).
+
+To better understand the continuous distributions, we start with a simple and basic one.
+
+\subsection{Continuous Uniform Distribution}
+
+Suppose the unit mass is uniformly distributed on the interval \( S_{\bm{X}} = [a, b] \).
+This is analogous to a rod of length \( b - a \) with uniform density.
+The rod's linear density is therefore \( \frac{1}{b - a} \),
+which we call \keyterm{probability density function (PDF)} and denote it by \( f_{\bm{X}}(\bm{x}) = \frac{1}{b - a} \).
+We say that \( \bm{X} \) follows a \keyterm{continuous uniform distribution} over the interval \( [a, b] \), denoted \( \bm{X} \sim U(a, b) \).
+
+Here, the PDF is independent of \( \bm{x} \), since the unit mass is distributed uniformly.
+\autoref{fig:uniform_graph} shows the corresponding graph.
+The area under the uniform density function equals 1, representing total probability mass.
+Also, for any interval \( [c, d] \subset [a, b] \),
+the probability \( P(c \leq \bm{X} \leq d) \) corresponds to the area under the probability density function (PDF) over this interval,
+which in this case is calculated as \( (d - c) \times \frac{1}{b - a} \).
+\begin{figure}[t]
+\begin{center}
+\epsfig{file=../img/uniformGraphWithRod.jpg,clip=true,width=8.8cm}
+\end{center}
+\caption{uniform distribution graph with unit-mass rod analogy}
+\label{fig:uniform_graph}
+%\HR
+\end{figure}
+
+\begin{exmp}
+    A number is selected randomly between 3 and 7 (inclusive).
+    \begin{enumerate}
+        \item What is the probability that it equals 3.4?
+        \item What is the probability that it lies between 4 and 6 (inclusive)?
+    \end{enumerate}
+\end{exmp}
+\begin{solution}
+    Let X be the selected number.
+    Then \( \bm{X} \sim U(3, 7) \),
+    and the PDF is \( f_{\bm{X}}(\bm{x}) = \frac{1}{7 - 3} = \frac{1}{4} \) where \( 3 \leq \bm{x} \leq 7 \).
+    \begin{enumerate}
+        \item \( P(\bm{X} = 3.4) = 0 \)
+        \item \( P(4 \leq \bm{X} \leq 6) = (6 - 4) \times \frac{1}{4} = 0.5 \)
+    \end{enumerate}
+\end{solution}
