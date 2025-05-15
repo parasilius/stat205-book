@@ -322,6 +322,16 @@ To compute \( P(\bm{X} > q) \), set the optional parameter \verb|lower.tail| to 
 \begin{lstlisting}[language=R]
 > pbinom(q, size, prob, lower.tail = FALSE)
 \end{lstlisting}
+which is equivalent to:
+\begin{lstlisting}[language=R]
+> 1 - pbinom(q, size, prob)
+\end{lstlisting}
+This is because \( P(\bm{x} \in R) = 1 \) and \( R \) is partitioned into \( (-\infty, q] \) and \( (q, \infty) \).
+Hence:
+\begin{gather*}
+    1 = P(\bm{x} \in R) = P((\bm{x} \leq q) \cup (\bm{x} > q)) = P(\bm{x} \leq q) + P(\bm{x} > q)\\
+    P(\bm{x} > q) = 1 - P(\bm{x} \leq q)
+\end{gather*}
 \begin{exmp}
     In Example \autoref{exmp:ucalgary}, the probability that at most 30 graduates did not pursue (or will not pursue) doctoral studies is:
     \begin{lstlisting}[language=R]
@@ -418,5 +428,100 @@ which in this case is calculated as \( (d - c) \times \frac{1}{b - a} \).
     \begin{enumerate}
         \item \( P(\bm{X} = 3.4) = 0 \)
         \item \( P(4 \leq \bm{X} \leq 6) = (6 - 4) \times \frac{1}{4} = 0.5 \)
+    \end{enumerate}
+\end{solution}
+
+\subsection{Normal (Gaussian) Distribution}
+
+The PDF of a \keyterm{normal random variable} \( \bm{X} \) is:
+\begin{gather*}
+    f_{\bm{X}}(\bm{x}) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}(\frac{\bm{x} - \mu}{\sigma})^2}
+\end{gather*}
+where \( \bm{x}, \mu \in R \) and \( \sigma > 0 \).
+\( \mu \) and \( \sigma \) are parameters of this distribution.
+We say \( \bm{X} \) is \keyterm{normally distributed} and denote it by \( \bm{X} \sim N(\mu, \sigma) \).
+
+The probability density function of normal distribution is visualized in \autoref{fig:normal_graph}.
+\begin{figure}[t]
+\begin{center}
+\epsfig{file=../img/normalGraphWithRod.jpg,clip=true,width=8.8cm}
+\end{center}
+\caption{normal distribution graph with unit-mass rod analogy}
+\label{fig:normal_graph}
+%\HR
+\end{figure}
+Unlike continuous uniform distribution, normal PDF depends on \( \bm{x} \).
+As we can see from this graph, most of the probability mass is concentrated around \( \bm{x} = \mu \).
+The density decreases as we move away from this point in either direction.
+
+Many of the natural phenomena follow this pattern.
+Grades of students of a class peak at an average grade, like 3.0, and it is less common for students to have high grades like 4.0 or low grades like 1.0.
+The average height for men is approximately 5'7"\FOOTNOTE{from \url{https://www.verywellhealth.com/average-height-for-men-8421400}},
+with heights becoming increasingly less probable as they deviate further from this number in either direction.
+
+Similar to continuous uniform distribution, the area under the PDF represents total probability mass which equals 1.
+Since the curve is symmetric around \( \mu \), \( P(\bm{X} < \mu) = P(\bm{X} > \mu) = 0.5 \).
+
+The parameters \( \mu \) and \( \sigma \) are called \keyterm{location parameter} and \keyterm{scale parameter} respectively.
+The location parameter determines the location of normal PDF's peak, while the scale parameter controls the dispersion of the PDF.
+\autoref{fig:varying_normal_parameters} demonstrates the effects of varying the location parameter (\( \mu \)) and scale parameter (\( \sigma \)) independently while holding the other constant.
+\FOOTNOTE{the visualizations were generated using the normal distribution tool at: \url{https://www.acsu.buffalo.edu/~adamcunn/probability/normal.html}}
+\begin{figure}[t]
+\begin{center}
+\epsfig{file=../img/varyingNormalParameters.png,clip=true,width=10cm}
+\end{center}
+\caption{Top-to-bottom: \( \mu \) increases cause rightward translation; \( \sigma \) decreases cause horizontal contraction.}
+\label{fig:varying_normal_parameters}
+%\HR
+\end{figure}
+For binomial random variables, we could compute probabilities at specific points using R's \verb|dbinom| function.
+However, for a normal random variable \( \bm{X} \sim N(\mu, \sigma) \),
+\verb|dnorm| evaluates the probability density function (PDF) at any point:
+\begin{lstlisting}[language=R]
+> dnorm(x, mean, sd)
+\end{lstlisting}
+where \verb|x| is \( \bm{x} \), \verb|mean| is the mean parameter \( \mu \), and \verb|sd| is standard deviation \( \sigma \).
+
+Similar to \verb|pbinom|, the command \verb|pnorm| computes the probability \( P(\bm{X} \leq q) \):
+\begin{lstlisting}[language=R]
+> pnorm(q, mean, sd)
+\end{lstlisting}
+where \verb|q| is \( q \), \verb|mean| is the mean parameter \( \mu \), and \verb|sd| is standard deviation \( \sigma \).
+The output equals the area under the normal PDF to the left of \( q \) (see \autoref{fig:normal_lower_probability}).
+\begin{figure}[t]
+\begin{center}
+\epsfig{file=../img/normalLowerProbability.jpg,clip=true,width=10cm}
+\end{center}
+\caption{the blue-shaded area is \( P(\bm{X} \leq q) \)}
+\label{fig:normal_lower_probability}
+%\HR
+\end{figure}
+
+We can use \verb|lower.tail = FALSE| to compute \( P(\bm{X} > q) \):
+\begin{lstlisting}[language=R]
+> pnorm(q, mean, sd, lower.tail = FALSE)
+\end{lstlisting}
+
+\begin{exmp}
+    The heights of women in a city follows a normal distribution with an average height of 165 cm and a standard deviation of 5 cm.
+    \begin{enumerate}
+        \item What is the probability that a woman's height is less than 170 cm?
+    \end{enumerate}
+\end{exmp}
+\begin{solution}
+    Let \( \bm{X} \) be the height of this city's women.
+    Thus, \( \bm{X} \sim N(165, 5) \).
+    \begin{enumerate}
+        \item The desired probability is \( P(\bm{X} < 170) \), but note that this is the same as \( P(\bm{X} \leq 170) \).
+        In other words, the probability is the area under the curve of this normal PDF over the interval \( (-\infty, 170) \),
+        and the endpoint 170 itself contributes no probability mass.
+        Therefore, we can equivalently compute the probability over the interval \( (-\infty, 170] \).
+
+        Using R, we calculate:
+        \begin{lstlisting}[language=R]
+> pnorm(170, mean = 165, sd = 5)
+[1] 0.8413447
+        \end{lstlisting}
+        
     \end{enumerate}
 \end{solution}
