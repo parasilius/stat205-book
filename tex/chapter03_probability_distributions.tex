@@ -502,14 +502,16 @@ We can use \verb|lower.tail = FALSE| to compute \( P(\bm{X} > q) \):
 > pnorm(q, mean, sd, lower.tail = FALSE)
 \end{lstlisting}
 
-\begin{exmp}
+\begin{exmp}\label{exmp:women_heights}
     The heights of women in a city follows a normal distribution with an average height of 165 cm and a standard deviation of 5 cm.
     \begin{enumerate}
         \item What is the probability that a woman's height is less than 170 cm?
+        \item What is the probability that a woman's height is between 170 and 180 cm?
     \end{enumerate}
 \end{exmp}
 \begin{solution}
-    Let \( \bm{X} \) be the height of this city's women.
+    We choose a woman from this city.
+    Let \( \bm{X} \) be this woman's height.
     Thus, \( \bm{X} \sim N(165, 5) \).
     \begin{enumerate}
         \item The desired probability is \( P(\bm{X} < 170) \), but note that this is the same as \( P(\bm{X} \leq 170) \).
@@ -522,6 +524,86 @@ We can use \verb|lower.tail = FALSE| to compute \( P(\bm{X} > q) \):
 > pnorm(170, mean = 165, sd = 5)
 [1] 0.8413447
         \end{lstlisting}
-        
+        \item The desired probability mass lies on the interval \( (170, 180) \).
+        Note that inclusivity or exclusivity doesn't matter since we are dealing with a continuous probability distribution.
+
+        This desired probability is:
+        \begin{align*}
+            P(170 < \bm{X} < 180) &= P(\bm{X} < 180) - P(\bm{X} \leq 170)\\
+            &= P(\bm{X} \leq 180) - P(\bm{X} \leq 170)
+        \end{align*}
+        which equals:
+        \begin{lstlisting}[language=R]
+> pnorm(180, mean = 165, sd = 5) - pnorm(170, mean = 165, sd = 5)
+[1] 0.1573054
+        \end{lstlisting}
+        This is equivalent to removing the probability mass concentrated on the interval \( (-\infty, 170] \) from the probability mass concentrated on the interval \( (-\infty, 180) \).
     \end{enumerate}
 \end{solution}
+Now suppose that we want to find \( \bm{x_0} \) such that \( P(\bm{X} \leq \bm{x_0}) = p \) where \( p \in [0, 1] \).
+The value of \( \bm{x_0} \) is the \( 100p \)th percentile of the distribution.
+The following R command computes the value of \( \bm{x_0} \):
+\begin{lstlisting}[language=R]
+> qnorm(p, mean, sd)
+\end{lstlisting}
+where \verb|p| is the left-tail probability  \( p \), \verb|mean| is the mean parameter \( \mu \), and \verb|sd| is standard deviation \( \sigma \).
+\begin{exmp}
+    As we saw in \autoref{fig:normal_graph}, 50\% of the total probability mass lies in the interval \( (-\infty, \mu) \), where \( mu \) is the mean of the normal distribution.
+    So we expect \verb|qnorm(0.5, mean, sd)| to return \verb|mean|, regardless of the standard deviation \verb|sd|.
+    We can check this for some values:
+    \begin{lstlisting}[language=R]
+> qnorm(0.5, mean = 40, sd = 5)
+[1] 40
+> qnorm(0.5, mean = 40, sd = 10)
+[1] 40
+> qnorm(0.5, mean = 50, sd = 10)
+[1] 50
+> qnorm(0.5, mean = 50, sd = 5)
+[1] 50
+    \end{lstlisting}
+    The default parameters for \verb|mean| and \verb|sd| are 0 and 1, respectively. Thus:
+    \begin{lstlisting}[language=R]
+> qnorm(0.5)
+[1] 0
+    \end{lstlisting}
+\end{exmp}
+\begin{exmp}
+    In Example \autoref{exmp:women_heights}, what is the 80th percentile height?
+\end{exmp}
+\begin{solution}
+    We compute \( \bm{x_0} \) such that \( P(\bm{X} \leq x_0) = 0.8 \):
+    \begin{lstlisting}[language=R]
+> qnorm(0.8, mean = 165, sd = 5)
+[1] 169.2081        
+    \end{lstlisting}
+\end{solution}
+
+\subsection{Standard Normal Distribution}
+
+Suppose Ellie purchased one watch from Henry for \$170 and another from Richard for \$180.
+Henry watch sells has a normal distribution with mean \$160 and standard deviation \$40,
+while Richard's has a normal distribution with mean \$190 and standard deviation \$20.
+The question is: Which seller offered the better price?
+
+The two watch prices follow different normal distributions, making direct price comparisons invalid.
+However, any normally distributed random variable \( \bm{X} \sim N(\mu, \sigma) \) can be converted to a \keyterm{standard normal random variable} \( \bm{Z} \sim N(0, 1) \).
+It can be proven that if \( \bm{X} \sim N(\mu, \sigma) \), then defining \( \bm{Z} = \frac{\bm{X} - \mu}{\sigma} \) yields \( \bm{Z} \sim N(0, 1) \).
+
+In the example above, let \( \bm{X} \) represent Henry's watch prices and \( \bm{Y} \) represent Richard's watch prices.
+Note that as \( \bm{X} \) and \( \bm{Y} \) are random variables, it is incorrect to state \( \bm{X} = \$170 \) or \( \bm{Y} = \$180 \).
+Rather, \$170 represents a realization of \( \bm{X} \) and \$180 a realization of \( \bm{Y} \), and we denote them by \( \bm{x} \) and \( \bm{y} \), respectively.
+Since \( \frac{\bm{X} - 160}{40} \sim N(0, 1) \) and \( \frac{\bm{Y} - 190}{20} \sim N(0, 1) \), both \( \bm{z_1} = \frac{\bm{x} - 160}{40} = 0.25 \) and \( \bm{z_2} = \frac{\bm{y} - 190}{20} = -0.5 \) can be thought of as realizations of the same normal distribution with mean 0 and standard deviation 1.
+In other words, it is as if Ellie has purchased both watches from a single seller whose sells has a normal distribution with mean \$0 and standard deviation \$1.
+\( z_1 \) and \( z_2 \) are called the \keyterm{standardized scores} or \keyterm{z-scores} of \( \bm{x} \) and \( \bm{y} \), respectively.
+
+For any constant \( k \), when \( \bm{x} = \mu + k\sigma \), the corresponding z-score is:
+\begin{gather*}
+    \bm{z} = \frac{(\mu + k\sigma) - \mu}{\sigma} = k
+\end{gather*}
+Conversely, a z-score of \( k \) implies that the original value lies \( |k| \) standard deviations above the original mean if \( k > 0 \) and \( |k| \) standard deviations below the original mean if \( k < 0 \).
+
+Returning to our example, \( \bm{z_1} = 0.25 \) means the price of the watch bought from Henry is 0.25 standard deviations above \$160, the average price at which Henry sells his watches,
+while \( \bm{z_2} = -0.5 \) means the price of the watch bought from Richard is 0.5 standard deviations below \$190, the average price at which Richard sells his watches.
+While Henry's price initially appears better, Richard actually sold the watch below his average price!
+
+Converting the normal variable to standard variable is called \keyterm{standardization}, and can be used for such comparisons.
