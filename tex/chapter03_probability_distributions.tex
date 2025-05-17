@@ -441,7 +441,7 @@ where \( \bm{x}, \mu \in R \) and \( \sigma > 0 \).
 \( \mu \) and \( \sigma \) are parameters of this distribution.
 We say \( \bm{X} \) is \keyterm{normally distributed} and denote it by \( \bm{X} \sim N(\mu, \sigma) \).
 
-The probability density function of normal distribution is visualized in \autoref{fig:normal_graph}.
+The probability density function (PDF) of a normal distribution forms a symmetric bell-shaped curve, as illustrated in \autoref{fig:normal_graph}.
 \begin{figure}[t]
 \begin{center}
 \epsfig{file=../img/normalGraphWithRod.jpg,clip=true,width=8.8cm}
@@ -607,3 +607,31 @@ while \( \bm{z_2} = -0.5 \) means the price of the watch bought from Richard is 
 While Henry's price initially appears better, Richard actually sold the watch below his average price!
 
 Converting the normal variable to standard variable is called \keyterm{standardization}, and can be used for such comparisons.
+
+\subsection{Empirical Rule}
+
+The \keyterm{Empirical Rule} (or \keyterm{68-95-99.7 Rule}) quantifies how probability mass concentrates within successive standard deviations of the mean in a normal distribution \( N(\mu, \sigma) \).
+Specifically:
+\begin{itemize}
+    \item approximately 68\% of the probability mass lies within one standard deviations of the mean:
+    \begin{lstlisting}[language=R]
+> pnorm(1) - pnorm(-1)
+[1] 0.6826895      
+    \end{lstlisting}
+    \item approximately 95\% of the probability mass lies within two standard deviations of the mean:
+    \begin{lstlisting}[language=R]
+> pnorm(2) - pnorm(-2)
+[1] 0.9544997
+    \end{lstlisting}
+    \item approximately 99.7\% of the probability mass lies within three standard deviations of the mean:
+    \begin{lstlisting}[language=R]
+> pnorm(3) - pnorm(-3)
+[1] 0.9973002
+    \end{lstlisting}
+\end{itemize}
+We will examine practical applications of this rule in later chapters.
+When modeling data using a normal distribution approximation with mean \( \mu \) and standard deviation \( \sigma \),
+observations falling outside \( [\mu - 3\sigma, \mu + 3\sigma] \) are generally considered outliers.
+This follows from the concentration of approximately 99.7\% of the probability mass within this interval,
+leaving only 0.3\% of expected observations in the tails.
+An illustration of this rule can be found at \href{https://andymath.com/normal-distribution-empirical-rule/}{This link}.
