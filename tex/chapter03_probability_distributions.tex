@@ -46,11 +46,11 @@ Conventionally, if \( A \subset R\), we define:
 \end{gather*}
 For instance, in the previous example, \( (X < 2) = (X \in (-\infty, 2)) = (X \in \{ 0, 1 \}) = \{ TTT, HTT, THT, TTH \} \).
 
-When working with random variables, probabilities can be described quantitatively.
+When working with random variables, probabilities can be expressed quantitatively.
 For example, if we want the probability that the number of heads is fewer than 2, we are interested in the event \( (X < 2) \).
 As shown earlier, this corresponds to:
 \begin{gather*}
-    P(X < 2) = P(X \in \{ TTT, HTT, THT, TTH \}) = \frac{4}{8} = \frac{1}{4}
+    P(X < 2) = P(X \in \{ TTT, HTT, THT, TTH \}) = \frac{4}{8} = \frac{1}{2}
 \end{gather*}
 
 \begin{exmp}
@@ -175,7 +175,7 @@ We call \( X \) a \keyterm{Bernoulli random variable}, and we write \( X \sim Be
 
 \subsection{Binomial Distribution}
 
-Suppose \( n \) identical Bernoulli trials are preformed independently from each other.
+Suppose \( n \) identical Bernoulli trials are performed independent of each other.
 If \( X \) is the number of successes in these \( n \) trials, then it is called a \keyterm{binomial random variable}.
 We say \( X \) follows a \keyterm{binomial distribution} and denote this by \( X \sim B(n, p) \),
 where \( p \) is the probability of success and remains the same in each Bernoulli trial.
@@ -183,7 +183,7 @@ where \( p \) is the probability of success and remains the same in each Bernoul
 To compute the \( X \)'s PMF \( p_{X}(x) \),
 we first choose \( x \) trials out of total \( n \) Bernoulli trials.
 This can be done in \( n \choose x \) ways.
-Now consier any one of these arrangements of \( x \) successes and \( n - x \) failures.
+Now consider any one of these arrangements of \( x \) successes and \( n - x \) failures.
 The following analysis focuses on the configuration depicted in \autoref{fig:binom_seq}.
 \begin{figure}[t]
 \begin{center}
@@ -196,7 +196,7 @@ The following analysis focuses on the configuration depicted in \autoref{fig:bin
 What is the probability of such a sequence occurring?
 
 Let \( S_i \) denote the event of success in the \( i \)-th trial and \( F_i \) the event of failure, where \( i = 1, 2, \ldots, n \).
-Since the trials are independent from each other, the multiplcation rule yields:
+Since the trials are independent of each other, the multiplication rule yields:
 \begin{align*}
     P(S_1 \cap F_2 \cap F_3 \cap \ldots \cap S_{n - 1} \cap F_{n}) &= P(S_1)P(F_2)P(F_3)\ldots P(S_{n - 1})P(F_n)\\
     &= p(1 - p)(1 - p)\ldots p(1 - p)\\
@@ -208,8 +208,8 @@ Thus:
 \end{gather*}
 where \( x = 0, 1, 2, \ldots, n \).
 
-We denoted the Bernoulli distribution by \( Bern(p) \) and the bionomial distribution by \( B(n, p) \).
-The values inside the parantheses define random variable's distribution and are called \keyterm{parameters}.
+We denoted the Bernoulli distribution by \( Bern(p) \) and the binomial distribution by \( B(n, p) \).
+The values inside the parentheses define random variable's distribution and are called \keyterm{parameters}.
 If we know these parameters, we can compute probabilities for each possible value.
 
 Note that a binomial distribution with \( n = 1 \) is Bernoulli distribution.
@@ -243,7 +243,7 @@ Note that a binomial distribution with \( n = 1 \) is Bernoulli distribution.
 \begin{exmp}
     Based on a study, only 8\% of Canadians did not eat at restaurants last month.\FOOTNOTE{\url{https://www150.statcan.gc.ca/n1/pub/11-627-m/11-627-m2019003-eng.htm}}
     If you randomly survey 7 Canadians about their dining habits,
-    what is the probability that exactly 5 of them ate out last month?
+    what is the probability that exactly 3 of them ate out last month?
 \end{exmp}
 \begin{solution}
     Let \( X \) denote the number of individuals (out of 7 surveyed) who ate at restaurants last month.
@@ -326,11 +326,11 @@ which is equivalent to:
 \begin{lstlisting}[language=R]
 > 1 - pbinom(q, size, prob)
 \end{lstlisting}
-This is because \( P(x \in R) = 1 \) and \( R \) is partitioned into \( (-\infty, q] \) and \( (q, \infty) \).
+This is because \( P(X \in R) = 1 \) and \( R \) is partitioned into \( (-\infty, q] \) and \( (q, \infty) \).
 Hence:
 \begin{gather*}
-    1 = P(x \in R) = P((x \leq q) \cup (x > q)) = P(x \leq q) + P(x > q)\\
-    P(x > q) = 1 - P(x \leq q)
+    1 = P(X \in R) = P((X \leq q) \cup (X > q)) = P(X \leq q) + P(X > q)\\
+    P(X > q) = 1 - P(X \leq q)
 \end{gather*}
 \begin{exmp}
     In Example \autoref{exmp:ucalgary}, the probability that at most 30 graduates did not pursue (or will not pursue) doctoral studies is:
@@ -510,8 +510,8 @@ We can use \verb|lower.tail = FALSE| to compute \( P(X > q) \):
     \end{enumerate}
 \end{exmp}
 \begin{solution}
-    We choose a woman from this city.
-    Let \( X \) be this woman's height.
+    Suppose a woman is chosen at random from this city.
+    Let \( X \) denote her height.
     Thus, \( X \sim N(165, 5) \).
     \begin{enumerate}
         \item The desired probability is \( P(X < 170) \), but note that this is the same as \( P(X \leq 170) \).
@@ -581,8 +581,8 @@ where \verb|p| is the left-tail probability  \( p \), \verb|mean| is the mean pa
 \subsection{Standard Normal Distribution}
 
 Suppose Ellie purchased one watch from Henry for \$170 and another from Richard for \$180.
-Henry watch sells has a normal distribution with mean \$160 and standard deviation \$40,
-while Richard's has a normal distribution with mean \$190 and standard deviation \$20.
+Henry watch sales follow a normal distribution with mean \$160 and standard deviation \$40,
+while Richard's follow a normal distribution with mean \$190 and standard deviation \$20.
 The question is: Which seller offered the better price?
 
 The two watch prices follow different normal distributions, making direct price comparisons invalid.
@@ -671,7 +671,7 @@ Converting a normal variable to standard variable is called \keyterm{standardiza
 The \keyterm{Empirical Rule} (or \keyterm{68-95-99.7 Rule}) quantifies how probability mass concentrates within successive standard deviations of the mean in a normal distribution \( N(\mu, \sigma) \).
 Specifically:
 \begin{itemize}
-    \item approximately 68\% of the probability mass lies within one standard deviations of the mean:
+    \item approximately 68\% of the probability mass lies within one standard deviation of the mean:
     \begin{lstlisting}[language=R]
 > pnorm(1) - pnorm(-1)
 [1] 0.6826895      
