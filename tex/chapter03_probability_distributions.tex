@@ -693,3 +693,22 @@ observations falling outside \( [\mu - 3\sigma, \mu + 3\sigma] \) are generally 
 This follows from the concentration of approximately 99.7\% of the probability mass within this interval,
 leaving only 0.3\% of expected observations in the tails.
 An illustration of this rule can be found at \href{https://andymath.com/normal-distribution-empirical-rule/}{this link}.
+
+\begin{exmp}
+    Let \( \bm{X} \) represent the height (in cm) of a woman in the city from Example \autoref{exmp:women_heights}.
+    \begin{enumerate}
+        \item For a randomly selected woman with height 185 cm, compute her standardized height.
+        \item Would you say that this woman is unusually tall?
+    \end{enumerate}
+\end{exmp}
+\begin{solution}
+    Let \( \bm{x} \) be the height of this woman.
+    \begin{enumerate}
+        \item \begin{gather*}
+            z = \frac{x - \mu}{\sigma} = \frac{185 - 165}{5} = 4
+        \end{gather*}
+        \item The computed z-score reveals that her height is four standard deviations above the city's mean.
+        Since we defined outliers as data points beyond three standard deviations from the mean,
+        this woman's height is undoubtedly an outlier!
+    \end{enumerate}
+\end{solution}
