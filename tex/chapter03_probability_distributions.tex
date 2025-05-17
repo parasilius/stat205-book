@@ -17,7 +17,7 @@ But when there are three, I believe I have a proof that it is unjust that you sh
 
 \section{Random Variables}
 
-In Example \autoref{exmp:three_fair_coins}, we denote the number of observed heads by \( \bm{X} \),
+In Example \autoref{exmp:three_fair_coins}, we denote the number of observed heads by \( X \),
 which can take on values 0, 1, 2, or 3.
 Each of these numbers corresponds to one of the following events:
 \begin{itemize}
@@ -28,7 +28,7 @@ Each of these numbers corresponds to one of the following events:
 \end{itemize}
 In other words, the sample space is partitioned into events \( A, B, C, \) and \( D \).
 Hence, we can map each element of \( S \) to exactly one element of \( \{ 0, 1, 2, 3 \} \).
-This mapping is achieved using \( \bm{X} \), which is called a \keyterm{random variable}.
+This mapping is achieved using \( X \), which is called a \keyterm{random variable}.
 
 Thus:
 \begin{gather*}
@@ -37,31 +37,31 @@ Thus:
 
 More formally, in a probability model with sample space \( S \),
 a random variable (or simply a variable) is a real-valued function \( X: S \rightarrow R \),
-where the range of \( \bm{X} \) is a subset of the real numbers.
-The range of \( \bm{X} \) is called the \keyterm{support} of \( \bm{X} \) and is denoted by \( S_{\bm{X}} \).
+where the range of \( X \) is a subset of the real numbers.
+The range of \( X \) is called the \keyterm{support} of \( X \) and is denoted by \( S_{X} \).
 
 Conventionally, if \( A \subset R\), we define:
 \begin{gather*}
-    (\bm{X} \in A) = \{ e \in S | \bm{X}(e) \in A \}
+    (X \in A) = \{ e \in S | X(e) \in A \}
 \end{gather*}
-For instance, in the previous example, \( (\bm{X} < 2) = (\bm{X} \in (-\infty, 2)) = (\bm{X} \in \{ 0, 1 \}) = \{ TTT, HTT, THT, TTH \} \).
+For instance, in the previous example, \( (X < 2) = (X \in (-\infty, 2)) = (X \in \{ 0, 1 \}) = \{ TTT, HTT, THT, TTH \} \).
 
 When working with random variables, probabilities can be described quantitatively.
-For example, if we want the probability that the number of heads is fewer than 2, we are interested in the event \( (\bm{X} < 2) \).
+For example, if we want the probability that the number of heads is fewer than 2, we are interested in the event \( (X < 2) \).
 As shown earlier, this corresponds to:
 \begin{gather*}
-    P(\bm{X} < 2) = P(\bm{X} \in \{ TTT, HTT, THT, TTH \}) = \frac{4}{8} = \frac{1}{4}
+    P(X < 2) = P(X \in \{ TTT, HTT, THT, TTH \}) = \frac{4}{8} = \frac{1}{4}
 \end{gather*}
 
 \begin{exmp}
-    Suppose in Example \autoref{exmp:heads_observe}, \( \bm{X} \) is the number of coin tosses required to observe the first heads.
-    Thus, the support of \( \bm{X} \) is \( S_{\bm{X}} = \{ 1, 2, \ldots \} \).
+    Suppose in Example \autoref{exmp:heads_observe}, \( X \) is the number of coin tosses required to observe the first heads.
+    Thus, the support of \( X \) is \( S_{X} = \{ 1, 2, \ldots \} \).
     For instance, if one iteration of this experiment yields the outcome \( TTTH \),
-    then \( \bm{X}(TTTH) = 4 \), as the first heads occurs on the fourth toss.
+    then \( X(TTTH) = 4 \), as the first heads occurs on the fourth toss.
 
     The probability that the number of coin tosses required to observe the first heads is an odd number is given by:
     \begin{align*}
-        P(\bm{X} \in \{ 1, 3, \ldots \}) &= P(\{ H, TTH, \ldots \})\\
+        P(X \in \{ 1, 3, \ldots \}) &= P(\{ H, TTH, \ldots \})\\
         &= P(\{ H \}) + P(\{ TTH \}) + \ldots\\
         &= (\frac{1}{2}) + (\frac{1}{2})^3 + \ldots\\
         &= \frac{2}{3}
@@ -72,39 +72,39 @@ As shown earlier, this corresponds to:
     In the previous example, what is the probability that more than six coin tosses are required to observe the first heads?
 \end{exmp}
 
-In the two examples we analyzed so far, the support \( S_{\bm{X}} \) is countable.
-In this case, we say \( \bm{X} \) is a \keyterm{discrete random variable}.
+In the two examples we analyzed so far, the support \( S_{X} \) is countable.
+In this case, we say \( X \) is a \keyterm{discrete random variable}.
 Conversely, if a random variable can take on infinitely many (uncountable) number of values,
 we call it a \keyterm{continuous random variable}.
 
 Below are examples of continuous random variables:
 
 \begin{exmp}
-    In Example \autoref{exmp:lightbulb_lifespan}, let \( \bm{X} \) be lightbulb's lifespan.
-    Since lifespans can take any non-negative real value, \( \bm{X} \) is a continuous random variable.
+    In Example \autoref{exmp:lightbulb_lifespan}, let \( X \) be lightbulb's lifespan.
+    Since lifespans can take any non-negative real value, \( X \) is a continuous random variable.
 \end{exmp}
 
 \begin{exmp}
     Suppose a needle is dropped at random into a circular disk of radius 3.
     The sample space consists of all possible landing positions of the needle, which are uncountable.
-    Let \( \bm{X} \) denote the distance from the needle's landing point to the center of the disk.
-    Then \( \bm{X} \) is a continuous random variable with support \( S_{\bm{X}} = [0, 3] \),
+    Let \( X \) denote the distance from the needle's landing point to the center of the disk.
+    Then \( X \) is a continuous random variable with support \( S_{X} = [0, 3] \),
     where the interval includes the boundary points (accounting for the possibility of landing exactly on the disk's edge).
 \end{exmp}
 
 \section{Probability Distribution}
 
-We saw that different values of a random variable \( \bm{X} \) implicitly partition the sample space into mutually exclusive events.
+We saw that different values of a random variable \( X \) implicitly partition the sample space into mutually exclusive events.
 A key characteristic of any probability model is the probability it assigns to each possible value of the random variable.
-When \( \bm{X} \) is discrete (taking on countably many values), we can conveniently represent its \keyterm{probability distribution} using a graph, a table, or a function.
+When \( X \) is discrete (taking on countably many values), we can conveniently represent its \keyterm{probability distribution} using a graph, a table, or a function.
 \begin{exmp}\label{exmp:three_dice_prob_dist}
-    The probability distribution table for \( \bm{X} \) (the number of observed heads) in Example \autoref{exmp:three_fair_coins} is:
+    The probability distribution table for \( X \) (the number of observed heads) in Example \autoref{exmp:three_fair_coins} is:
 	\begin{center}
 	\begin{tabular}{|c|c|c|c|c|c|}
 	\hline
-	\( \bm{x} \) & 0 & 1 & 2 & 3 & Total \\
+	\( x \) & 0 & 1 & 2 & 3 & Total \\
 	\hline
-	\( P(\bm{X} = \bm{x}) \) & \( \frac{1}{8} \) & \( \frac{3}{8} \) & \( \frac{3}{8} \) & \( \frac{1}{8} \) & \( 1 \) \\
+	\( P(X = x) \) & \( \frac{1}{8} \) & \( \frac{3}{8} \) & \( \frac{3}{8} \) & \( \frac{1}{8} \) & \( 1 \) \\
 	\hline
 	\end{tabular}
 	\end{center}
@@ -120,20 +120,20 @@ When \( \bm{X} \) is discrete (taking on countably many values), we can convenie
     %\HR
     \end{figure}
 \end{exmp}
-For a discrete random variable \( \bm{X} \), we can also describe its probability distribution using a function.
+For a discrete random variable \( X \), we can also describe its probability distribution using a function.
 This function is called \keyterm{probability mass function (PMF)}, and is defined as follows:
 \begin{align*}
-    p_{\bm{X}} \colon R &\to [0, 1] \\
-    \bm{x} &\mapsto P(\bm{X} = \bm{x})
+    p_{X} \colon R &\to [0, 1] \\
+    x &\mapsto P(X = x)
 \end{align*}
 where \( P \) is a probability measure.
 
-All values of \( \bm{X} \) without assigned probabilities are implicitly defined to be zero.
+All values of \( X \) without assigned probabilities are implicitly defined to be zero.
 For instance, in the previous example, the PMF is:
 \begin{gather*}
-    p_{\bm{X}}(\bm{x}) = \begin{cases}
-        \frac{1}{8}, & \text{if } \bm{x} = 0, 3\\
-        \frac{3}{8}, & \text{if } \bm{x} = 1, 2\\
+    p_{X}(x) = \begin{cases}
+        \frac{1}{8}, & \text{if } x = 0, 3\\
+        \frac{3}{8}, & \text{if } x = 1, 2\\
         0, & \text{O.W.}\\
     \end{cases}
 \end{gather*}
@@ -154,42 +154,42 @@ These are all examples of \keyterm{Bernoulli trial}, where an experiment yields 
 We designate one outcome as a "success" (typically mapped to 1) and the other as a "failure" (mapped to 0).
 The corresponding Bernoulli random variable \( X \) thus has the probability mass function:
 \begin{gather*}
-    p_{\bm{X}}(\bm{x}) = \begin{cases}
-        p, & \text{if } \bm{x} = 1\\
-        1 - p, & \text{if } \bm{x} = 0\\
+    p_{X}(x) = \begin{cases}
+        p, & \text{if } x = 1\\
+        1 - p, & \text{if } x = 0\\
     \end{cases}
     = p^x(1 - p)^{1 - x}
 \end{gather*}
-where \( \bm{x} = 0, 1 \) and \( p \) is the probability of success.
-We call \( \bm{X} \) a \keyterm{Bernoulli random variable}, and we write \( \bm{X} \sim Bern(p) \), indicating that X follows a \keyterm{Bernoulli distribution} with success probability \( p \).
+where \( x = 0, 1 \) and \( p \) is the probability of success.
+We call \( X \) a \keyterm{Bernoulli random variable}, and we write \( X \sim Bern(p) \), indicating that X follows a \keyterm{Bernoulli distribution} with success probability \( p \).
 \begin{exmp}
     Consider an unfair coin toss where the probability of landing heads is \( \frac{2}{3} \).
-    Let \( \bm{X} \) be the random variable representing the observation of heads. Then \( \bm{X} \sim Bern(\frac{2}{3}) \).
+    Let \( X \) be the random variable representing the observation of heads. Then \( X \sim Bern(\frac{2}{3}) \).
 \end{exmp}
 \begin{exmp}
     For a fair six-sided die roll, let \( X \) be the indicator random variable for the event "not six."
     The success probability is observing 1, 2, 3, 4, or 5,
     which is \( p = \frac{5}{6} \),
-    and thus \( \bm{X} \sim Bern(\frac{5}{6}) \).
+    and thus \( X \sim Bern(\frac{5}{6}) \).
 \end{exmp}
 
 \subsection{Binomial Distribution}
 
 Suppose \( n \) identical Bernoulli trials are preformed independently from each other.
-If \( \bm{X} \) is the number of successes in these \( n \) trials, then it is called a \keyterm{binomial random variable}.
-We say \( \bm{X} \) follows a \keyterm{binomial distribution} and denote this by \( \bm{X} \sim B(n, p) \),
+If \( X \) is the number of successes in these \( n \) trials, then it is called a \keyterm{binomial random variable}.
+We say \( X \) follows a \keyterm{binomial distribution} and denote this by \( X \sim B(n, p) \),
 where \( p \) is the probability of success and remains the same in each Bernoulli trial.
 
-To compute the \( \bm{X} \)'s PMF \( p_{\bm{X}}(\bm{x}) \),
-we first choose \( \bm{x} \) trials out of total \( n \) Bernoulli trials.
+To compute the \( X \)'s PMF \( p_{X}(x) \),
+we first choose \( x \) trials out of total \( n \) Bernoulli trials.
 This can be done in \( n \choose x \) ways.
-Now consier any one of these arrangements of \( \bm{x} \) successes and \( n - \bm{x} \) failures.
+Now consier any one of these arrangements of \( x \) successes and \( n - x \) failures.
 The following analysis focuses on the configuration depicted in \autoref{fig:binom_seq}.
 \begin{figure}[t]
 \begin{center}
 \epsfig{file=../img/binomSeq.jpg,clip=true,width=8.8cm}
 \end{center}
-\caption{one arrangement of \( \bm{x} \) successes and \( n - \bm{x} \) failures in \( n \) independent Bernoulli trials}
+\caption{one arrangement of \( x \) successes and \( n - x \) failures in \( n \) independent Bernoulli trials}
 \label{fig:binom_seq}
 %\HR
 \end{figure}
@@ -200,13 +200,13 @@ Since the trials are independent from each other, the multiplcation rule yields:
 \begin{align*}
     P(S_1 \cap F_2 \cap F_3 \cap \ldots \cap S_{n - 1} \cap F_{n}) &= P(S_1)P(F_2)P(F_3)\ldots P(S_{n - 1})P(F_n)\\
     &= p(1 - p)(1 - p)\ldots p(1 - p)\\
-    &= p^{\bm{x}}(1 - p)^{n - \bm{x}}
+    &= p^{x}(1 - p)^{n - x}
 \end{align*}
 Thus:
 \begin{gather*}
-    p_{\bm{X}}(\bm{x}) = \binom{n}{\bm{x}} p^{\bm{x}}(1 - p)^{n - \bm{x}}
+    p_{X}(x) = \binom{n}{x} p^{x}(1 - p)^{n - x}
 \end{gather*}
-where \( \bm{x} = 0, 1, 2, \ldots, n \).
+where \( x = 0, 1, 2, \ldots, n \).
 
 We denoted the Bernoulli distribution by \( Bern(p) \) and the bionomial distribution by \( B(n, p) \).
 The values inside the parantheses define random variable's distribution and are called \keyterm{parameters}.
@@ -220,10 +220,10 @@ Note that a binomial distribution with \( n = 1 \) is Bernoulli distribution.
 \begin{solution}
     Each coin toss is a Bernoulli trial where success is defined as observing trials.
     The probability of success is therefore \( p = \frac{1}{2} \).
-    Let \( \bm{X} \) be the number of tails in these 8 coin tosses.
-    So \( \bm{X} \sim B(8, \frac{1}{2}) \), and we can compute the desired probability:
+    Let \( X \) be the number of tails in these 8 coin tosses.
+    So \( X \sim B(8, \frac{1}{2}) \), and we can compute the desired probability:
     \begin{align*}
-        p_{\bm{X}}(5) &= \binom{8}{5} (\frac{1}{2})^5 (1 - \frac{1}{2})^{8 - 5}\\
+        p_{X}(5) &= \binom{8}{5} (\frac{1}{2})^5 (1 - \frac{1}{2})^{8 - 5}\\
         &= \frac{8 \times 7 \times 6 \times 5!}{3!5!} (\frac{1}{2})^8\\
         &= 56 \times \frac{1}{256}\\
         &\approx 0.21875
@@ -231,13 +231,13 @@ Note that a binomial distribution with \( n = 1 \) is Bernoulli distribution.
 \end{solution}
 
 \begin{exmp}
-    In Example \autoref{exmp:three_dice_prob_dist}, \( \bm{X} \sim B(3, \frac{1}{2}) \).
+    In Example \autoref{exmp:three_dice_prob_dist}, \( X \sim B(3, \frac{1}{2}) \).
     So another way to find the probability distribution is:
     \begin{gather*}
-        p_{\bm{X}}(0) = \binom{3}{0} (\frac{1}{2})^0 (1 - \frac{1}{2})^{3 - 0} = 1 \times \frac{1}{8} = \frac{1}{8}\\
-        p_{\bm{X}}(1) = \binom{3}{1} (\frac{1}{2})^1 (1 - \frac{1}{2})^{3 - 1} = 3 \times \frac{1}{8} = \frac{3}{8}\\
-        p_{\bm{X}}(2) = \binom{3}{2} (\frac{1}{2})^2 (1 - \frac{1}{2})^{3 - 2} = 3 \times \frac{1}{8} = \frac{3}{8}\\
-        p_{\bm{X}}(3) = \binom{3}{3} (\frac{1}{2})^3 (1 - \frac{1}{2})^{3 - 3} = 1 \times \frac{1}{8} = \frac{1}{8}\\
+        p_{X}(0) = \binom{3}{0} (\frac{1}{2})^0 (1 - \frac{1}{2})^{3 - 0} = 1 \times \frac{1}{8} = \frac{1}{8}\\
+        p_{X}(1) = \binom{3}{1} (\frac{1}{2})^1 (1 - \frac{1}{2})^{3 - 1} = 3 \times \frac{1}{8} = \frac{3}{8}\\
+        p_{X}(2) = \binom{3}{2} (\frac{1}{2})^2 (1 - \frac{1}{2})^{3 - 2} = 3 \times \frac{1}{8} = \frac{3}{8}\\
+        p_{X}(3) = \binom{3}{3} (\frac{1}{2})^3 (1 - \frac{1}{2})^{3 - 3} = 1 \times \frac{1}{8} = \frac{1}{8}\\
     \end{gather*}
 \end{exmp}
 \begin{exmp}
@@ -246,17 +246,17 @@ Note that a binomial distribution with \( n = 1 \) is Bernoulli distribution.
     what is the probability that exactly 5 of them ate out last month?
 \end{exmp}
 \begin{solution}
-    Let \( \bm{X} \) denote the number of individuals (out of 7 surveyed) who ate at restaurants last month.
-    Since \( \bm{X} \sim B(7, 0.92) \),
+    Let \( X \) denote the number of individuals (out of 7 surveyed) who ate at restaurants last month.
+    Since \( X \sim B(7, 0.92) \),
     \begin{gather*}
-        p_{\bm{X}}(3) = \binom{7}{3} (0.92)^3 (1 - 0.92)^{7 - 3} \approx 0.0011
+        p_{X}(3) = \binom{7}{3} (0.92)^3 (1 - 0.92)^{7 - 3} \approx 0.0011
     \end{gather*}
 \end{solution}
-For a random variable \( \bm{X} \sim B(n, p) \), we can compute \( p_{\bm{X}}(\bm{x}) \) using this R command:
+For a random variable \( X \sim B(n, p) \), we can compute \( p_{X}(x) \) using this R command:
 \begin{lstlisting}[language=R]
 > dbinom(x, size, prob)
 \end{lstlisting}
-where \verb|x| is \( \bm{x} \), \verb|size| is the number of trials \( n \), and \verb|prob| is the probability of success \( p \).
+where \verb|x| is \( x \), \verb|size| is the number of trials \( n \), and \verb|prob| is the probability of success \( p \).
 
 Following this approach, the previous example can be solved as follows:
 \begin{lstlisting}[language=R]
@@ -291,16 +291,16 @@ Using \verb|sum()|, we can compute the total of outputs in the previous command,
     Calculate this probability by hand and using R.
 \end{exmp}
 \begin{solution}
-    Let \( \bm{Y} \) be the number of those who did not pursue (or will not pursue) doctoral studies.
-    Therefore, \( \bm{Y} \sim B(40, 0.89) \) with PMF:
+    Let \( Y \) be the number of those who did not pursue (or will not pursue) doctoral studies.
+    Therefore, \( Y \sim B(40, 0.89) \) with PMF:
     \begin{gather*}
-        p_{\bm{Y}}(\bm{y}) = \binom{40}{\bm{y}} 0.89^{\bm{y}}0.11^{40 - \bm{y}}
+        p_{Y}(y) = \binom{40}{y} 0.89^{y}0.11^{40 - y}
     \end{gather*}
-    where \( \bm{y} = 0, 1, 2, \ldots, 40 \).
+    where \( y = 0, 1, 2, \ldots, 40 \).
 
     The desired probability is:
     \begin{gather*}
-        p_{\bm{Y}}(35) = \binom{40}{35} 0.89^{35}0.11^{40 - 35} \approx 0.18
+        p_{Y}(35) = \binom{40}{35} 0.89^{35}0.11^{40 - 35} \approx 0.18
     \end{gather*}
     The R command below verifies this result:
     \begin{lstlisting}[language=R]
@@ -308,9 +308,9 @@ Using \verb|sum()|, we can compute the total of outputs in the previous command,
 [1] 0.1794093
     \end{lstlisting}
 \end{solution}
-We may be interested in the left-tail probability \( P(\bm{X} \leq q) \), where \( q \) can be any real number.
-It is obvious that if \( q < 0 \), \( P(\bm{X} \leq q) = 0 \), since \( \bm{X} \) is defined for integers starting at zero.
-However, for \( q \geq 0\), \( P(\bm{X} \leq q) = p_{\bm{X}}(0) + \ldots + p_{\bm{X}}(\floor{q}) \).
+We may be interested in the left-tail probability \( P(X \leq q) \), where \( q \) can be any real number.
+It is obvious that if \( q < 0 \), \( P(X \leq q) = 0 \), since \( X \) is defined for integers starting at zero.
+However, for \( q \geq 0\), \( P(X \leq q) = p_{X}(0) + \ldots + p_{X}(\floor{q}) \).
 
 In R, the following command computes this probability:
 \begin{lstlisting}[language=R]
@@ -318,7 +318,7 @@ In R, the following command computes this probability:
 \end{lstlisting}
 where \verb|q| is \( q \), \verb|size| is the number of trials \( n \), and \verb|prob| is the probability of success \( p \).
 
-To compute \( P(\bm{X} > q) \), set the optional parameter \verb|lower.tail| to \verb|FALSE|:
+To compute \( P(X > q) \), set the optional parameter \verb|lower.tail| to \verb|FALSE|:
 \begin{lstlisting}[language=R]
 > pbinom(q, size, prob, lower.tail = FALSE)
 \end{lstlisting}
@@ -326,11 +326,11 @@ which is equivalent to:
 \begin{lstlisting}[language=R]
 > 1 - pbinom(q, size, prob)
 \end{lstlisting}
-This is because \( P(\bm{x} \in R) = 1 \) and \( R \) is partitioned into \( (-\infty, q] \) and \( (q, \infty) \).
+This is because \( P(x \in R) = 1 \) and \( R \) is partitioned into \( (-\infty, q] \) and \( (q, \infty) \).
 Hence:
 \begin{gather*}
-    1 = P(\bm{x} \in R) = P((\bm{x} \leq q) \cup (\bm{x} > q)) = P(\bm{x} \leq q) + P(\bm{x} > q)\\
-    P(\bm{x} > q) = 1 - P(\bm{x} \leq q)
+    1 = P(x \in R) = P((x \leq q) \cup (x > q)) = P(x \leq q) + P(x > q)\\
+    P(x > q) = 1 - P(x \leq q)
 \end{gather*}
 \begin{exmp}
     In Example \autoref{exmp:ucalgary}, the probability that at most 30 graduates did not pursue (or will not pursue) doctoral studies is:
@@ -343,8 +343,8 @@ Hence:
 > pbinom(30, size = 40, prob = 0.89, lower.tail = FALSE)
 [1] 0.9901838
     \end{lstlisting}
-    since \( P(\bm{Y} > 30) = P(\bm{Y} \geq 31) \).
-    This also equals \( p_{\bm{Y}}(31) + p_{\bm{Y}}(32) + \ldots + p_{\bm{Y}}(40) \):
+    since \( P(Y > 30) = P(Y \geq 31) \).
+    This also equals \( p_{Y}(31) + p_{Y}(32) + \ldots + p_{Y}(40) \):
     \begin{lstlisting}[language=R]
 > sum(dbinom(31:40, size = 40, prob = 0.89))
 [1] 0.9901838
@@ -361,8 +361,8 @@ Hence:
     \end{lstlisting}
     since:
     \begin{align*}
-        P(\bm{Y} \leq 35) - P(\bm{Y} \leq 9) &= \sum_{i = 0}^{35} p_{\bm{Y}}(i) - \sum_{j = 0}^{9} p_{\bm{Y}}(j)\\
-        &= p_{\bm{Y}}(10) + p_{\bm{Y}}(11) + \ldots + p_{\bm{Y}}(35)
+        P(Y \leq 35) - P(Y \leq 9) &= \sum_{i = 0}^{35} p_{Y}(i) - \sum_{j = 0}^{9} p_{Y}(j)\\
+        &= p_{Y}(10) + p_{Y}(11) + \ldots + p_{Y}(35)
     \end{align*}
 \end{exmp}
 
@@ -374,8 +374,8 @@ which assigned a probability for each possible value of the random variable.
 One way to conceptualize this is as the distribution of a unit mass across a countable set of discrete points.
 Even when there are an infinite number of these points,
 it is possible to assign probabilities so that their sum equals 1.
-For instance, let \( \bm{X} \) be a random variable with support \( S_{\bm{X}} = \{ 1, 2, 3, \ldots \} \).
-Defining the PMF to be \( p_{\bm{X}}(x) = \frac{1}{2^x} \),
+For instance, let \( X \) be a random variable with support \( S_{X} = \{ 1, 2, 3, \ldots \} \).
+Defining the PMF to be \( p_{X}(x) = \frac{1}{2^x} \),
 it can be easily shown that this is a valid PMF.\FOOTNOTE{see the Wikipedia page on \href{https://en.wikipedia.org/wiki/1/2_\%2B_1/4_\%2B_1/8_\%2B_1/16_\%2B_\%E2\%8B\%AF}{the series \( \frac{1}{2} + \frac{1}{4} + \frac{1}{8} + \cdots \)}}
 
 However, continuous random variables can take on uncountably many values,
@@ -386,24 +386,24 @@ Just as a perfectly thin cross-section of a rod contains no mass, continuous dis
 Only interval-based measurements yield non-zero values.
 
 You can again interpret the probability distribution as a unit mass distribution.
-Following this analogy, for a continuous random variable \( \bm{X} \),
-we have \( P(\bm{X} = \bm{x}) = 0 \) at every point \( \bm{x} \in S_{\bm{X}} \).
+Following this analogy, for a continuous random variable \( X \),
+we have \( P(X = x) = 0 \) at every point \( x \in S_{X} \).
 
 To better understand the continuous distributions, we start with a simple and basic one.
 
 \subsection{Continuous Uniform Distribution}
 
-Suppose the unit mass is uniformly distributed on the interval \( S_{\bm{X}} = [a, b] \).
+Suppose the unit mass is uniformly distributed on the interval \( S_{X} = [a, b] \).
 This is analogous to a rod of length \( b - a \) with uniform density.
 The rod's linear density is therefore \( \frac{1}{b - a} \),
-which we call \keyterm{probability density function (PDF)} and denote it by \( f_{\bm{X}}(\bm{x}) = \frac{1}{b - a} \).
-We say that \( \bm{X} \) follows a \keyterm{continuous uniform distribution} over the interval \( [a, b] \), denoted \( \bm{X} \sim U(a, b) \).
+which we call \keyterm{probability density function (PDF)} and denote it by \( f_{X}(x) = \frac{1}{b - a} \).
+We say that \( X \) follows a \keyterm{continuous uniform distribution} over the interval \( [a, b] \), denoted \( X \sim U(a, b) \).
 
-Here, the PDF is independent of \( \bm{x} \), since the unit mass is distributed uniformly.
+Here, the PDF is independent of \( x \), since the unit mass is distributed uniformly.
 \autoref{fig:uniform_graph} shows the corresponding graph.
 The area under the uniform density function equals 1, representing total probability mass.
 Also, for any interval \( [c, d] \subset [a, b] \),
-the probability \( P(c \leq \bm{X} \leq d) \) corresponds to the area under the probability density function (PDF) over this interval,
+the probability \( P(c \leq X \leq d) \) corresponds to the area under the probability density function (PDF) over this interval,
 which in this case is calculated as \( (d - c) \times \frac{1}{b - a} \).
 \begin{figure}[t]
 \begin{center}
@@ -423,23 +423,23 @@ which in this case is calculated as \( (d - c) \times \frac{1}{b - a} \).
 \end{exmp}
 \begin{solution}
     Let X be the selected number.
-    Then \( \bm{X} \sim U(3, 7) \),
-    and the PDF is \( f_{\bm{X}}(\bm{x}) = \frac{1}{7 - 3} = \frac{1}{4} \) where \( 3 \leq \bm{x} \leq 7 \).
+    Then \( X \sim U(3, 7) \),
+    and the PDF is \( f_{X}(x) = \frac{1}{7 - 3} = \frac{1}{4} \) where \( 3 \leq x \leq 7 \).
     \begin{enumerate}
-        \item \( P(\bm{X} = 3.4) = 0 \)
-        \item \( P(4 \leq \bm{X} \leq 6) = (6 - 4) \times \frac{1}{4} = 0.5 \)
+        \item \( P(X = 3.4) = 0 \)
+        \item \( P(4 \leq X \leq 6) = (6 - 4) \times \frac{1}{4} = 0.5 \)
     \end{enumerate}
 \end{solution}
 
 \subsection{Normal (Gaussian) Distribution}
 
-The PDF of a \keyterm{normal random variable} \( \bm{X} \) is:
+The PDF of a \keyterm{normal random variable} \( X \) is:
 \begin{gather*}
-    f_{\bm{X}}(\bm{x}) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}(\frac{\bm{x} - \mu}{\sigma})^2}
+    f_{X}(x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}(\frac{x - \mu}{\sigma})^2}
 \end{gather*}
-where \( \bm{x}, \mu \in R \) and \( \sigma > 0 \).
+where \( x, \mu \in R \) and \( \sigma > 0 \).
 \( \mu \) and \( \sigma \) are parameters of this distribution.
-We say \( \bm{X} \) is \keyterm{normally distributed} and denote it by \( \bm{X} \sim N(\mu, \sigma) \).
+We say \( X \) is \keyterm{normally distributed} and denote it by \( X \sim N(\mu, \sigma) \).
 
 The probability density function (PDF) of a normal distribution forms a symmetric bell-shaped curve, as illustrated in \autoref{fig:normal_graph}.
 \begin{figure}[t]
@@ -450,8 +450,8 @@ The probability density function (PDF) of a normal distribution forms a symmetri
 \label{fig:normal_graph}
 %\HR
 \end{figure}
-Unlike continuous uniform distribution, normal PDF depends on \( \bm{x} \).
-As we can see from this graph, most of the probability mass is concentrated around \( \bm{x} = \mu \).
+Unlike continuous uniform distribution, normal PDF depends on \( x \).
+As we can see from this graph, most of the probability mass is concentrated around \( x = \mu \).
 The density decreases as we move away from this point in either direction.
 
 Many of the natural phenomena follow this pattern.
@@ -460,7 +460,7 @@ The average height for men is approximately 5'7"\FOOTNOTE{from \url{https://www.
 with heights becoming increasingly less probable as they deviate further from this number in either direction.
 
 Similar to continuous uniform distribution, the area under the PDF represents total probability mass which equals 1.
-Since the curve is symmetric around \( \mu \), \( P(\bm{X} < \mu) = P(\bm{X} > \mu) = 0.5 \).
+Since the curve is symmetric around \( \mu \), \( P(X < \mu) = P(X > \mu) = 0.5 \).
 
 The parameters \( \mu \) and \( \sigma \) are called \keyterm{location parameter} and \keyterm{scale parameter} respectively.
 The location parameter determines the location of normal PDF's peak, while the scale parameter controls the dispersion of the PDF.
@@ -475,14 +475,14 @@ The location parameter determines the location of normal PDF's peak, while the s
 %\HR
 \end{figure}
 For binomial random variables, we could compute probabilities at specific points using R's \verb|dbinom| function.
-However, for a normal random variable \( \bm{X} \sim N(\mu, \sigma) \),
+However, for a normal random variable \( X \sim N(\mu, \sigma) \),
 \verb|dnorm| evaluates the probability density function (PDF) at any point:
 \begin{lstlisting}[language=R]
 > dnorm(x, mean, sd)
 \end{lstlisting}
-where \verb|x| is \( \bm{x} \), \verb|mean| is the mean parameter \( \mu \), and \verb|sd| is standard deviation \( \sigma \).
+where \verb|x| is \( x \), \verb|mean| is the mean parameter \( \mu \), and \verb|sd| is standard deviation \( \sigma \).
 
-Similar to \verb|pbinom|, the command \verb|pnorm| computes the probability \( P(\bm{X} \leq q) \):
+Similar to \verb|pbinom|, the command \verb|pnorm| computes the probability \( P(X \leq q) \):
 \begin{lstlisting}[language=R]
 > pnorm(q, mean, sd)
 \end{lstlisting}
@@ -492,12 +492,12 @@ The output equals the area under the normal PDF to the left of \( q \) (see \aut
 \begin{center}
 \epsfig{file=../img/normalLowerProbability.jpg,clip=true,width=10cm}
 \end{center}
-\caption{the blue-shaded area is \( P(\bm{X} \leq q) \)}
+\caption{the blue-shaded area is \( P(X \leq q) \)}
 \label{fig:normal_lower_probability}
 %\HR
 \end{figure}
 
-We can use \verb|lower.tail = FALSE| to compute \( P(\bm{X} > q) \):
+We can use \verb|lower.tail = FALSE| to compute \( P(X > q) \):
 \begin{lstlisting}[language=R]
 > pnorm(q, mean, sd, lower.tail = FALSE)
 \end{lstlisting}
@@ -511,10 +511,10 @@ We can use \verb|lower.tail = FALSE| to compute \( P(\bm{X} > q) \):
 \end{exmp}
 \begin{solution}
     We choose a woman from this city.
-    Let \( \bm{X} \) be this woman's height.
-    Thus, \( \bm{X} \sim N(165, 5) \).
+    Let \( X \) be this woman's height.
+    Thus, \( X \sim N(165, 5) \).
     \begin{enumerate}
-        \item The desired probability is \( P(\bm{X} < 170) \), but note that this is the same as \( P(\bm{X} \leq 170) \).
+        \item The desired probability is \( P(X < 170) \), but note that this is the same as \( P(X \leq 170) \).
         In other words, the probability is the area under the curve of this normal PDF over the interval \( (-\infty, 170) \),
         and the endpoint 170 itself contributes no probability mass.
         Therefore, we can equivalently compute the probability over the interval \( (-\infty, 170] \).
@@ -529,8 +529,8 @@ We can use \verb|lower.tail = FALSE| to compute \( P(\bm{X} > q) \):
 
         This desired probability is:
         \begin{align*}
-            P(170 < \bm{X} < 180) &= P(\bm{X} < 180) - P(\bm{X} \leq 170)\\
-            &= P(\bm{X} \leq 180) - P(\bm{X} \leq 170)
+            P(170 < X < 180) &= P(X < 180) - P(X \leq 170)\\
+            &= P(X \leq 180) - P(X \leq 170)
         \end{align*}
         which equals:
         \begin{lstlisting}[language=R]
@@ -540,9 +540,9 @@ We can use \verb|lower.tail = FALSE| to compute \( P(\bm{X} > q) \):
         This is equivalent to removing the probability mass concentrated on the interval \( (-\infty, 170] \) from the probability mass concentrated on the interval \( (-\infty, 180) \).
     \end{enumerate}
 \end{solution}
-Now suppose that we want to find \( \bm{x_0} \) such that \( P(\bm{X} \leq \bm{x_0}) = p \) where \( p \in [0, 1] \).
-The value of \( \bm{x_0} \) is the \( 100p \)th percentile of the distribution.
-The following R command computes the value of \( \bm{x_0} \):
+Now suppose that we want to find \( x_0 \) such that \( P(X \leq x_0) = p \) where \( p \in [0, 1] \).
+The value of \( x_0 \) is the \( 100p \)th percentile of the distribution.
+The following R command computes the value of \( x_0 \):
 \begin{lstlisting}[language=R]
 > qnorm(p, mean, sd)
 \end{lstlisting}
@@ -571,7 +571,7 @@ where \verb|p| is the left-tail probability  \( p \), \verb|mean| is the mean pa
     In Example \autoref{exmp:women_heights}, what is the 80th percentile height?
 \end{exmp}
 \begin{solution}
-    We compute \( \bm{x_0} \) such that \( P(\bm{X} \leq x_0) = 0.8 \):
+    We compute \( x_0 \) such that \( P(X \leq x_0) = 0.8 \):
     \begin{lstlisting}[language=R]
 > qnorm(0.8, mean = 165, sd = 5)
 [1] 169.2081        
@@ -586,38 +586,38 @@ while Richard's has a normal distribution with mean \$190 and standard deviation
 The question is: Which seller offered the better price?
 
 The two watch prices follow different normal distributions, making direct price comparisons invalid.
-However, any normally distributed random variable \( \bm{X} \sim N(\mu, \sigma) \) can be converted to a \keyterm{standard normal random variable} \( \bm{Z} \sim N(0, 1) \).
-It can be proven that if \( \bm{X} \sim N(\mu, \sigma) \), then defining \( \bm{Z} = \frac{\bm{X} - \mu}{\sigma} \) yields \( \bm{Z} \sim N(0, 1) \).
+However, any normally distributed random variable \( X \sim N(\mu, \sigma) \) can be converted to a \keyterm{standard normal random variable} \( Z \sim N(0, 1) \).
+It can be proven that if \( X \sim N(\mu, \sigma) \), then defining \( Z = \frac{X - \mu}{\sigma} \) yields \( Z \sim N(0, 1) \).
 
-In the example above, let \( \bm{X} \) represent Henry's watch prices and \( \bm{Y} \) represent Richard's watch prices.
-Note that as \( \bm{X} \) and \( \bm{Y} \) are random variables, it is incorrect to state \( \bm{X} = \$170 \) or \( \bm{Y} = \$180 \).
-Rather, \$170 represents a realization of \( \bm{X} \) and \$180 a realization of \( \bm{Y} \), and we denote them by \( \bm{x} \) and \( \bm{y} \), respectively.
-Since \( \frac{\bm{X} - 160}{40} \sim N(0, 1) \) and \( \frac{\bm{Y} - 190}{20} \sim N(0, 1) \), both \( \bm{z_1} = \frac{\bm{x} - 160}{40} = 0.25 \) and \( \bm{z_2} = \frac{\bm{y} - 190}{20} = -0.5 \) can be thought of as realizations of the same normal distribution with mean 0 and standard deviation 1.
+In the example above, let \( X \) represent Henry's watch prices and \( Y \) represent Richard's watch prices.
+Note that as \( X \) and \( Y \) are random variables, it is incorrect to state \( X = \$170 \) or \( Y = \$180 \).
+Rather, \$170 represents a realization of \( X \) and \$180 a realization of \( Y \), and we denote them by \( x \) and \( y \), respectively.
+Since \( \frac{X - 160}{40} \sim N(0, 1) \) and \( \frac{Y - 190}{20} \sim N(0, 1) \), both \( z_1 = \frac{x - 160}{40} = 0.25 \) and \( z_2 = \frac{y - 190}{20} = -0.5 \) can be thought of as realizations of the same normal distribution with mean 0 and standard deviation 1.
 In other words, it is as if Ellie has purchased both watches from a single seller whose sells has a normal distribution with mean \$0 and standard deviation \$1.
-\( z_1 \) and \( z_2 \) are called the \keyterm{standardized scores} or \keyterm{z-scores} of \( \bm{x} \) and \( \bm{y} \), respectively.
+\( z_1 \) and \( z_2 \) are called the \keyterm{standardized scores} or \keyterm{z-scores} of \( x \) and \( y \), respectively.
 
-For any constant \( k \), when \( \bm{x} = \mu + k\sigma \), the corresponding z-score is:
+For any constant \( k \), when \( x = \mu + k\sigma \), the corresponding z-score is:
 \begin{gather*}
-    \bm{z} = \frac{(\mu + k\sigma) - \mu}{\sigma} = k
+    z = \frac{(\mu + k\sigma) - \mu}{\sigma} = k
 \end{gather*}
 Conversely, a z-score of \( k \) implies that the original value lies \( |k| \) standard deviations above the original mean if \( k > 0 \) and \( |k| \) standard deviations below the original mean if \( k < 0 \).
 
-Returning to our example, \( \bm{z_1} = 0.25 \) means the price of the watch bought from Henry is 0.25 standard deviations above \$160, the average price at which Henry sells his watches,
-while \( \bm{z_2} = -0.5 \) means the price of the watch bought from Richard is 0.5 standard deviations below \$190, the average price at which Richard sells his watches.
+Returning to our example, \( z_1 = 0.25 \) means the price of the watch bought from Henry is 0.25 standard deviations above \$160, the average price at which Henry sells his watches,
+while \( z_2 = -0.5 \) means the price of the watch bought from Richard is 0.5 standard deviations below \$190, the average price at which Richard sells his watches.
 While Henry's price initially appears better, Richard actually sold the watch below his average price!
 
 Converting a normal variable to standard variable is called \keyterm{standardization}, and can be used for such comparisons.
 
 \begin{exmp}
     \begin{enumerate}
-        \item Find \( P(\bm{Z} < 1.4) \).
-        \item \( P(\bm{Z} > \bm{z_0}) = 0.75 \). Find \( \bm{z_0} \).
-        \item \( P(1 < \bm{Z} < \bm{z_0}) = 0.15 \). Find \( \bm{z_0} \).
+        \item Find \( P(Z < 1.4) \).
+        \item \( P(Z > z_0) = 0.75 \). Find \( z_0 \).
+        \item \( P(1 < Z < z_0) = 0.15 \). Find \( z_0 \).
     \end{enumerate}
 \end{exmp}
 \begin{solution}
     \begin{enumerate}
-        \item Because \( \bm{Z} \sim N(0, 1) \), we can compute the probability using:
+        \item Because \( Z \sim N(0, 1) \), we can compute the probability using:
     \begin{lstlisting}[language=R]
 > pnorm(1.4, mean = 0, sd = 1)
 [1] 0.9192433      
@@ -638,27 +638,27 @@ Converting a normal variable to standard variable is called \keyterm{standardiza
 > qnorm(0.75, lower.tail = FALSE)
 [1] -0.6744898
     \end{lstlisting}
-    Using the probability identity from the previous section \( P(\bm{Z} > \bm{z_0}) = 1 - P(\bm{Z} \leq \bm{z_0}) \), we obtain:
+    Using the probability identity from the previous section \( P(Z > z_0) = 1 - P(Z \leq z_0) \), we obtain:
     \begin{gather*}
-        P(\bm{Z} \leq \bm{z_0}) = 1 - P(\bm{Z} > \bm{z_0}) = 1 - 0.75 = 0.25\\
-        P(\bm{Z} \leq \bm{z_0}) = 0.25
+        P(Z \leq z_0) = 1 - P(Z > z_0) = 1 - 0.75 = 0.25\\
+        P(Z \leq z_0) = 0.25
     \end{gather*}
-    Thus, alternatively, we can use this command to find \( \bm{z_0} \) such that \( P(\bm{Z} \leq \bm{z_0}) = 0.25 \):
+    Thus, alternatively, we can use this command to find \( z_0 \) such that \( P(Z \leq z_0) = 0.25 \):
     \begin{lstlisting}[language=R]
 > qnorm(0.25)
 [1] -0.6744898
     \end{lstlisting}
     \item We have:
     \begin{align*}
-        P(1 < \bm{Z} < \bm{z_0}) &= P(\bm{Z} < \bm{z_0}) - P(\bm{Z} \leq 1)\\
-        &= P(\bm{Z} \leq \bm{z_0}) - P(\bm{Z} \leq 1)
+        P(1 < Z < z_0) &= P(Z < z_0) - P(Z \leq 1)\\
+        &= P(Z \leq z_0) - P(Z \leq 1)
     \end{align*}
     This yields:
     \begin{align*}
-        P(\bm{Z} < \bm{z_0}) &= P(1 < \bm{Z} < \bm{z_0}) + P(\bm{Z} \leq 1)\\
-        &= 0.15 + P(\bm{Z} \leq 1)
+        P(Z < z_0) &= P(1 < Z < z_0) + P(Z \leq 1)\\
+        &= 0.15 + P(Z \leq 1)
     \end{align*}
-    Thus, \( \bm{z_0} \) equals:
+    Thus, \( z_0 \) equals:
     \begin{lstlisting}[language=R]
 > qnorm(0.15 + pnorm(1))
 [1] 2.380045
@@ -695,14 +695,14 @@ leaving only 0.3\% of expected observations in the tails.
 An illustration of this rule can be found at \href{https://andymath.com/normal-distribution-empirical-rule/}{this link}.
 
 \begin{exmp}
-    Let \( \bm{X} \) represent the height (in cm) of a woman in the city from Example \autoref{exmp:women_heights}.
+    Let \( X \) represent the height (in cm) of a woman in the city from Example \autoref{exmp:women_heights}.
     \begin{enumerate}
         \item For a randomly selected woman with height 185 cm, compute her standardized height.
         \item Would you say that this woman is unusually tall?
     \end{enumerate}
 \end{exmp}
 \begin{solution}
-    Let \( \bm{x} \) be the height of this woman.
+    Let \( x \) be the height of this woman.
     \begin{enumerate}
         \item \begin{gather*}
             z = \frac{x - \mu}{\sigma} = \frac{185 - 165}{5} = 4
