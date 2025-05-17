@@ -712,3 +712,29 @@ An illustration of this rule can be found at \href{https://andymath.com/normal-d
         this woman's height is undoubtedly an outlier!
     \end{enumerate}
 \end{solution}
+
+\section{Sampling Distribution and Central Limit Theorem}
+
+This section introduces the Central Limit Theorem (CLT).
+First developed by de Moivre (1733) for Bernoulli trials,
+the theorem was subsequently generalized by Laplace, Cauchy, and others,
+reaching its modern form in the early 20th century.
+
+\subsection{Random Sample}
+
+Let \( X \) be a random variable representing, for example, heights in a population, student IQ scores, daily milk consumption, etc.
+A \keyterm{random sample} from this distribution consists of \( n \) independent and identically distributed (i.i.d.) random variables, each with the same distribution as \( X \).
+Suppose, for instance, \( X \) represents the leaf lengths (in cm) of individuals in a specific plant species, where \( X \sim N(10, 2) \).
+A random sample from this distribution consists of \( n \) independent observations \( X_1, X_2, \ldots, X_n \), each drawn from \( N(10, 2) \).
+In other words, it's like randomly selecting \( n \) individual plans from our studied species and measuring their leaf lengths.
+For a sample size of \( n = 4 \), we might obtain measurements like \( x_1 = 5, x_2 = 10.5, x_3 = 12.4, x_4 = 4.6 \),
+or \( x_1 = 3.8, x_2 = 11, x_3 = 7.3, x_4 = 9 \).
+Note that we denote random variables by uppercase letters (e.g., \( X, Y \)) and their observed values by corresponding lowercase letters (e.g., \( x, y \)).
+
+\subsection{Sampling Distribution}
+
+Consider a population of five individuals with ages 27, 31, 35, 28, and 33 years.
+The average age is therefore \( \mu = \frac{27 + 31 + 35 + 28 + 33}{5} = 30.8 \).
+We now examine all possible random samples of size 4 that can be drawn from this population.
+
+From multiplication principle, there are \( 5 \times 4 \times 3 \times 2 = 120 \) possible ordered samples \( x_1, x_2, x_3, x_4 \) when sampling without replacement (i.e., when each selected individual is removed from the population after selection, so no repeats can occur in an observed sample).
