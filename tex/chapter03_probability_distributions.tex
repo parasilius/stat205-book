@@ -260,9 +260,24 @@ where \verb|x| is \( x \), \verb|size| is the number of trials \( n \), and \ver
 
 Following this approach, the previous example can be solved as follows:
 \begin{lstlisting}[language=R]
+> dbinom(x = 3, size = 7, prob = 0.92)
+[1] 0.001116327
+\end{lstlisting}
+In R, parameter names are optional when calling functions.
+For example, the previous probability can be computed without specifying \verb|x|, \verb|size|, or \verb|prob|:
+\begin{lstlisting}[language=R]
 > dbinom(3, 7, 0.92)
 [1] 0.001116327
 \end{lstlisting}
+However, when omitting parameter names, remember that argument order matters.
+Note that while some parameters are mandatory, others are optional with default values.
+For example, in \verb|dbinom()|, the parameters \verb|x|, \verb|size|, and \verb|prob| are mandatory,
+while \verb|log| is optional and is set to \verb|FALSE| by default:
+\begin{lstlisting}[language=R]
+dbinom(x, size, prob, log = FALSE)
+\end{lstlisting}
+Refer to \href{https://www.rdocumentation.org/packages/stats/versions/3.3/topics/Binomial}{this RDocumentation page} to read more.
+
 We can also find the probability distribution in Example \autoref{exmp:three_dice_prob_dist} in three commands:
 \begin{lstlisting}[language=R]
 > dbinom(0, 3, 0.5)
