@@ -666,7 +666,7 @@ Converting a normal variable to standard variable is called \keyterm{standardiza
     \end{enumerate}
 \end{solution}
 
-\subsection{Empirical Rule}
+\section{Empirical Rule}
 
 The \keyterm{Empirical Rule} (or \keyterm{68-95-99.7 Rule}) quantifies how probability mass concentrates within successive standard deviations of the mean in a normal distribution \( N(\mu, \sigma) \).
 Specifically:
@@ -731,10 +731,91 @@ For a sample size of \( n = 4 \), we might obtain measurements like \( x_1 = 5, 
 or \( x_1 = 3.8, x_2 = 11, x_3 = 7.3, x_4 = 9 \).
 Note that we denote random variables by uppercase letters (e.g., \( X, Y \)) and their observed values by corresponding lowercase letters (e.g., \( x, y \)).
 
-\subsection{Sampling Distribution}
+\subsection{The Central Limit Theorem}
 
 Consider a population of five individuals with ages 27, 31, 35, 28, and 33 years.
+Let \( X \) represent an individual's age from this population.
 The average age is therefore \( \mu = \frac{27 + 31 + 35 + 28 + 33}{5} = 30.8 \).
 We now examine all possible random samples of size 4 that can be drawn from this population.
 
 From multiplication principle, there are \( 5 \times 4 \times 3 \times 2 = 120 \) possible ordered samples \( x_1, x_2, x_3, x_4 \) when sampling without replacement (i.e., when each selected individual is removed from the population after selection, so no repeats can occur in an observed sample).
+
+What we are interested in, however, is each sample's mean.
+Since the ordering is irrelevant, we need only consider \( 5 \choose 4 \) distinct samples.
+The table below displays these samples, which is called \keyterm{the sampling distribution of the sample mean}:
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Sample} & \textbf{Sample Values} & \textbf{Sample Mean} \\ 
+\hline
+1 & 27, 31, 35, 28 & 30.25 \\
+\hline
+2 & 27, 31, 35, 33 & 31.5 \\
+\hline
+3 & 31, 35, 28, 33 & 31.75 \\
+\hline
+4 & 27, 35, 28, 33 & 30.75 \\
+\hline
+5 & 27, 31, 28, 33 & 29.75 \\
+\hline
+\end{tabular}
+\end{center}
+This yields that the average of all sample means is \( \mu_{\bar{X}} = \frac{30.25 + 31.5 + 31.75 + 30.75 + 29.75}{5} = 30.8 \),
+which equals the population mean \( \mu \).
+
+The distribution of sample means is illustrated in \autoref{fig:sample_means_alt}.
+This figure demonstrates that the distribution of sample means approximates a normal distribution,
+with the highest observed sample mean at 31.75 and values decreasing toward both tails.
+\begin{figure}[t]
+\begin{center}
+\epsfig{file=../img/sample_means_alt.png,clip=true,width=15cm}
+\end{center}
+\caption{sampling distribution of sample means}
+\label{fig:sample_means_alt}
+%\HR
+\end{figure}
+
+This is due to an important theorem in probability, known as \keyterm{the Central Limit Theorem (CLT)}.
+Consider a random sample \( X_1, X_2, \ldots, X_n \) drawn from a population with \textit{arbitrary} distribution, mean \( \mu \), and \textit{finite} standard deviation \( \sigma \).
+This theorem states that for sufficiently large \( n \) (typically at least 25 or 30 in practice), \( \bar{X} \sim N(\mu, \frac{\sigma}{\sqrt{n}}) \), no matter what the distribution of \( X \) is.
+Moreover, increasing the sample size \( n \) improves the normal approximation of the sampling distribution.
+Note that as \( n \) increases, the standard deviation of the sample mean \( \frac{\sigma}{\sqrt{n}} \) decreases, indicating reduced dispersion in the sampling distribution.
+
+\begin{exmp}
+    A study found that adults in an urban area consume an average of 120 mL of milk daily, with a standard deviation of 8 mL.
+    \begin{enumerate}
+        \item Can you find the probability that a randomly selected adult consumes more than 130 mL of milk per day?
+        \item For a random sample of 49 adults, what is the probability that the average milk consumption is less than 118 mL per day?
+    \end{enumerate}
+\end{exmp}
+\begin{solution}
+    Let \( X \) represent the daily milk consumption in this urban area.
+    \begin{enumerate}
+        \item If \( X \) follows a normal distribution, then \( X \sim N(120, 8) \) and we know that:
+        \begin{gather*}
+            P(X > 130) = 1 - P(X \leq 130)
+        \end{gather*}
+        which equals:
+        \begin{lstlisting}[language=R]
+> 1 - pnorm(130, mean = 120, sd = 8)
+[1] 0.1056498
+        \end{lstlisting}
+        or equivalently:
+        \begin{lstlisting}[language=R]
+> pnorm(130, mean = 120, sd = 8, lower.tail = FALSE)
+[1] 0.1056498
+        \end{lstlisting}
+        But we don't know the distribution of \( X \) as it is not stated in the example!
+        Hence, we cannot find the desired probability.
+        \item Since \( n = 49 \geq 25 \), the sample size is sufficiently large for the Central Limit Theorem to apply.
+        Thus, the sampling distribution \( \bar{X} \) is approximately normal:
+        \begin{gather*}
+            \bar{X} \sim N(120, \frac{8}{\sqrt{49}})
+        \end{gather*}
+        and so the probability \( P(\bar{X} < 118) \) is calculated as:
+        \begin{lstlisting}[language=R]
+> pnorm(118, mean = 120, sd = 8 / sqrt(49))
+[1] 0.04005916
+        \end{lstlisting}
+    \end{enumerate}
+\end{solution}
