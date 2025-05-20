@@ -1,0 +1,53 @@
+% !TEX root = ../pdf/stat205.tex
+% [There are multiple stat205.tex files, but the one in ../pdf is the usual one]
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Estimation}
+
+
+\begin{verse}{\it
+``When there are but two players, your theory which proceeds by combinations is very just. \\
+But when there are three, I believe I have a proof that it is unjust that you should proceed in any other manner than the one I have.''\vspace*{6pt}} \\
+\hspace*{2cm} -- Pascal's letter to Fermat\FOOTNOTE{from \url{https://www.york.ac.uk/depts/maths/histstat/pascal.pdf}}
+\end{verse}
+\vspace*{12pt}
+
+
+\section{Introduction}
+
+In previous chapters, we worked with problems where the sample space was fully known.
+For instance, in Examples \autoref{exmp:coin_toss} and \autoref{exmp:heads_observe}, we knew that the coin was fair and that it could only land on heads or tails.
+In Example \autoref{exmp:three_balls_urn}, we had complete information about the number of balls in the urn and their respective colors.
+Example \autoref{exmp:eye_color} provided us with the exact frequency distribution of eye colors among town residents.
+In Example \autoref{exmp:women_heights}, we were given that women's heights in the city followed a normal distribution, and so on.
+
+In this chapter, we will work with statistical problems.
+Unlike in previous examples, we do not know the bigger picture in these cases.
+However, we have some information that comes from this bigger picture.
+For example, we can draw balls from an urn without being able to see what's inside.
+Or we might randomly select some women from Example \autoref{exmp:women_heights}, measure their heights, and use these observations to learn about their height distribution.
+
+As another example, consider tossing a coin 500 times when we don't know whether it's fair or biased.
+Suppose we get 243 heads.
+We might then estimate a parameter such as \( p \), the probability of heads, as \( \frac{243}{500} = 0.486 \) using this frequentist approach.
+However, this approach involves uncertainty.
+For instance, another experiment might yield 225 heads, or someone might use a different method than the frequentist approach to estimate \( p \).
+Therefore, the estimate of \( p \) cannot be determined with perfect accuracy.
+In statistics, we study methods and principles to find the best possible estimations for unknown parameters like \( p \).
+
+In this section, we'll apply what we learned previously to develop statistical inference.
+First, we'll establish some key terminology.
+
+\section{Estimation of Parameters}
+
+Consider a discrete or continuous random variable  \( X \).
+For example, \( X \) could be the number of children in households in a city (a discrete random variable) or the height of citizens in the city (a continuous random variable).
+In the first case, it is defined for households, and in the second, it is defined for individuals.
+
+Alternatively, \( X \) can represent the outcome of a random experiment.
+For instance, when tossing a coin, the result of interest could be the outcome of the coin toss (a discrete random variable) or the time it takes for the coin to land after leaving the hand (a continuous random variable).
+
+The studied instances (households, individuals, trials of a random experiment, etc.) are called the \keyterm{population}.
+The population size is typically denoted by \( N \).
