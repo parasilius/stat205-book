@@ -51,3 +51,30 @@ For instance, when tossing a coin, the result of interest could be the outcome o
 
 The studied instances (households, individuals, trials of a random experiment, etc.) are called the \keyterm{population}.
 The population size is typically denoted by \( N \).
+
+Suppose we know the PDF of \( X \), but it depends on one or more unknown parameters.
+For instance, in a Bernoulli trial, \( X \) follows a Bernoulli distribution with unknown parameter \( p \).
+While it would be ideal to record the variable of interest for every member of the population to determine \( p \), this is often impractical.
+The population may be too large, making such calculations time-consuming, impossible, or expensive.
+Instead, we gather information from a smaller subset of the population, called a \keyterm{sample}.
+The sample size is typically denoted by \( n \).
+
+\subsection{Statistic}
+
+Suppose \( X \) follows a distribution \( f(x; \theta) \), where \( \theta \in A \) is an unknown \keyterm{paramter}.
+The set \( A \) of all possible values for \( \theta \) is called the \keyterm{parameter space}.
+For example, if \( X \) is a Bernoulli variable with success probability \( \theta \),
+then \( 0 \leq \theta \leq 1 \), and so \( A = [0, 1] \) is the parameter space.
+
+
+The parameter may also be a \( k \)-dimensional vector, denoted \( \bm{\theta} = (\theta_1, \theta_2, \ldots, \theta_k) \).
+For instance in normal distribution, \( \theta = (\mu, \sigma) \) is a two-dimensional parameter.
+
+A \keyterm{statistic} is a function \( U = g(X_1, X_2, \ldots, X_n) \) of a random sample \( X_1, X_2, \ldots, X_n \) that does not depend on unknown parameters.
+By definition, a statistic is itself a random variable (since it is a function of random variables).
+The distribution of \( U \) may or may not depend on the parameters.
+For example, if \( X_1, X_2, \ldots, X_n \) is a random sample from \( N(\mu, 1) \),
+then the sample mean \( U = \bar{X} = \frac{X_1 + X_2 + \ldots + X_n}{n} \) follows a normal distribution \( N(\mu, \frac{1}{n}) \) by the Central Limit Theorem (CLT).
+Here, the distribution of \( U \) depends on the mean parameter \( \mu \).
+
+\subsection{Estimator and Estimate}
