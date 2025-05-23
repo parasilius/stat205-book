@@ -78,3 +78,85 @@ then the sample mean \( U = \bar{X} = \frac{X_1 + X_2 + \ldots + X_n}{n} \) foll
 Here, the distribution of \( U \) depends on the mean parameter \( \mu \).
 
 \subsection{Estimator and Estimate}
+
+If we observe the values \( x_1, x_2, \ldots, x_n \) for the random sample \( X_1, X_2, \ldots, X_n \)
+and compute the statistic \( u = g(x_1, x_2, \ldots, x_n) \),
+we can use \( u \) as an estimation of the parameter \( \theta \).
+In this context, \( U = g(X_1, X_2, \ldots, X_n) \) is called an \keyterm{estimator} of \( \theta \),
+while the computed value \( u \) is called an \keyterm{estimate} of \( \theta \).
+
+Note that an estimator is itself a statistic and is therefore a random variable.
+Thus, both estimators and statistics are denoted by capital letters.
+In contrast, estimates (observed values) are denoted by lowercase letters.
+Also, while every estimator for \( \theta \) is a statistic,
+not every statistic serves as an estimator for \( \theta \).
+
+\begin{exmp}
+    Suppose \( X \) represents a country's annual GDP growth, where \( X \sim N(\mu, 0.2) \).
+    We want to estimate \( \mu \) based on this random sample:
+    \[ 1.1, 1.6, 2.4, 3.2 \]
+    Since \( \mu \) is the mean of \( X \), observing multiple realizations of \( X \) should allow us to estimate \( \mu \).
+    For instance, the sample mean of these observations seems like a proper estimate for \( \mu \):
+    \begin{gather*}
+        u = \bar{x} = \frac{1.1 + 1.6 + 2.4 + 3.2}{4} = 2.075
+    \end{gather*}
+    The corresponding eastimator is:
+    \begin{gather*}
+        U = \bar{X} = \frac{X_1 + X_2 + X_3 + X_4}{4}
+    \end{gather*}
+\end{exmp}
+\begin{exmp}
+    Consider a population of \( N = 1423 \) accident-involved individuals, where \( p \) denotes the proportion who excessively drink.
+    The proportion of them in a random sample \( \hat(p) \) may be used to estimate \( p \).
+\end{exmp}
+In the previous two examples, \( \bar{X} \) and \( \hat{p} \) are called \keyterm{point estimators}.
+Deriving point estimators is one way of estimating population parameters.
+Ideal point estimators possess some characteristics.
+For instance, we want low variance, meaning the point estimates don't vary widely across different samples.
+
+While various methods exist for deriving point estimators, we focus instead on confidence intervals – interval estimates that capture the parameter of interest with a specified level of confidence.
+
+\section{Confidence Intervals}
+
+To better uderstand confidence intervals, let's start with an example:
+
+\begin{exmp}
+    Let \( X_1, X_2, \ldots, X_100 \) be a random sample from \( X \sim N(\mu, 9) \).
+    What is the probability that the unknown parameter \( \mu \) lies in the interval \( (\bar{X} - 0.3, \bar{X} + 0.3) \)?
+\end{exmp}
+\begin{solution}
+    We know from the Central Limit Theorem that \( \bar{X} \sim N(\mu, 0.09) \),
+    and therefore \( \frac{\bar{X} - \mu}{0.3} \sim N(0, 1) \). Thus:
+    \begin{align*}
+        P(\bar{X} - 0.3 < \mu < \bar{X} + 0.3) &= P(-1 < \frac{\bar{X} - \mu}{0.3} < 1)\\
+        &= P(-1 < Z < 1)
+    \end{align*}
+    which equals:
+    \begin{lstlisting}[language=R]
+> pnorm(1) - pnorm(-1)
+[1] 0.6826895
+    \end{lstlisting}
+\end{solution}
+Note that we call the interval \( (\bar{X} - 0.3, \bar{X} + 0.3) \) in the previous example a \emph{random interval} since it has two random variables as its endpoints.
+This random interval contains the parameter \( \mu \) with approximately 68\% probability.
+From a frequentist perspective, this implies that if we were to construct 100 such intervals from different random samples, we would expect about 68 of them to contain the true parameter \( \mu \).
+For example, one such interval might be \( (1.6, 2.2) \) when the sample mean is \( \bar{x} = 1.9 \).
+We call such an interval a 68\% confidence interval.
+But note that this does not mean \( (1.6, 2.2) \) contains the parameter \( \mu \) with 68\% probability!
+\( (1.6, 2.2) \) is an observed interval, and it already either cotains \( \mu \) or not.
+
+Let \( U \) be a point estimator for \( \theta \) based on a random sample from \( f(x; \theta) \).
+Consider the random interval \( (g_1(U), g_2(U)) \), where \( g_1(U) \) and \( g_2(U) \) are functions of \( U \).
+If
+\begin{gather*}
+    P(g_1(U) < \theta < g_2(U)) = 1 - \alpha
+\end{gather*}
+for some constant \( 0 \leq \alpha \leq 1 \) (independent of \( \theta \)),
+then this interval is called a \keyterm{\( 100(1 - \alpha)\% \) confidence interval} (or a confidence interval with confidence level \( 1 - \alpha \)) for the parameter \( \theta \).
+
+As we will later see, the structure of our confidence intervals are
+\begin{gather*}
+    (\text{population estimator} - \text{margin of error}, \text{population estimator} + \text{margin of error})
+\end{gather*}
+As the confidence level \( 1 - \alpha \) approaches 1 and the average margin of error \( E(\text{margin of error}) \) decreases,
+we gain both higher confidence that the interval contains the true parameter value and a more precise (narrower) interval estimate.
