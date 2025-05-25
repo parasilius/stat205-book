@@ -161,7 +161,7 @@ As we will later see, the structure of our confidence intervals are
 As the confidence level \( 1 - \alpha \) approaches 1 and the average margin of error \( E(\text{margin of error}) \) decreases,
 we gain both higher confidence that the interval contains the true parameter value and a more precise (narrower) interval estimate.
 
-\subsection{Confidence Interval for \( \mu \)}
+\subsection{Confidence Interval for Mean Parameter}
 
 We consider two cases:
 \begin{enumerate}
@@ -169,7 +169,15 @@ We consider two cases:
     
     \( \bar{X} = \frac{X_1 + X_2 + \ldots + X_n}{n} \) follows a normal distribution \( N(\mu, \frac{\sigma^2}{n}) \) by the Central Limit Theorem (CLT).
     Thus, \( Z = \frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}} \sim N(0, 1) \).
-    As illustrated in figure 1, we have:
+    \begin{figure}[t]
+    \begin{center}
+    \epsfig{file=../img/The-1-a-quantiles-of-the-normal-distribution.png,clip=true,width=15cm}
+    \end{center}
+    \caption{Image is from \url{https://www.researchgate.net/figure/The-1-a-quantiles-of-the-normal-distribution_fig2_273257392}}
+    \label{fig:the-1-a-quantiles-of-the-normal-distribution}
+    %\HR
+    \end{figure}
+    As illustrated in \autoref{fig:the-1-a-quantiles-of-the-normal-distribution}, we have:
     \begin{gather*}
         P(-z_{1 - \frac{\alpha}{2}} < \frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}}} < z_{1 - \frac{\alpha}{2}}) = 1 - \alpha
     \end{gather*}
@@ -188,13 +196,23 @@ We consider two cases:
 
     Hence, we use the sample variance \( S^2 \) instead of \( \sigma^2 \), which is defined as:
     \begin{gather*}
-        S^2 = \frac{\sum_{i = 1}^{N}(x_i - \bar{x})^2}{N}
+        S^2 = \frac{\sum_{i = 1}^{N}(x_i - \bar{x})^2}{N - 1}
     \end{gather*}
     It can be proved that \( \frac{\bar{X} - \mu}{\frac{S}{\sqrt{n}}} \) follows a \keyterm{(Student's) t-distribution} with \( n - 1 \) \keyterm{degrees of freedom (df)},
     denoted \( T_{n - 1} = \frac{\bar{X} - \mu}{\frac{S}{\sqrt{n}}} \sim t_{n - 1} \).
 
     The t-distribution resembles the normal distribution in several key aspects: it is symmetric, unimodal, and bell-shaped.
     Its shape is determined by the degrees of freedom (df) parameter which usually takes integer values, with larger df values making it increasingly similar to the standard normal distribution.
+    \autoref{fig:t_distribution} shows the t-distributions with degrees of freedom (df) 1, 5, and 30, along with the standard normal distribution for comparison.
+    As evident from the plot, the t-distribution with \( df \geq 30 \) closely aligns with the normal distribution, demonstrating their convergence at higher degrees of freedom.
+    \begin{figure}[t]
+    \begin{center}
+    \epsfig{file=../img/t_distribution_plot.png,clip=true,width=15cm}
+    \end{center}
+    \caption{Comparison of t-distributions with degrees of freedom (df) = 1, 5, and 30 against the standard normal distribution (black dashed line). The t-distribution approaches normal distribution as df increases, with df = 30 (dark green) nearly overlapping the standard normal distribution.}
+    \label{fig:t_distribution}
+    %\HR
+    \end{figure}
 
     Due to its similar bell-shaped symmetry to the normal distribution, the same reasoning applies, yielding the confidence interval:
     \begin{gather*}
@@ -202,3 +220,110 @@ We consider two cases:
     \end{gather*}
     where \( t_{1 - \frac{\alpha}{2}, n - 1} \) is defined such that \( P(T_{n - 1} \leq t_{1 - \frac{\alpha}{2}, n - 1}) = 1 - \frac{\alpha}{2} \).
 \end{enumerate}
+\begin{exmp}
+    The lifespan of a certain battery type is \( X \sim N(\mu, 64) \) (measured in months).
+    A random sample of 9 batteries has yielded these lifespans:
+    \begin{gather*}
+        32, 21, 18, 17, 24, 25, 30, 29, 28
+    \end{gather*}
+    \begin{enumerate}
+        \item Construct a 90\% confidence interval for the population mean \( \mu \) and interpret the result.
+        \item If the level of confidence was increased from 95\% to 98\%, what would happen to the width of the confidence interval?
+    \end{enumerate}
+\end{exmp}
+\begin{solution}
+    \begin{enumerate}
+    \item 
+    First, we determine the value of \( \alpha \):
+    \begin{gather*}
+        1 - \alpha = 0.95\\
+        \alpha = 1 - 0.95 = 0.05
+    \end{gather*}
+    We then determine the sample mean \( \bar{x} \):
+    \begin{gather*}
+        \bar{x} = \frac{32 + 21 + 18 + 17 + 24 + 25 + 30 + 29 + 28}{9} \approx 24.89
+    \end{gather*}
+    Since the population variance \( \sigma^2 = 64 \) is known, the confidence interval is:
+    \begin{gather*}
+        (\bar{x} - z_{1 - \frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}}, \bar{x} + z_{1 - \frac{\alpha}{2}}\frac{\sigma}{\sqrt{n}})\\
+        (24.89 - z_{1 - \frac{0.05}{2}}\frac{\sqrt{64}}{\sqrt{9}}, 24.89 + z_{1 - \frac{0.05}{2}}\frac{\sqrt{64}}{\sqrt{9}})\\
+        (24.89 - z_{0.975}\frac{8}{3}, 24.89 + z_{0.975}\frac{8}{3})\\
+    \end{gather*}
+    Using R, \( z_{0.975} \) equals:
+    \begin{lstlisting}[language=R]
+> qnorm(0.975)
+[1] 1.959964
+    \end{lstlisting}
+    Substituting \( z_{0.975} \approx 1.96 \) into the confidence interval formula above yields:
+    \begin{gather*}
+        (24.89 - 1.96 \times \frac{8}{3}, 24.89 + 1.96 \times \frac{8}{3})\\
+        (19.66, 30.12)
+    \end{gather*}
+    A more straightforward approach is to use R for all steps, including variable definition and other arithmetics.
+    Here we denote \( \alpha \) by \verb|alpha|,
+    sample mean \( \bar{x} \) by \verb|sample_mean|,
+    population's standard deviation \( \sigma \) by \verb|sigma|,
+    and sample size \( n \) by \verb|n|:
+    \begin{lstlisting}[language=R]
+> alpha = 1 - 0.95
+> sample_mean = (32 + 21 + 18 + 17 + 24 + 25 + 30 + 29 + 28) / 9
+> sigma = sqrt(64)
+> n = 9
+> # lower bound of confidence interval:
+> sample_mean - qnorm(1 - alpha / 2) * sigma / sqrt(n)
+[1] 19.66232
+> # upper bound of confidence interval:
+> sample_mean + qnorm(1 - alpha / 2) * sigma / sqrt(n)
+[1] 30.11546
+    \end{lstlisting}
+    Note that it would be incorrect to state there is a 95\% chance that the average battery lifespan is between 19.66 and 30.12 months,
+    since the average battery lifespan is population mean which is a fixed number, and is either between 19.66 and 30.12 months or not.
+    The confidence interval (19.66, 30.12) is one realization from our random sampling process - different samples would yield different intervals.
+    The proper interpretation is: we are 95\% confident that the average battery lifespan is between 19.66 and 30.12 months.
+    \item Intuitively, since we need to be more confident of our interval, we expect it to become wider.
+    Theoretically, since \( z_{0.95} \approx 1.645 < z_{0.99} \approx 2.326 \) (needing to encompass more probability mass), the margin of error increases:
+    \begin{gather*}
+        z_{0.95}\frac{\sigma}{\sqrt{n}} < z_{0.99}\frac{\sigma}{\sqrt{n}}
+    \end{gather*}
+    Thus, the 99\% confidence interval is wider compared to the 95\% interval.
+    \end{enumerate}
+\end{solution}
+
+\section{Confidence Interval for Proportion Parameter}
+
+The proportion parameter holds significant practical importance across various fields.
+A manufacturer may need to estimate the proportion of defective units in their production line,
+while a physician might study the proportion of patients responding successfully to a new treatment.
+In this section, we derive confidence intervals for such population proportions.
+
+Suppose \( X_1, X_2, \ldots, X_n \) is a random sample from a Bernoulli distribution with parameter \( 0 < p < 1 \).
+We know that each \( X_i \) has mean \( p \) and variance \( pq \) (where \( q = 1 - p \)).
+Furthermore, the sum \( \sum_{i = 1}^{n} X_i \) follows a binomial distribution, as it represents the sum of independent Bernoulli random variables.
+Consequently, its mean is \( np \) and its variance is \( npq \).
+
+By the Central Limit Theorem (CLT), when the sample size \( n \) is sufficiently large (typically \( n \geq 30 \) as discussed before),
+the standardized random variable \( \frac{\sum_{i = 1}^{n} X_i - np}{\sqrt{npq}} \) approximately follows a standard normal distribution.
+Therefore, analogous to our work with mean parameters, we have:
+\begin{gather*}
+    P(-z_{1 - \frac{\alpha}{2}} < \frac{\sum_{i = 1}^{n} X_i - np}{\sqrt{npq}} < z_{1 - \frac{\alpha}{2}}) = 1 - \alpha\\
+    P(-z_{1 - \frac{\alpha}{2}} < \frac{\bar{X} -  p}{\sqrt{\frac{pq}{n}}} < z_{1 - \frac{\alpha}{2}}) = 1 - \alpha
+\end{gather*}
+Note that \( \bar{X} \) is the sum of Bernoulli variables in the random sample divided by the sample size.
+Since Bernoulli variables can only be 1 (success) or 0 (failure), this equals the proportion of successes in the sample \( \hat{p} \) (failures are 0's and thus don't contribute to the numerator \( \sum_{i = 1}^{n} X_i \)),
+which serves as a point estimator for the population proportion \( p \), denoted by \( \hat{p} \).
+Therefore, by substituting \( \bar{X} \) with \( \hat{p} \), the confidence interval becomes:
+\begin{gather*}
+    P(-z_{1 - \frac{\alpha}{2}} < \frac{\hat{p} -  p}{\sqrt{\frac{pq}{n}}} < z_{1 - \frac{\alpha}{2}}) = 1 - \alpha
+\end{gather*}
+However, solving the inequalities for \( p \) yields a quadratic expression, making the interval non-trivial to derive.
+By replacing \( p \) and \( q \) in the denominator with their point estimators \( \hat{p} \) and \( \hat{q} = 1 - \hat{p} \),
+we can show that \( \frac{\hat{p} -  p}{\sqrt{\frac{\hat{p}\hat{q}}{n}}} \) approximately follows a standard normal distribution for sufficiently large \( n \).
+
+Therefore, we obtain an approximate \( 100(1 - \alpha)\% \) confidence interval by solving:
+\begin{gather*}
+    -z_{1 - \frac{\alpha}{2}} < \frac{\hat{p} -  p}{\sqrt{\frac{\hat{p}\hat{q}}{n}}} < z_{1 - \frac{\alpha}{2}}
+\end{gather*}
+which yields:
+\begin{gather*}
+    (\hat{p} - z_{1 - \frac{\alpha}{2}} \sqrt{\frac{\hat{p}\hat{q}}{n}}, \hat{p} + z_{1 - \frac{\alpha}{2}} \sqrt{\frac{\hat{p}\hat{q}}{n}} )
+\end{gather*}
