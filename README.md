@@ -7,4 +7,4 @@ Navarro, D.J., Foxcroft, D.R., & Faulkenberry, T.J. (2019). Learning Statistics 
 
 In principle, this repository should include everything needed to reproduce the book from scratch.  Go to the `build` directory for instructions.
 
-The latest PDF version of this book is available for download in the Releases section under Latest Book Version.
+The latest PDF version of this book is available in the [Releases section](https://github.com/phrafsanjani/stat205-book/releases/tag/latest).
